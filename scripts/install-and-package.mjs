@@ -225,6 +225,7 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
   settings['editor.codeLensFontFamily'] = "'Segoe UI', Inter, sans-serif";
   settings['editor.stickyScroll.enabled'] = true;
   settings['editor.minimap.autohide'] = 'mouseover';
+  settings['diffEditor.renderIndicators'] = false;
   settings['workbench.editor.customLabels.enabled'] = true;
   settings['workbench.editor.customLabels.patterns'] = {
     '**/*.java': '${filename}'

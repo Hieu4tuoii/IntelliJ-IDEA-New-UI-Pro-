@@ -332,16 +332,16 @@ const theme = {
     'editorHoverWidget.highlightForeground': '#56A8F5',
     'editorHoverWidget.statusBarBackground': '#393B40',
 
-    // 14. Diff & Merge Editor (Exact JetBrains IntelliJ Diff Colors from screenshot: #283541 line bg + #294436 char highlight)
-    'diffEditor.insertedLineBackground': '#283541B3',
-    'diffEditor.removedLineBackground': '#28354180',
-    'diffEditor.insertedTextBackground': '#294436E6',
-    'diffEditor.removedTextBackground': '#484A4ACC',
+    // 14. Diff & Merge Editor (Exact JetBrains IntelliJ Diff Colors: #283541 slate blue + #484A4A gray, no diagonal stripes)
+    'diffEditor.insertedLineBackground': '#2F445699',
+    'diffEditor.removedLineBackground': '#2F445699',
+    'diffEditor.insertedTextBackground': '#3A587466',
+    'diffEditor.removedTextBackground': '#5E616199',
     'diffEditorGutter.insertedLineBackground': '#283541',
     'diffEditorGutter.removedLineBackground': '#283541',
-    'diffEditorOverview.insertedForeground': '#549159',
-    'diffEditorOverview.removedForeground': '#375FAD',
-    'diffEditor.diagonalFill': '#313438',
+    'diffEditorOverview.insertedForeground': '#375FAD',
+    'diffEditorOverview.removedForeground': '#6F737A',
+    'diffEditor.diagonalFill': '#00000000',
     'diffEditor.border': '#393B40',
     'merge.currentHeaderBackground': '#294436CC',
     'merge.currentContentBackground': '#29443666',
@@ -350,8 +350,8 @@ const theme = {
     'merge.border': '#393B40',
     'editorOverviewRuler.currentContentForeground': '#549159',
     'editorOverviewRuler.incomingContentForeground': '#375FAD',
-    'mergeEditor.change.background': '#28354180',
-    'mergeEditor.change.word.background': '#294436CC',
+    'mergeEditor.change.background': '#2F445699',
+    'mergeEditor.change.word.background': '#3A587480',
 
     // 15. Peek View & Quick Input (Search Everywhere / Go to Class Popup)
     'peekView.border': '#43454A',

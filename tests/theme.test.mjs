@@ -59,10 +59,11 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   assert.equal(theme.colors['list.errorForeground'].toUpperCase(), '#DFE1E5');
   assert.equal(theme.colors['list.warningForeground'].toUpperCase(), '#DFE1E5');
 
-  // Diff & Gutter change colors matching IntelliJ screenshot (#283541 modified line bg + #294436 inserted text highlight)
-  assert.equal(theme.colors['diffEditor.insertedLineBackground'].toUpperCase(), '#283541B3');
-  assert.equal(theme.colors['diffEditor.removedLineBackground'].toUpperCase(), '#28354180');
-  assert.equal(theme.colors['diffEditor.insertedTextBackground'].toUpperCase(), '#294436E6');
+  // Diff & Gutter change colors matching IntelliJ screenshot (#2F445699 over #1E1F22 = exact #283541 slate blue, no diagonal stripes)
+  assert.equal(theme.colors['diffEditor.insertedLineBackground'].toUpperCase(), '#2F445699');
+  assert.equal(theme.colors['diffEditor.removedLineBackground'].toUpperCase(), '#2F445699');
+  assert.equal(theme.colors['diffEditor.insertedTextBackground'].toUpperCase(), '#3A587466');
+  assert.equal(theme.colors['diffEditor.diagonalFill'].toUpperCase(), '#00000000');
   assert.equal(theme.colors['editorGutter.modifiedBackground'].toUpperCase(), '#375FAD');
   assert.equal(theme.colors['editorGutter.addedBackground'].toUpperCase(), '#549159');
 
