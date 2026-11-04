@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT = 'C:/Users/ADMIN/.antigravity-extensions-src';
+const ROOT = path.resolve(import.meta.dirname, '..');
 
 test('Single unified extension manifest has themes, icons, settings, eager activation, and flat conditional keybindings', () => {
   const uiPkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'jetbrains-intellij-new-ui-dark/package.json'), 'utf8'));

@@ -4,6 +4,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
+const ROOT = path.resolve(import.meta.dirname, '..');
+
 test('JetBrains Mono font, single unified VSIX package v1.1.0, extension directories, and atomic settings switcher work properly', () => {
   // 1. Font installed in Windows User Fonts
   const fontDir = path.join(process.env.LOCALAPPDATA, 'Microsoft/Windows/Fonts');
@@ -12,7 +14,7 @@ test('JetBrains Mono font, single unified VSIX package v1.1.0, extension directo
   assert.ok(fs.existsSync(path.join(fontDir, 'JetBrainsMono-Bold.ttf')), 'JetBrainsMono-Bold.ttf must be installed');
 
   // 2. Single unified VSIX file v1.1.0 generated, old VSIXs removed
-  const distDir = 'C:/Users/ADMIN/.antigravity-extensions-src/dist';
+  const distDir = path.join(ROOT, 'dist');
   assert.ok(fs.existsSync(path.join(distDir, 'jetbrains-intellij-new-ui-dark-1.1.0.vsix')));
   assert.ok(!fs.existsSync(path.join(distDir, 'jetbrains-intellij-keymap-1.0.0.vsix')), 'Separate keymap VSIX must be removed');
 
@@ -60,7 +62,7 @@ test('JetBrains Mono font, single unified VSIX package v1.1.0, extension directo
   }
 
   // 5. Verify extension.js atomic file switcher works on a mock settings.json without throwing CodeExpectedError
-  const extSrc = fs.readFileSync('C:/Users/ADMIN/.antigravity-extensions-src/jetbrains-intellij-new-ui-dark/extension.js', 'utf8');
+  const extSrc = fs.readFileSync(path.join(ROOT, 'jetbrains-intellij-new-ui-dark/extension.js'), 'utf8');
   assert.match(extSrc, /writeSettingsFileAtomically/, 'extension.js must use atomic file writes to avoid CodeExpectedError');
   assert.match(extSrc, /onDidChangeWindowState/, 'extension.js must sync Java project scope when switching windows');
 });

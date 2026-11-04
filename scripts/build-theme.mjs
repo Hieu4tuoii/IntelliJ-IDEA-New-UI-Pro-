@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const OUT_PATH = 'C:/Users/ADMIN/.antigravity-extensions-src/jetbrains-intellij-new-ui-dark/themes/intellij-new-ui-dark-pro.json';
+const ROOT = path.resolve(import.meta.dirname, '..');
+const OUT_PATH = path.join(ROOT, 'jetbrains-intellij-new-ui-dark/themes/intellij-new-ui-dark-pro.json');
 
 const theme = {
   $schema: 'vscode://schemas/color-theme',

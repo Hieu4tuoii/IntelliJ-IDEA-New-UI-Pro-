@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ICON_DIR = 'C:/Users/ADMIN/.antigravity-extensions-src/jetbrains-intellij-new-ui-dark/icons/file-icons';
+const ROOT = path.resolve(import.meta.dirname, '..');
+const ICON_DIR = path.join(ROOT, 'jetbrains-intellij-new-ui-dark/icons/file-icons');
 const SVG_DIR = path.join(ICON_DIR, 'svgs');
 const JSON_PATH = path.join(ICON_DIR, 'intellij-new-ui-file-icons.json');
 

@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ICON_DIR = 'C:/Users/ADMIN/.antigravity-extensions-src/jetbrains-intellij-new-ui-dark/icons/file-icons';
+const ROOT = path.resolve(import.meta.dirname, '..');
+const ICON_DIR = path.join(ROOT, 'jetbrains-intellij-new-ui-dark/icons/file-icons');
 const JSON_PATH = path.join(ICON_DIR, 'intellij-new-ui-file-icons.json');
 
 test('File icon theme defines valid 16x16 SVGs and maps Java/Spring/FE files accurately', () => {
@@ -45,7 +46,7 @@ test('File icon theme defines valid 16x16 SVGs and maps Java/Spring/FE files acc
 
 test('Runtime extension.js classifyJavaContent and scanWorkspaceJavaIcons auto-scan workspace Java files on startup', async () => {
   const extSrc = fs.readFileSync(
-    'C:/Users/ADMIN/.antigravity-extensions-src/jetbrains-intellij-new-ui-dark/extension.js',
+    path.join(ROOT, 'jetbrains-intellij-new-ui-dark/extension.js'),
     'utf8'
   );
   assert.doesNotMatch(extSrc, /\\b@interface/, 'extension.js must not use broken \\b@interface regex');

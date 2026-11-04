@@ -2,7 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 
-const THEME_PATH = 'C:/Users/ADMIN/.antigravity-extensions-src/jetbrains-intellij-new-ui-dark/themes/intellij-new-ui-dark-pro.json';
+import path from 'node:path';
+
+const ROOT = path.resolve(import.meta.dirname, '..');
+const THEME_PATH = path.join(ROOT, 'jetbrains-intellij-new-ui-dark/themes/intellij-new-ui-dark-pro.json');
 
 test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semantic tokens', () => {
   const theme = JSON.parse(fs.readFileSync(THEME_PATH, 'utf8'));

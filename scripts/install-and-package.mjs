@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 
-const ROOT = 'C:/Users/ADMIN/.antigravity-extensions-src';
+const ROOT = path.resolve(import.meta.dirname, '..');
 const DIST_DIR = path.join(ROOT, 'dist');
 const FONT_DIR = path.join(process.env.LOCALAPPDATA, 'Microsoft/Windows/Fonts');
 

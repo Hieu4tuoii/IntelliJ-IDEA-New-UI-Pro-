@@ -4,7 +4,8 @@ import os
 import struct
 import zlib
 
-PROD_DIR = "C:/Users/ADMIN/.antigravity-extensions-src/jetbrains-intellij-new-ui-dark/icons/product-icons"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+PROD_DIR = os.path.join(ROOT, "jetbrains-intellij-new-ui-dark", "icons", "product-icons")
 WOFF_PATH = os.path.join(PROD_DIR, "intellij-expui-icons.woff")
 JSON_PATH = os.path.join(PROD_DIR, "intellij-new-ui-product-icons.json")
 

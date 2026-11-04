@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const PROD_DIR = 'C:/Users/ADMIN/.antigravity-extensions-src/jetbrains-intellij-new-ui-dark/icons/product-icons';
+const ROOT = path.resolve(import.meta.dirname, '..');
+const PROD_DIR = path.join(ROOT, 'jetbrains-intellij-new-ui-dark/icons/product-icons');
 const JSON_PATH = path.join(PROD_DIR, 'intellij-new-ui-product-icons.json');
 
 test('Product icon theme defines valid WOFF font and maps core IDE toolbar/action icons', () => {
