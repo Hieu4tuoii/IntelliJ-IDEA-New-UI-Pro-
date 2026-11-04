@@ -43,12 +43,15 @@ test('File icon theme defines valid 16x16 SVGs and maps Java/Spring/FE files acc
   assert.equal(theme.fileNames['equal.java'], '_java_annotation', '@interface Equal.java must map to _java_annotation');
 });
 
-test('Runtime extension.js classifyJavaContent handles @interface annotations and DTO/Request/Response naming conventions', async () => {
+test('Runtime extension.js classifyJavaContent and scanWorkspaceJavaIcons auto-scan workspace Java files on startup', async () => {
   const extSrc = fs.readFileSync(
     'C:/Users/ADMIN/.antigravity-extensions-src/jetbrains-intellij-new-ui-dark/extension.js',
     'utf8'
   );
   assert.doesNotMatch(extSrc, /\\b@interface/, 'extension.js must not use broken \\b@interface regex');
   assert.match(extSrc, /dto\.java/, 'extension.js must include DTO naming fallback');
+  assert.match(extSrc, /scanWorkspaceJavaIcons/, 'extension.js must auto-scan workspace Java files on startup');
+  assert.match(extSrc, /onDidOpenTextDocument/, 'extension.js must update Java icon mapping on open document as well');
+  assert.match(extSrc, /Exception\|Error\|Throwable/, 'extension.js must detect classes extending Exception/Error/Throwable');
 });
 

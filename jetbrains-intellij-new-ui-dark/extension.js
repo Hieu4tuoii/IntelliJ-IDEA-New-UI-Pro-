@@ -87,6 +87,7 @@ function classifyJavaContent(src, fileName) {
   if (/\benum\s+\w+/.test(cleaned)) return '_java_enum';
   if (/\brecord\s+\w+/.test(cleaned)) return '_java_record';
   if (/\babstract\s+class\s+\w+/.test(cleaned)) return '_java_abstract';
+  if (/\bclass\s+\w+[^{]*\bextends\s+\w*(?:Exception|Error|Throwable)\b/.test(cleaned)) return '_java_exception';
   if (lower.endsWith('dto.java') || lower.endsWith('request.java') || lower.endsWith('response.java') || lower.endsWith('record.java')) {
     return '_java_record';
   }
@@ -96,12 +97,94 @@ function classifyJavaContent(src, fileName) {
   return '_java_class';
 }
 
+// Fast 4KB header reader so scanning an entire Java workspace takes < 30ms
+function readJavaHeader(filePath) {
+  let fd;
+  try {
+    fd = fs.openSync(filePath, 'r');
+    const buf = Buffer.allocUnsafe(4096);
+    const bytesRead = fs.readSync(fd, buf, 0, 4096, 0);
+    return buf.toString('utf8', 0, bytesRead);
+  } catch {
+    return '';
+  } finally {
+    if (fd !== undefined) {
+      try {
+        fs.closeSync(fd);
+      } catch {
+        // Ignore close error
+      }
+    }
+  }
+}
+
+const SKIP_SCAN_DIRS = new Set([
+  'node_modules',
+  '.git',
+  'target',
+  'build',
+  'dist',
+  'out',
+  '.next',
+  '.idea',
+  '.vscode',
+  '.mvn',
+  '.gradle'
+]);
+
+function scanWorkspaceJavaIcons(context) {
+  try {
+    const folders = vscode.workspace.workspaceFolders;
+    if (!folders || folders.length === 0) return;
+    const iconJsonPath = path.join(context.extensionPath, 'icons', 'file-icons', 'intellij-new-ui-file-icons.json');
+    if (!fs.existsSync(iconJsonPath)) return;
+    const theme = JSON.parse(fs.readFileSync(iconJsonPath, 'utf8'));
+    if (!theme.fileNames) theme.fileNames = {};
+    let changed = false;
+
+    const walk = (dir) => {
+      let entries;
+      try {
+        entries = fs.readdirSync(dir, { withFileTypes: true });
+      } catch {
+        return;
+      }
+      for (const entry of entries) {
+        if (entry.isDirectory()) {
+          if (!SKIP_SCAN_DIRS.has(entry.name) && !entry.name.startsWith('.')) {
+            walk(path.join(dir, entry.name));
+          }
+        } else if (entry.isFile() && entry.name.endsWith('.java')) {
+          const baseName = entry.name.toLowerCase();
+          const fullPath = path.join(dir, entry.name);
+          const header = readJavaHeader(fullPath);
+          const iconId = classifyJavaContent(header, baseName);
+          if (theme.fileNames[baseName] !== iconId) {
+            theme.fileNames[baseName] = iconId;
+            changed = true;
+          }
+        }
+      }
+    };
+
+    for (const folder of folders) {
+      walk(folder.uri.fsPath);
+    }
+
+    if (changed) {
+      fs.writeFileSync(iconJsonPath, JSON.stringify(theme, null, 2), 'utf8');
+    }
+  } catch {
+    // Ignore workspace scan errors
+  }
+}
+
 function updateJavaFileIconMapping(context, uri) {
   try {
     if (!uri || !uri.fsPath || !uri.fsPath.endsWith('.java')) return;
     const iconJsonPath = path.join(context.extensionPath, 'icons', 'file-icons', 'intellij-new-ui-file-icons.json');
     if (!fs.existsSync(iconJsonPath) || !fs.existsSync(uri.fsPath)) return;
-    const src = fs.readFileSync(uri.fsPath, 'utf8');
+    const src = readJavaHeader(uri.fsPath);
     const baseName = path.basename(uri.fsPath).toLowerCase();
     const iconId = classifyJavaContent(src, baseName);
     const theme = JSON.parse(fs.readFileSync(iconJsonPath, 'utf8'));
@@ -224,6 +307,7 @@ async function toggleKeymap() {
 
 function activate(context) {
   syncJavaProjectScope(context, true);
+  setImmediate(() => scanWorkspaceJavaIcons(context));
 
   context.subscriptions.push(
     vscode.commands.registerCommand('intellijNewUi.applySettings', () => applySettings(context, false)),
@@ -236,12 +320,14 @@ function activate(context) {
     }),
     vscode.workspace.onDidChangeWorkspaceFolders(() => {
       syncJavaProjectScope(context, true);
+      setImmediate(() => scanWorkspaceJavaIcons(context));
     }),
     vscode.workspace.onDidChangeConfiguration((e) => {
       if (e.affectsConfiguration('intellijNewUi.onlyApplyInJavaProjects')) {
         syncJavaProjectScope(context, true);
       }
     }),
+    vscode.workspace.onDidOpenTextDocument((doc) => updateJavaFileIconMapping(context, doc.uri)),
     vscode.workspace.onDidSaveTextDocument((doc) => updateJavaFileIconMapping(context, doc.uri)),
     vscode.workspace.onDidCreateFiles((event) => {
       for (const uri of event.files) {

@@ -290,6 +290,7 @@ function classifyJavaFile(filePath, baseName) {
     if (/\benum\s+\w+/.test(cleaned)) return '_java_enum';
     if (/\brecord\s+\w+/.test(cleaned)) return '_java_record';
     if (/\babstract\s+class\s+\w+/.test(cleaned)) return '_java_abstract';
+    if (/\bclass\s+\w+[^{]*\bextends\s+\w*(?:Exception|Error|Throwable)\b/.test(cleaned)) return '_java_exception';
   } catch {
     // Fallback to naming conventions
   }
@@ -323,6 +324,7 @@ function walkWorkspaceJava(dir) {
 }
 
 walkWorkspaceJava('C:/Elaand-Enao/lendingfo');
+walkWorkspaceJava('C:/Elaand-Enao/code-be');
 
 const fileIconTheme = {
   iconDefinitions,
