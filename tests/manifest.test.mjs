@@ -5,10 +5,14 @@ import path from 'node:path';
 
 const ROOT = 'C:/Users/ADMIN/.antigravity-extensions-src';
 
-test('Single unified extension manifest has themes, icons, settings, and conditional keybindings', () => {
+test('Single unified extension manifest has themes, icons, settings, eager activation, and flat conditional keybindings', () => {
   const uiPkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'jetbrains-intellij-new-ui-dark/package.json'), 'utf8'));
   assert.equal(uiPkg.name, 'jetbrains-intellij-new-ui-dark');
   assert.equal(uiPkg.publisher, 'elaand');
+  assert.equal(uiPkg.version, '1.1.0', 'Version must be bumped to 1.1.0 to invalidate IDE manifest cache');
+  assert.ok(uiPkg.activationEvents.includes('*'), 'Must activate eagerly with "*" so keymap context and project detection run at 0ms');
+  assert.equal(uiPkg.contributes.configurationDefaults, undefined, 'configurationDefaults must not be hardcoded in package.json so non-Java projects are unaffected');
+
   assert.equal(uiPkg.contributes.themes[0].label, 'IntelliJ IDEA New UI Dark (Pro)');
   assert.equal(
     uiPkg.contributes.themes[0].id ?? uiPkg.contributes.themes[0].label,
@@ -21,17 +25,6 @@ test('Single unified extension manifest has themes, icons, settings, and conditi
   assert.equal(uiPkg.contributes.productIconThemes[0].id, 'intellij-new-ui-product-icons');
   assert.equal(uiPkg.contributes.productIconThemes[0].path, './icons/product-icons/intellij-new-ui-product-icons.json');
 
-  // Typography & Editor defaults
-  assert.equal(uiPkg.contributes.configurationDefaults['editor.fontFamily'], "'JetBrains Mono', Consolas, monospace");
-  assert.equal(uiPkg.contributes.configurationDefaults['editor.fontSize'], 13.5);
-  assert.equal(uiPkg.contributes.configurationDefaults['editor.lineHeight'], 1.6);
-  assert.equal(uiPkg.contributes.configurationDefaults['editor.letterSpacing'], 0.3);
-  assert.equal(uiPkg.contributes.configurationDefaults['editor.minimap.autohide'], 'mouseover');
-  assert.equal(uiPkg.contributes.configurationDefaults['workbench.editor.customLabels.enabled'], true);
-  assert.deepEqual(uiPkg.contributes.configurationDefaults['workbench.editor.customLabels.patterns'], { '**/*.java': '${filename}' });
-  assert.equal(uiPkg.contributes.configurationDefaults['cSpell.enabled'], false);
-  assert.equal(uiPkg.contributes.configurationDefaults['editor.semanticHighlighting.enabled'], true);
-
   // Settings UI properties (enableKeymap & onlyApplyInJavaProjects)
   const props = uiPkg.contributes.configuration?.properties;
   assert.ok(props, 'contributes.configuration.properties must exist');
@@ -40,12 +33,13 @@ test('Single unified extension manifest has themes, icons, settings, and conditi
   assert.equal(props['intellijNewUi.onlyApplyInJavaProjects']?.type, 'boolean');
   assert.equal(props['intellijNewUi.onlyApplyInJavaProjects']?.default, false);
 
-  // Merged keybindings with zero-overhead when-clauses
+  // Merged keybindings with flat && when-clauses (no || or parentheses)
   const keybindings = uiPkg.contributes.keybindings;
   assert.ok(Array.isArray(keybindings) && keybindings.length >= 34, 'Keybindings must be merged into main extension');
   for (const kb of keybindings) {
     assert.match(kb.when || '', /config\.intellijNewUi\.enableKeymap/, `Keybinding ${kb.key} must respect config.intellijNewUi.enableKeymap`);
-    assert.match(kb.when || '', /intellijNewUi\.isJavaProject/, `Keybinding ${kb.key} must respect Java project condition`);
+    assert.match(kb.when || '', /!intellijNewUi\.disabledInThisWindow/, `Keybinding ${kb.key} must respect !intellijNewUi.disabledInThisWindow`);
+    assert.ok(!kb.when.includes('||') && !kb.when.includes('('), `Keybinding ${kb.key} when-clause must be flat && without parentheses`);
   }
 
   // Must not override user's custom ctrl+i or ctrl+1 AI chat shortcuts

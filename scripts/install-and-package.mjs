@@ -12,6 +12,7 @@ fs.mkdirSync(FONT_DIR, { recursive: true });
 // Remove legacy separate keymap extension source & VSIX if present
 fs.rmSync(path.join(ROOT, 'jetbrains-intellij-keymap'), { recursive: true, force: true });
 fs.rmSync(path.join(DIST_DIR, 'jetbrains-intellij-keymap-1.0.0.vsix'), { force: true });
+fs.rmSync(path.join(DIST_DIR, 'jetbrains-intellij-new-ui-dark-1.0.0.vsix'), { force: true });
 
 // 1. Download & install official JetBrains Mono TTF fonts into Windows User Fonts + Registry + GDI32 live load
 const FONTS = [
@@ -106,7 +107,7 @@ def build_vsix(ext_folder_name, vsix_filename):
                 zf.write(full, f"extension/{rel}")
     print(f"Packaged {vsix_path} ({os.path.getsize(vsix_path)} bytes)")
 
-build_vsix("jetbrains-intellij-new-ui-dark", "jetbrains-intellij-new-ui-dark-1.0.0.vsix")
+build_vsix("jetbrains-intellij-new-ui-dark", "jetbrains-intellij-new-ui-dark-1.1.0.vsix")
 `;
 execSync('python -', { input: pyPackageVsix, stdio: ['pipe', 'inherit', 'inherit'] });
 
@@ -131,16 +132,17 @@ const EXT_ROOTS = [
 
 const UNIFIED_EXT = {
   srcDir: path.join(ROOT, 'jetbrains-intellij-new-ui-dark'),
-  targetFolder: 'elaand.jetbrains-intellij-new-ui-dark-1.0.0',
+  targetFolder: 'elaand.jetbrains-intellij-new-ui-dark-1.1.0',
   id: 'elaand.jetbrains-intellij-new-ui-dark',
-  version: '1.0.0'
+  version: '1.1.0'
 };
 
 for (const extRoot of EXT_ROOTS) {
   if (!fs.existsSync(extRoot)) continue;
 
-  // Remove old separate keymap extension folder
+  // Remove old separate keymap extension folder and old 1.0.0 folder (forces Antigravity IDE manifest cache reload)
   fs.rmSync(path.join(extRoot, 'elaand.jetbrains-intellij-keymap-1.0.0'), { recursive: true, force: true });
+  fs.rmSync(path.join(extRoot, 'elaand.jetbrains-intellij-new-ui-dark-1.0.0'), { recursive: true, force: true });
 
   const regPath = path.join(extRoot, 'extensions.json');
   let registry = [];

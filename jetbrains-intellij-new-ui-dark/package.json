@@ -3,7 +3,7 @@
   "publisher": "elaand",
   "displayName": "IntelliJ IDEA New UI Dark (Pro)",
   "description": "All-in-one IntelliJ IDEA New UI Dark experience for Antigravity IDE: official ExperimentalDark workbench palette, deep Java/Spring & TypeScript semantic highlighting, JetBrains expui File Icons, Product UI Icons, JetBrains Mono typography, and toggleable IntelliJ Keymap.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -13,10 +13,7 @@
   ],
   "main": "./extension.js",
   "activationEvents": [
-    "onStartupFinished",
-    "onCommand:intellijNewUi.applySettings",
-    "onCommand:intellijNewUi.restoreSettings",
-    "onCommand:intellijNewUi.toggleKeymap"
+    "*"
   ],
   "contributes": {
     "configuration": {
@@ -74,179 +71,156 @@
         "path": "./icons/product-icons/intellij-new-ui-product-icons.json"
       }
     ],
-    "configurationDefaults": {
-      "editor.fontFamily": "'JetBrains Mono', Consolas, monospace",
-      "terminal.integrated.fontFamily": "'JetBrains Mono', Consolas, monospace",
-      "editor.fontSize": 13.5,
-      "editor.lineHeight": 1.6,
-      "editor.letterSpacing": 0.3,
-      "terminal.integrated.lineHeight": 1.3,
-      "terminal.integrated.letterSpacing": 0.2,
-      "editor.fontLigatures": false,
-      "editor.semanticHighlighting.enabled": true,
-      "editor.renderLineHighlight": "all",
-      "editor.guides.bracketPairs": "active",
-      "editor.inlayHints.padding": true,
-      "editor.minimap.autohide": "mouseover",
-      "workbench.editor.customLabels.enabled": true,
-      "workbench.editor.customLabels.patterns": {
-        "**/*.java": "${filename}"
-      },
-      "cSpell.enabled": false,
-      "workbench.tree.indent": 16,
-      "workbench.tree.renderIndentGuides": "onHover",
-      "window.titleBarStyle": "custom"
-    },
     "keybindings": [
       {
         "key": "ctrl+shift+a",
         "command": "workbench.action.showCommands",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+n",
         "command": "workbench.action.quickOpen",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+shift+n",
         "command": "workbench.action.quickOpen",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+shift+alt+n",
         "command": "workbench.action.showAllSymbols",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+shift+f",
         "command": "workbench.action.findInFiles",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+shift+r",
         "command": "workbench.action.replaceInFiles",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+e",
         "command": "workbench.action.openPreviousRecentlyUsedEditorInGroup",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+shift+e",
         "command": "workbench.action.showAllEditorsByMostRecentlyUsed",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+f12",
         "command": "workbench.action.gotoSymbol",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+g",
         "command": "workbench.action.gotoLine",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+b",
         "command": "editor.action.revealDefinition",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorHasDefinitionProvider && editorTextFocus"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasDefinitionProvider && editorTextFocus"
       },
       {
         "key": "ctrl+alt+b",
         "command": "editor.action.goToImplementation",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorHasImplementationProvider && editorTextFocus"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasImplementationProvider && editorTextFocus"
       },
       {
         "key": "ctrl+shift+b",
         "command": "editor.action.goToTypeDefinition",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
       },
       {
         "key": "alt+f7",
         "command": "editor.action.referenceSearch.trigger",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorHasReferenceProvider && editorTextFocus"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasReferenceProvider && editorTextFocus"
       },
       {
         "key": "ctrl+alt+left",
         "command": "workbench.action.navigateBack",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+alt+right",
         "command": "workbench.action.navigateForward",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+shift+backspace",
         "command": "workbench.action.navigateToLastEditLocation",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "alt+enter",
         "command": "editor.action.quickFix",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorHasCodeActionsProvider && editorTextFocus"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasCodeActionsProvider && editorTextFocus"
       },
       {
         "key": "ctrl+d",
         "command": "editor.action.copyLinesDownAction",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "ctrl+y",
         "command": "editor.action.deleteLines",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "ctrl+w",
         "command": "editor.action.smartSelect.expand",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
       },
       {
         "key": "ctrl+shift+w",
         "command": "editor.action.smartSelect.shrink",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
       },
       {
         "key": "ctrl+alt+l",
         "command": "editor.action.formatDocument",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
       },
       {
         "key": "ctrl+alt+o",
         "command": "editor.action.organizeImports",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "ctrl+/",
         "command": "editor.action.commentLine",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "ctrl+shift+/",
         "command": "editor.action.blockComment",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "shift+alt+up",
         "command": "editor.action.moveLinesUpAction",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "shift+alt+down",
         "command": "editor.action.moveLinesDownAction",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "ctrl+shift+u",
         "command": "editor.action.transformToUppercase",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "shift+f6",
         "command": "editor.action.rename",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorHasRenameProvider && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasRenameProvider && editorTextFocus && !editorReadonly"
       },
       {
         "key": "ctrl+alt+m",
@@ -254,7 +228,7 @@
         "args": {
           "kind": "refactor.extract.function"
         },
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "ctrl+alt+v",
@@ -262,72 +236,72 @@
         "args": {
           "kind": "refactor.extract.constant"
         },
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus && !editorReadonly"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "shift+f10",
         "command": "workbench.action.debug.run",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "shift+f9",
         "command": "workbench.action.debug.start",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+f2",
         "command": "workbench.action.debug.stop",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && inDebugMode"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && inDebugMode"
       },
       {
         "key": "f8",
         "command": "workbench.action.debug.stepOver",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && debugState == 'stopped'"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && debugState == 'stopped'"
       },
       {
         "key": "f7",
         "command": "workbench.action.debug.stepInto",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && debugState == 'stopped'"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && debugState == 'stopped'"
       },
       {
         "key": "shift+f8",
         "command": "workbench.action.debug.stepOut",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && debugState == 'stopped'"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && debugState == 'stopped'"
       },
       {
         "key": "f9",
         "command": "workbench.action.debug.continue",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && debugState == 'stopped'"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && debugState == 'stopped'"
       },
       {
         "key": "ctrl+f8",
         "command": "editor.debug.action.toggleBreakpoint",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
       },
       {
         "key": "alt+1",
         "command": "workbench.view.explorer",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "alt+f12",
         "command": "workbench.action.terminal.toggleTerminal",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "alt+9",
         "command": "workbench.view.scm",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject)"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "f2",
         "command": "editor.action.marker.next",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
       },
       {
         "key": "shift+f2",
         "command": "editor.action.marker.prev",
-        "when": "config.intellijNewUi.enableKeymap && (!config.intellijNewUi.onlyApplyInJavaProjects || intellijNewUi.isJavaProject) && editorTextFocus"
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
       }
     ]
   },

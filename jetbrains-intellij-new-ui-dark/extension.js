@@ -29,6 +29,11 @@ const RECOMMENDED_SETTINGS = {
   'workbench.tree.renderIndentGuides': 'onHover'
 };
 
+const DEFAULT_FALLBACK_SETTINGS = {
+  'workbench.colorTheme': 'Default Dark+',
+  'workbench.iconTheme': 'material-icon-theme'
+};
+
 const JAVA_MARKERS = ['pom.xml', 'build.gradle', 'build.gradle.kts', 'mvnw', 'gradlew', '.mvn'];
 
 // Fast synchronous 1-time check (< 1ms) at startup: checks root and 1-level subfolders
@@ -98,46 +103,95 @@ function updateJavaFileIconMapping(context, uri) {
   }
 }
 
+function getSettingsFilePaths() {
+  const appData = process.env.APPDATA;
+  if (!appData) return [];
+  return ['Antigravity IDE', 'Antigravity']
+    .map((app) => path.join(appData, app, 'User', 'settings.json'))
+    .filter((p) => fs.existsSync(p));
+}
+
+// Writes User/settings.json atomically on disk to avoid VS Code CodeExpectedError
+// ("Unable to write into user settings because the content of the file is newer / has unsaved changes")
+async function writeSettingsFileAtomically(mode) {
+  // First save any dirty settings.json open in editor so it doesn't block or overwrite
+  for (const doc of vscode.workspace.textDocuments) {
+    if (doc.isDirty && doc.uri.fsPath && doc.uri.fsPath.endsWith('settings.json')) {
+      try {
+        await doc.save();
+      } catch {
+        // Ignore
+      }
+    }
+  }
+
+  for (const settingsPath of getSettingsFilePaths()) {
+    try {
+      const raw = fs.readFileSync(settingsPath, 'utf8');
+      const cleaned = raw.replace(/,(\s*[}\]])/g, '$1');
+      const data = JSON.parse(cleaned);
+      let changed = false;
+
+      if (mode === 'intellij') {
+        for (const [key, val] of Object.entries(RECOMMENDED_SETTINGS)) {
+          if (JSON.stringify(data[key]) !== JSON.stringify(val)) {
+            data[key] = val;
+            changed = true;
+          }
+        }
+      } else if (mode === 'default') {
+        for (const key of Object.keys(RECOMMENDED_SETTINGS)) {
+          if (key in DEFAULT_FALLBACK_SETTINGS) {
+            if (data[key] !== DEFAULT_FALLBACK_SETTINGS[key]) {
+              data[key] = DEFAULT_FALLBACK_SETTINGS[key];
+              changed = true;
+            }
+          } else if (key in data) {
+            delete data[key];
+            changed = true;
+          }
+        }
+      }
+
+      if (changed) {
+        fs.writeFileSync(settingsPath, JSON.stringify(data, null, 2) + '\n', 'utf8');
+      }
+    } catch {
+      // Ignore parse/write errors
+    }
+  }
+}
+
 async function applySettings(context, silent = false) {
-  const config = vscode.workspace.getConfiguration();
-  const previous = {};
-  for (const key of Object.keys(RECOMMENDED_SETTINGS)) {
-    previous[key] = config.get(key);
-  }
-  await context.globalState.update('intellijNewUi.previousSettings', previous);
-  for (const [key, value] of Object.entries(RECOMMENDED_SETTINGS)) {
-    await config.update(key, value, vscode.ConfigurationTarget.Global);
-  }
+  await writeSettingsFileAtomically('intellij');
   if (!silent) {
     vscode.window.showInformationMessage('Đã áp dụng bộ giao diện, icon và font chuẩn IntelliJ IDEA New UI Dark (Pro).');
   }
 }
 
 async function restoreSettings(context, silent = false) {
-  const previous = context.globalState.get('intellijNewUi.previousSettings');
-  const config = vscode.workspace.getConfiguration();
-  if (previous && typeof previous === 'object') {
-    for (const [key, value] of Object.entries(previous)) {
-      await config.update(key, value, vscode.ConfigurationTarget.Global);
-    }
-  } else {
-    await config.update('workbench.colorTheme', 'Default Dark+', vscode.ConfigurationTarget.Global);
-    await config.update('workbench.iconTheme', 'material-icon-theme', vscode.ConfigurationTarget.Global);
-    await config.update('workbench.productIconTheme', 'Default', vscode.ConfigurationTarget.Global);
-  }
+  await writeSettingsFileAtomically('default');
   if (!silent) {
-    vscode.window.showInformationMessage('Đã khôi phục cấu hình giao diện trước đó.');
+    vscode.window.showInformationMessage('Đã khôi phục cấu hình giao diện mặc định.');
   }
 }
 
-async function syncJavaProjectScope(context, isJavaProject) {
+async function syncJavaProjectScope(context, forceRun = false) {
+  const isJavaProject = detectJavaWorkspace();
   const config = vscode.workspace.getConfiguration();
   const onlyJava = config.get('intellijNewUi.onlyApplyInJavaProjects', false);
+
+  // Keymap context per window: immediately disable keymap in non-Java windows when onlyApplyInJavaProjects is true
+  const disabledInThisWindow = Boolean(onlyJava && !isJavaProject);
+  vscode.commands.executeCommand('setContext', 'intellijNewUi.disabledInThisWindow', disabledInThisWindow);
+  vscode.commands.executeCommand('setContext', 'intellijNewUi.isJavaProject', isJavaProject);
+
   if (!onlyJava) return;
-  const currentTheme = config.get('workbench.colorTheme');
-  if (isJavaProject && currentTheme !== 'IntelliJ IDEA New UI Dark (Pro)') {
+  if (!forceRun && !vscode.window.state.focused) return;
+
+  if (isJavaProject) {
     await applySettings(context, true);
-  } else if (!isJavaProject && currentTheme === 'IntelliJ IDEA New UI Dark (Pro)') {
+  } else {
     await restoreSettings(context, true);
   }
 }
@@ -154,19 +208,23 @@ async function toggleKeymap() {
 }
 
 function activate(context) {
-  const isJavaProject = detectJavaWorkspace();
-  vscode.commands.executeCommand('setContext', 'intellijNewUi.isJavaProject', isJavaProject);
-  syncJavaProjectScope(context, isJavaProject);
+  syncJavaProjectScope(context, true);
 
   context.subscriptions.push(
     vscode.commands.registerCommand('intellijNewUi.applySettings', () => applySettings(context, false)),
     vscode.commands.registerCommand('intellijNewUi.restoreSettings', () => restoreSettings(context, false)),
     vscode.commands.registerCommand('intellijNewUi.toggleKeymap', () => toggleKeymap()),
+    vscode.window.onDidChangeWindowState((state) => {
+      if (state.focused) {
+        syncJavaProjectScope(context, true);
+      }
+    }),
+    vscode.workspace.onDidChangeWorkspaceFolders(() => {
+      syncJavaProjectScope(context, true);
+    }),
     vscode.workspace.onDidChangeConfiguration((e) => {
       if (e.affectsConfiguration('intellijNewUi.onlyApplyInJavaProjects')) {
-        const javaNow = detectJavaWorkspace();
-        vscode.commands.executeCommand('setContext', 'intellijNewUi.isJavaProject', javaNow);
-        syncJavaProjectScope(context, javaNow);
+        syncJavaProjectScope(context, true);
       }
     }),
     vscode.workspace.onDidSaveTextDocument((doc) => updateJavaFileIconMapping(context, doc.uri)),
