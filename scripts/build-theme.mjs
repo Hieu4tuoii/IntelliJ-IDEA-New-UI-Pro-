@@ -554,9 +554,15 @@ const theme = {
     'interface.declaration': { foreground: '#BCBEC4' },
     'enum': { foreground: '#BCBEC4' },
     'struct': { foreground: '#BCBEC4' },
+    'record': { foreground: '#BCBEC4' },
+    'record.declaration': { foreground: '#BCBEC4' },
+    'recordComponent': { foreground: '#C77DBB' },
+    'recordComponent.declaration': { foreground: '#C77DBB' },
     'type': { foreground: '#BCBEC4' },
     'typeParameter': { foreground: '#507874' },
     'annotation': { foreground: '#B3AE60' },
+    'annotation.importDeclaration': { foreground: '#BCBEC4', fontStyle: '' },
+    '*.importDeclaration': { foreground: '#BCBEC4', fontStyle: '' },
     'annotationMember': { foreground: '#BCBEC4' },
     'decorator': { foreground: '#B3AE60' },
     'macro': { foreground: '#B3AE60' },
@@ -591,6 +597,7 @@ const theme = {
     'parameter.declaration': { foreground: '#BCBEC4' },
     'parameter.modification': { foreground: '#BCBEC4', fontStyle: 'underline' },
     'keyword': { foreground: '#CF8E6D' },
+    'keyword.documentation': { foreground: '#67A37C', fontStyle: 'italic bold underline' },
     'modifier': { foreground: '#CF8E6D' },
     'string': { foreground: '#6AAB73' },
     'number': { foreground: '#2AACB8' },
@@ -615,7 +622,8 @@ const theme = {
       scope: [
         'comment.block.documentation',
         'comment.block.javadoc',
-        'comment.block.documentation punctuation.definition.comment'
+        'comment.block.documentation punctuation.definition.comment',
+        'comment.block.javadoc punctuation.definition.comment'
       ],
       settings: {
         foreground: '#5F826B',
@@ -639,6 +647,8 @@ const theme = {
       name: 'JavaDoc / JSDoc Parameter Variable',
       scope: [
         'comment.block.documentation variable.other',
+        'comment.block.documentation variable.parameter',
+        'comment.block.javadoc variable.parameter',
         'variable.other.jsdoc'
       ],
       settings: {
@@ -701,6 +711,7 @@ const theme = {
         'punctuation.section',
         'punctuation.definition.parameters',
         'punctuation.definition.arguments',
+        'punctuation.definition.annotation-arguments',
         'punctuation.bracket',
         'meta.brace',
         'constant.other.key.java',
@@ -715,7 +726,6 @@ const theme = {
       scope: [
         'storage.type.annotation',
         'punctuation.definition.annotation',
-        'meta.declaration.annotation',
         'entity.name.function.decorator',
         'punctuation.decorator',
         'meta.decorator entity.name.function',
@@ -783,8 +793,7 @@ const theme = {
       name: 'Generic Type Parameters (<T>, <K, V>)',
       scope: [
         'entity.name.type.parameter',
-        'meta.type.parameters entity.name.type',
-        'storage.type.generic'
+        'meta.type.parameters entity.name.type'
       ],
       settings: {
         foreground: '#507874'
@@ -796,6 +805,8 @@ const theme = {
         'entity.name.type',
         'entity.name.class',
         'storage.type.java',
+        'storage.type.generic',
+        'storage.type.generic.java',
         'storage.type.object.array.java',
         'support.class',
         'support.type',

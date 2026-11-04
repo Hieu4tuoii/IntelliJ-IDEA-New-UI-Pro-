@@ -530,6 +530,18 @@
     "struct": {
       "foreground": "#BCBEC4"
     },
+    "record": {
+      "foreground": "#BCBEC4"
+    },
+    "record.declaration": {
+      "foreground": "#BCBEC4"
+    },
+    "recordComponent": {
+      "foreground": "#C77DBB"
+    },
+    "recordComponent.declaration": {
+      "foreground": "#C77DBB"
+    },
     "type": {
       "foreground": "#BCBEC4"
     },
@@ -538,6 +550,14 @@
     },
     "annotation": {
       "foreground": "#B3AE60"
+    },
+    "annotation.importDeclaration": {
+      "foreground": "#BCBEC4",
+      "fontStyle": ""
+    },
+    "*.importDeclaration": {
+      "foreground": "#BCBEC4",
+      "fontStyle": ""
     },
     "annotationMember": {
       "foreground": "#BCBEC4"
@@ -654,6 +674,10 @@
     "keyword": {
       "foreground": "#CF8E6D"
     },
+    "keyword.documentation": {
+      "foreground": "#67A37C",
+      "fontStyle": "italic bold underline"
+    },
     "modifier": {
       "foreground": "#CF8E6D"
     },
@@ -695,7 +719,8 @@
       "scope": [
         "comment.block.documentation",
         "comment.block.javadoc",
-        "comment.block.documentation punctuation.definition.comment"
+        "comment.block.documentation punctuation.definition.comment",
+        "comment.block.javadoc punctuation.definition.comment"
       ],
       "settings": {
         "foreground": "#5F826B",
@@ -719,6 +744,8 @@
       "name": "JavaDoc / JSDoc Parameter Variable",
       "scope": [
         "comment.block.documentation variable.other",
+        "comment.block.documentation variable.parameter",
+        "comment.block.javadoc variable.parameter",
         "variable.other.jsdoc"
       ],
       "settings": {
@@ -781,6 +808,7 @@
         "punctuation.section",
         "punctuation.definition.parameters",
         "punctuation.definition.arguments",
+        "punctuation.definition.annotation-arguments",
         "punctuation.bracket",
         "meta.brace",
         "constant.other.key.java",
@@ -795,7 +823,6 @@
       "scope": [
         "storage.type.annotation",
         "punctuation.definition.annotation",
-        "meta.declaration.annotation",
         "entity.name.function.decorator",
         "punctuation.decorator",
         "meta.decorator entity.name.function",
@@ -863,8 +890,7 @@
       "name": "Generic Type Parameters (<T>, <K, V>)",
       "scope": [
         "entity.name.type.parameter",
-        "meta.type.parameters entity.name.type",
-        "storage.type.generic"
+        "meta.type.parameters entity.name.type"
       ],
       "settings": {
         "foreground": "#507874"
@@ -876,6 +902,8 @@
         "entity.name.type",
         "entity.name.class",
         "storage.type.java",
+        "storage.type.generic",
+        "storage.type.generic.java",
         "storage.type.object.array.java",
         "support.class",
         "support.type",

@@ -41,8 +41,8 @@ const SVGS = {
   _folder_open: folderOpenSvg('#393B40', '#CED0D6'),
   _folder_src: folderSvg('#25324D', '#3574F0'),
   _folder_src_open: folderOpenSvg('#25324D', '#56A8F5'),
-  _folder_java: folderSvg('#25324D', '#3574F0', `<circle cx="12" cy="10.5" r="1.5" fill="#56A8F5"/>`),
-  _folder_java_open: folderOpenSvg('#25324D', '#56A8F5', `<circle cx="12" cy="10.5" r="1.5" fill="#56A8F5"/>`),
+  _folder_java: folderSvg('#25324D', '#3574F0'),
+  _folder_java_open: folderOpenSvg('#25324D', '#56A8F5'),
   _folder_test: folderSvg('#253B2F', '#59A869'),
   _folder_test_open: folderOpenSvg('#253B2F', '#6AAB73'),
   _folder_resources: folderSvg('#3D3526', '#E0A82E', `<rect x="10" y="9" width="3" height="3" rx="0.5" fill="#E0A82E"/>`),
@@ -330,9 +330,6 @@ const fileIconTheme = {
   folder: '_folder',
   folderExpanded: '_folder_open',
   folderNames: {
-    'src': '_folder_src',
-    'main': '_folder_src',
-    'app': '_folder_src',
     'java': '_folder_java',
     'kotlin': '_folder_java',
     'test': '_folder_test',
@@ -351,15 +348,10 @@ const fileIconTheme = {
     'node_modules': '_folder_excluded',
     '.idea': '_folder_config',
     '.vscode': '_folder_config',
-    '.mvn': '_folder_config',
     '.github': '_folder_config',
-    '.agents': '_folder_config',
-    'config': '_folder_config'
+    '.agents': '_folder_config'
   },
   folderNamesExpanded: {
-    'src': '_folder_src_open',
-    'main': '_folder_src_open',
-    'app': '_folder_src_open',
     'java': '_folder_java_open',
     'kotlin': '_folder_java_open',
     'test': '_folder_test_open',
@@ -378,10 +370,8 @@ const fileIconTheme = {
     'node_modules': '_folder_excluded_open',
     '.idea': '_folder_config_open',
     '.vscode': '_folder_config_open',
-    '.mvn': '_folder_config_open',
     '.github': '_folder_config_open',
-    '.agents': '_folder_config_open',
-    'config': '_folder_config_open'
+    '.agents': '_folder_config_open'
   },
   fileExtensions: {
     'java': '_java_class',

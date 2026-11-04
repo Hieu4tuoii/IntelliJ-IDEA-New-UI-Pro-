@@ -25,8 +25,10 @@ test('File icon theme defines valid 16x16 SVGs and maps Java/Spring/FE files acc
     assert.match(content, /viewBox="0 0 16 16"/, `SVG ${id} must have 16x16 viewBox`);
   }
 
-  // Folder mappings
-  assert.equal(theme.folderNames['src'], '_folder_src');
+  // Folder mappings (matching IntelliJ Maven/Gradle project tree: java/kotlin = blue source root, src/main/config = standard gray folder)
+  assert.equal(theme.folderNames['src'], undefined);
+  assert.equal(theme.folderNames['main'], undefined);
+  assert.equal(theme.folderNames['config'], undefined);
   assert.equal(theme.folderNames['java'], '_folder_java');
   assert.equal(theme.folderNames['test'], '_folder_test');
   assert.equal(theme.folderNames['resources'], '_folder_resources');

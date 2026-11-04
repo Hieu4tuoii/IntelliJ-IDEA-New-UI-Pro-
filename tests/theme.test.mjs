@@ -42,6 +42,10 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   assert.equal(sem['variable.modification'].fontStyle, 'underline');
   assert.equal(sem['parameter.modification'].foreground.toUpperCase(), '#BCBEC4');
   assert.equal(sem['parameter.modification'].fontStyle, 'underline');
+  assert.equal(sem['*.importDeclaration'].foreground.toUpperCase(), '#BCBEC4');
+  assert.equal(sem['annotation.importDeclaration'].foreground.toUpperCase(), '#BCBEC4');
+  assert.equal(sem['recordComponent'].foreground.toUpperCase(), '#C77DBB');
+  assert.equal(sem['keyword.documentation'].foreground.toUpperCase(), '#67A37C');
 
   // Bracket highlights must all be flat #BCBEC4 (no rainbow brackets in IntelliJ New UI Dark)
   for (let i = 1; i <= 6; i++) {
