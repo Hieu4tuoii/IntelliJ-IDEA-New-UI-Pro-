@@ -59,6 +59,13 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   assert.equal(theme.colors['list.errorForeground'].toUpperCase(), '#DFE1E5');
   assert.equal(theme.colors['list.warningForeground'].toUpperCase(), '#DFE1E5');
 
+  // Diff & Gutter change colors must use Antigravity IDE defaults (not JetBrains gray diff)
+  assert.equal(theme.colors['diffEditor.removedLineBackground'], undefined);
+  assert.equal(theme.colors['diffEditor.insertedLineBackground'], undefined);
+  assert.equal(theme.colors['inlineChatDiff.removed'], undefined);
+  assert.equal(theme.colors['editorGutter.addedBackground'].toUpperCase(), '#2EA043');
+  assert.equal(theme.colors['editorGutter.deletedBackground'].toUpperCase(), '#F85149');
+
   // TextMate tokenColors verification for operators (=, ==, !=, +, :, |), semicolons (;), commas (,), and method calls
   const keywordRule = theme.tokenColors.find(r => r.name.includes('Keywords'));
   assert.ok(keywordRule, 'Must have Keywords rule');
