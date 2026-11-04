@@ -1,0 +1,203 @@
+{
+  "fonts": [
+    {
+      "id": "intellij-expui-icons",
+      "src": [
+        {
+          "path": "./intellij-expui-icons.woff",
+          "format": "woff"
+        }
+      ],
+      "weight": "normal",
+      "style": "normal"
+    }
+  ],
+  "iconDefinitions": {
+    "run": {
+      "fontCharacter": "\\e001"
+    },
+    "debug-start": {
+      "fontCharacter": "\\e001"
+    },
+    "debug": {
+      "fontCharacter": "\\e002"
+    },
+    "bug": {
+      "fontCharacter": "\\e002"
+    },
+    "debug-alt": {
+      "fontCharacter": "\\e002"
+    },
+    "debug-stop": {
+      "fontCharacter": "\\e003"
+    },
+    "primitive-square": {
+      "fontCharacter": "\\e003"
+    },
+    "debug-restart": {
+      "fontCharacter": "\\e004"
+    },
+    "refresh": {
+      "fontCharacter": "\\e004"
+    },
+    "sync": {
+      "fontCharacter": "\\e004"
+    },
+    "debug-step-over": {
+      "fontCharacter": "\\e005"
+    },
+    "debug-step-into": {
+      "fontCharacter": "\\e006"
+    },
+    "debug-step-out": {
+      "fontCharacter": "\\e007"
+    },
+    "debug-pause": {
+      "fontCharacter": "\\e008"
+    },
+    "search": {
+      "fontCharacter": "\\e009"
+    },
+    "replace": {
+      "fontCharacter": "\\e00a"
+    },
+    "replace-all": {
+      "fontCharacter": "\\e00a"
+    },
+    "filter": {
+      "fontCharacter": "\\e00b"
+    },
+    "filter-filled": {
+      "fontCharacter": "\\e00b"
+    },
+    "collapse-all": {
+      "fontCharacter": "\\e00c"
+    },
+    "expand-all": {
+      "fontCharacter": "\\e00d"
+    },
+    "close": {
+      "fontCharacter": "\\e00e"
+    },
+    "clear-all": {
+      "fontCharacter": "\\e00e"
+    },
+    "chrome-close": {
+      "fontCharacter": "\\e00e"
+    },
+    "add": {
+      "fontCharacter": "\\e00f"
+    },
+    "plus": {
+      "fontCharacter": "\\e00f"
+    },
+    "trash": {
+      "fontCharacter": "\\e010"
+    },
+    "edit": {
+      "fontCharacter": "\\e011"
+    },
+    "settings-gear": {
+      "fontCharacter": "\\e012"
+    },
+    "gear": {
+      "fontCharacter": "\\e012"
+    },
+    "more": {
+      "fontCharacter": "\\e013"
+    },
+    "kebab-vertical": {
+      "fontCharacter": "\\e013"
+    },
+    "ellipsis": {
+      "fontCharacter": "\\e013"
+    },
+    "chevron-right": {
+      "fontCharacter": "\\e014"
+    },
+    "chevron-down": {
+      "fontCharacter": "\\e015"
+    },
+    "chevron-up": {
+      "fontCharacter": "\\e016"
+    },
+    "chevron-left": {
+      "fontCharacter": "\\e017"
+    },
+    "folder": {
+      "fontCharacter": "\\e018"
+    },
+    "folder-opened": {
+      "fontCharacter": "\\e018"
+    },
+    "root-folder": {
+      "fontCharacter": "\\e018"
+    },
+    "root-folder-opened": {
+      "fontCharacter": "\\e018"
+    },
+    "file": {
+      "fontCharacter": "\\e019"
+    },
+    "new-file": {
+      "fontCharacter": "\\e019"
+    },
+    "source-control": {
+      "fontCharacter": "\\e01a"
+    },
+    "git-branch": {
+      "fontCharacter": "\\e01a"
+    },
+    "git-merge": {
+      "fontCharacter": "\\e01a"
+    },
+    "git-commit": {
+      "fontCharacter": "\\e01b"
+    },
+    "git-pull-request": {
+      "fontCharacter": "\\e01b"
+    },
+    "discard": {
+      "fontCharacter": "\\e01c"
+    },
+    "history": {
+      "fontCharacter": "\\e01c"
+    },
+    "terminal": {
+      "fontCharacter": "\\e01d"
+    },
+    "output": {
+      "fontCharacter": "\\e01d"
+    },
+    "console": {
+      "fontCharacter": "\\e01d"
+    },
+    "error": {
+      "fontCharacter": "\\e01e"
+    },
+    "warning": {
+      "fontCharacter": "\\e01e"
+    },
+    "info": {
+      "fontCharacter": "\\e01e"
+    },
+    "bell": {
+      "fontCharacter": "\\e01e"
+    },
+    "split-horizontal": {
+      "fontCharacter": "\\e01f"
+    },
+    "layout-sidebar-left": {
+      "fontCharacter": "\\e01f"
+    },
+    "layout-sidebar-right": {
+      "fontCharacter": "\\e01f"
+    },
+    "split-vertical": {
+      "fontCharacter": "\\e020"
+    },
+    "layout-panel": {
+      "fontCharacter": "\\e020"
+    }
+  }
+}
