@@ -38,12 +38,12 @@ test('JetBrains Mono font, single unified VSIX package v1.1.0, extension directo
     assert.equal(parsed['workbench.iconTheme'], 'intellij-new-ui-file-icons');
     assert.equal(parsed['workbench.productIconTheme'], 'intellij-new-ui-product-icons');
     assert.equal(parsed['editor.fontFamily'], "'JetBrains Mono', Consolas, monospace");
-    assert.equal(parsed['editor.fontSize'], 13);
-    assert.equal(parsed['editor.lineHeight'], 1.35);
-    assert.equal(parsed['editor.letterSpacing'], 0);
-    assert.equal(parsed['window.zoomLevel'], 0);
-    assert.equal(parsed['editor.inlayHints.fontSize'], 11);
-    assert.equal(parsed['editor.codeLensFontSize'], 11);
+    assert.equal(parsed['editor.fontSize'], 13.5);
+    assert.equal(parsed['editor.lineHeight'], 1.6);
+    assert.equal(parsed['editor.letterSpacing'], 0.3);
+    assert.equal(parsed['window.zoomLevel'], 0.3);
+    assert.equal(parsed['editor.inlayHints.fontSize'], 12);
+    assert.equal(parsed['editor.codeLensFontSize'], 12);
     assert.equal(parsed['editor.minimap.autohide'], 'mouseover');
     assert.equal(parsed['workbench.editor.customLabels.enabled'], true);
     assert.deepEqual(parsed['workbench.editor.customLabels.patterns'], { '**/*.java': '${filename}' });
