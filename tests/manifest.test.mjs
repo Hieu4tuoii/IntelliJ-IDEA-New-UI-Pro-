@@ -5,7 +5,7 @@ import path from 'node:path';
 
 const ROOT = 'C:/Users/ADMIN/.antigravity-extensions-src';
 
-test('Extension manifests have required IntelliJ New UI contributions and commands', () => {
+test('Single unified extension manifest has themes, icons, settings, and conditional keybindings', () => {
   const uiPkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'jetbrains-intellij-new-ui-dark/package.json'), 'utf8'));
   assert.equal(uiPkg.name, 'jetbrains-intellij-new-ui-dark');
   assert.equal(uiPkg.publisher, 'elaand');
@@ -20,6 +20,8 @@ test('Extension manifests have required IntelliJ New UI contributions and comman
   assert.equal(uiPkg.contributes.iconThemes[0].path, './icons/file-icons/intellij-new-ui-file-icons.json');
   assert.equal(uiPkg.contributes.productIconThemes[0].id, 'intellij-new-ui-product-icons');
   assert.equal(uiPkg.contributes.productIconThemes[0].path, './icons/product-icons/intellij-new-ui-product-icons.json');
+
+  // Typography & Editor defaults
   assert.equal(uiPkg.contributes.configurationDefaults['editor.fontFamily'], "'JetBrains Mono', Consolas, monospace");
   assert.equal(uiPkg.contributes.configurationDefaults['editor.fontSize'], 13.5);
   assert.equal(uiPkg.contributes.configurationDefaults['editor.lineHeight'], 1.6);
@@ -30,16 +32,25 @@ test('Extension manifests have required IntelliJ New UI contributions and comman
   assert.equal(uiPkg.contributes.configurationDefaults['cSpell.enabled'], false);
   assert.equal(uiPkg.contributes.configurationDefaults['editor.semanticHighlighting.enabled'], true);
 
-  const keymapPkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'jetbrains-intellij-keymap/package.json'), 'utf8'));
-  assert.equal(keymapPkg.name, 'jetbrains-intellij-keymap');
-  assert.equal(keymapPkg.publisher, 'elaand');
-  assert.ok(Array.isArray(keymapPkg.contributes.keybindings));
-  assert.ok(keymapPkg.contributes.keybindings.length >= 34);
+  // Settings UI properties (enableKeymap & onlyApplyInJavaProjects)
+  const props = uiPkg.contributes.configuration?.properties;
+  assert.ok(props, 'contributes.configuration.properties must exist');
+  assert.equal(props['intellijNewUi.enableKeymap']?.type, 'boolean');
+  assert.equal(props['intellijNewUi.enableKeymap']?.default, true);
+  assert.equal(props['intellijNewUi.onlyApplyInJavaProjects']?.type, 'boolean');
+  assert.equal(props['intellijNewUi.onlyApplyInJavaProjects']?.default, false);
 
-  // Review Focus #2: Do not hijack user's custom ctrl+i or ctrl+1 AI chat shortcuts
-  const forbiddenKeys = keymapPkg.contributes.keybindings.filter(
+  // Merged keybindings with zero-overhead when-clauses
+  const keybindings = uiPkg.contributes.keybindings;
+  assert.ok(Array.isArray(keybindings) && keybindings.length >= 34, 'Keybindings must be merged into main extension');
+  for (const kb of keybindings) {
+    assert.match(kb.when || '', /config\.intellijNewUi\.enableKeymap/, `Keybinding ${kb.key} must respect config.intellijNewUi.enableKeymap`);
+    assert.match(kb.when || '', /intellijNewUi\.isJavaProject/, `Keybinding ${kb.key} must respect Java project condition`);
+  }
+
+  // Must not override user's custom ctrl+i or ctrl+1 AI chat shortcuts
+  const forbiddenKeys = keybindings.filter(
     k => ['ctrl+i', 'ctrl+1'].includes(String(k.key).toLowerCase())
   );
   assert.equal(forbiddenKeys.length, 0, 'Keymap must not override ctrl+i or ctrl+1');
 });
-

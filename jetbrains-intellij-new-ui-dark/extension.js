@@ -28,6 +28,34 @@ const RECOMMENDED_SETTINGS = {
   'workbench.tree.renderIndentGuides': 'onHover'
 };
 
+const JAVA_MARKERS = ['pom.xml', 'build.gradle', 'build.gradle.kts', 'mvnw', 'gradlew', '.mvn'];
+
+// Fast synchronous 1-time check (< 1ms) at startup: checks root and 1-level subfolders
+function detectJavaWorkspace() {
+  const folders = vscode.workspace.workspaceFolders;
+  if (!folders || folders.length === 0) return false;
+  for (const folder of folders) {
+    const rootPath = folder.uri.fsPath;
+    for (const marker of JAVA_MARKERS) {
+      if (fs.existsSync(path.join(rootPath, marker))) return true;
+    }
+    try {
+      const entries = fs.readdirSync(rootPath, { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.isFile() && entry.name.endsWith('.java')) return true;
+        if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'node_modules') {
+          for (const marker of JAVA_MARKERS) {
+            if (fs.existsSync(path.join(rootPath, entry.name, marker))) return true;
+          }
+        }
+      }
+    } catch {
+      // Ignore permission errors
+    }
+  }
+  return false;
+}
+
 function classifyJavaContent(src, fileName) {
   const lower = fileName.toLowerCase();
   if (lower.endsWith('test.java') || lower.endsWith('tests.java') || lower.endsWith('it.java')) {
@@ -69,7 +97,7 @@ function updateJavaFileIconMapping(context, uri) {
   }
 }
 
-async function applySettings(context) {
+async function applySettings(context, silent = false) {
   const config = vscode.workspace.getConfiguration();
   const previous = {};
   for (const key of Object.keys(RECOMMENDED_SETTINGS)) {
@@ -79,10 +107,12 @@ async function applySettings(context) {
   for (const [key, value] of Object.entries(RECOMMENDED_SETTINGS)) {
     await config.update(key, value, vscode.ConfigurationTarget.Global);
   }
-  vscode.window.showInformationMessage('Đã áp dụng bộ giao diện, icon và font chuẩn IntelliJ IDEA New UI Dark (Pro).');
+  if (!silent) {
+    vscode.window.showInformationMessage('Đã áp dụng bộ giao diện, icon và font chuẩn IntelliJ IDEA New UI Dark (Pro).');
+  }
 }
 
-async function restoreSettings(context) {
+async function restoreSettings(context, silent = false) {
   const previous = context.globalState.get('intellijNewUi.previousSettings');
   const config = vscode.workspace.getConfiguration();
   if (previous && typeof previous === 'object') {
@@ -92,15 +122,52 @@ async function restoreSettings(context) {
   } else {
     await config.update('workbench.colorTheme', 'Default Dark+', vscode.ConfigurationTarget.Global);
     await config.update('workbench.iconTheme', 'material-icon-theme', vscode.ConfigurationTarget.Global);
-    await config.update('workbench.productIconTheme', undefined, vscode.ConfigurationTarget.Global);
+    await config.update('workbench.productIconTheme', 'Default', vscode.ConfigurationTarget.Global);
   }
-  vscode.window.showInformationMessage('Đã khôi phục cấu hình giao diện trước đó.');
+  if (!silent) {
+    vscode.window.showInformationMessage('Đã khôi phục cấu hình giao diện trước đó.');
+  }
+}
+
+async function syncJavaProjectScope(context, isJavaProject) {
+  const config = vscode.workspace.getConfiguration();
+  const onlyJava = config.get('intellijNewUi.onlyApplyInJavaProjects', false);
+  if (!onlyJava) return;
+  const currentTheme = config.get('workbench.colorTheme');
+  if (isJavaProject && currentTheme !== 'IntelliJ IDEA New UI Dark (Pro)') {
+    await applySettings(context, true);
+  } else if (!isJavaProject && currentTheme === 'IntelliJ IDEA New UI Dark (Pro)') {
+    await restoreSettings(context, true);
+  }
+}
+
+async function toggleKeymap() {
+  const config = vscode.workspace.getConfiguration('intellijNewUi');
+  const current = config.get('enableKeymap', true);
+  await config.update('enableKeymap', !current, vscode.ConfigurationTarget.Global);
+  vscode.window.showInformationMessage(
+    !current
+      ? 'Đã BẬT bộ phím tắt IntelliJ IDEA Keymap.'
+      : 'Đã TẮT bộ phím tắt IntelliJ IDEA Keymap (trở về phím tắt mặc định).'
+  );
 }
 
 function activate(context) {
+  const isJavaProject = detectJavaWorkspace();
+  vscode.commands.executeCommand('setContext', 'intellijNewUi.isJavaProject', isJavaProject);
+  syncJavaProjectScope(context, isJavaProject);
+
   context.subscriptions.push(
-    vscode.commands.registerCommand('intellijNewUi.applySettings', () => applySettings(context)),
-    vscode.commands.registerCommand('intellijNewUi.restoreSettings', () => restoreSettings(context)),
+    vscode.commands.registerCommand('intellijNewUi.applySettings', () => applySettings(context, false)),
+    vscode.commands.registerCommand('intellijNewUi.restoreSettings', () => restoreSettings(context, false)),
+    vscode.commands.registerCommand('intellijNewUi.toggleKeymap', () => toggleKeymap()),
+    vscode.workspace.onDidChangeConfiguration((e) => {
+      if (e.affectsConfiguration('intellijNewUi.onlyApplyInJavaProjects')) {
+        const javaNow = detectJavaWorkspace();
+        vscode.commands.executeCommand('setContext', 'intellijNewUi.isJavaProject', javaNow);
+        syncJavaProjectScope(context, javaNow);
+      }
+    }),
     vscode.workspace.onDidSaveTextDocument((doc) => updateJavaFileIconMapping(context, doc.uri)),
     vscode.workspace.onDidCreateFiles((event) => {
       for (const uri of event.files) {
@@ -113,4 +180,3 @@ function activate(context) {
 function deactivate() {}
 
 module.exports = { activate, deactivate };
-

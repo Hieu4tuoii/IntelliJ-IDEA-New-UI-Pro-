@@ -9,6 +9,10 @@ const FONT_DIR = path.join(process.env.LOCALAPPDATA, 'Microsoft/Windows/Fonts');
 fs.mkdirSync(DIST_DIR, { recursive: true });
 fs.mkdirSync(FONT_DIR, { recursive: true });
 
+// Remove legacy separate keymap extension source & VSIX if present
+fs.rmSync(path.join(ROOT, 'jetbrains-intellij-keymap'), { recursive: true, force: true });
+fs.rmSync(path.join(DIST_DIR, 'jetbrains-intellij-keymap-1.0.0.vsix'), { force: true });
+
 // 1. Download & install official JetBrains Mono TTF fonts into Windows User Fonts + Registry + GDI32 live load
 const FONTS = [
   { file: 'JetBrainsMono-Regular.ttf', regName: 'JetBrains Mono Regular (TrueType)' },
@@ -35,7 +39,6 @@ for (const font of FONTS) {
   }
 }
 
-// Register fonts in HKCU and broadcast WM_FONTCHANGE via Python ctypes
 const pyFontInstall = `
 import ctypes, os, winreg
 
@@ -58,7 +61,7 @@ print("Installed and activated JetBrains Mono fonts in Windows session.")
 `;
 execSync('python -', { input: pyFontInstall, stdio: ['pipe', 'inherit', 'inherit'] });
 
-// 2. Package both extensions as .vsix archives (OpenVSX / VS Code standard zip layout under extension/)
+// 2. Package unified extension as .vsix archive
 const pyPackageVsix = `
 import os, zipfile, json
 
@@ -104,11 +107,10 @@ def build_vsix(ext_folder_name, vsix_filename):
     print(f"Packaged {vsix_path} ({os.path.getsize(vsix_path)} bytes)")
 
 build_vsix("jetbrains-intellij-new-ui-dark", "jetbrains-intellij-new-ui-dark-1.0.0.vsix")
-build_vsix("jetbrains-intellij-keymap", "jetbrains-intellij-keymap-1.0.0.vsix")
 `;
 execSync('python -', { input: pyPackageVsix, stdio: ['pipe', 'inherit', 'inherit'] });
 
-// 3. Install into both .antigravity/extensions and .antigravity-ide/extensions & register in extensions.json
+// 3. Install unified extension into both .antigravity/extensions and .antigravity-ide/extensions & clean up old keymap extension
 function copyDirSync(src, dest) {
   fs.mkdirSync(dest, { recursive: true });
   for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
@@ -127,23 +129,19 @@ const EXT_ROOTS = [
   'C:/Users/ADMIN/.antigravity-ide/extensions'
 ];
 
-const EXTENSIONS_TO_INSTALL = [
-  {
-    srcDir: path.join(ROOT, 'jetbrains-intellij-new-ui-dark'),
-    targetFolder: 'elaand.jetbrains-intellij-new-ui-dark-1.0.0',
-    id: 'elaand.jetbrains-intellij-new-ui-dark',
-    version: '1.0.0'
-  },
-  {
-    srcDir: path.join(ROOT, 'jetbrains-intellij-keymap'),
-    targetFolder: 'elaand.jetbrains-intellij-keymap-1.0.0',
-    id: 'elaand.jetbrains-intellij-keymap',
-    version: '1.0.0'
-  }
-];
+const UNIFIED_EXT = {
+  srcDir: path.join(ROOT, 'jetbrains-intellij-new-ui-dark'),
+  targetFolder: 'elaand.jetbrains-intellij-new-ui-dark-1.0.0',
+  id: 'elaand.jetbrains-intellij-new-ui-dark',
+  version: '1.0.0'
+};
 
 for (const extRoot of EXT_ROOTS) {
   if (!fs.existsSync(extRoot)) continue;
+
+  // Remove old separate keymap extension folder
+  fs.rmSync(path.join(extRoot, 'elaand.jetbrains-intellij-keymap-1.0.0'), { recursive: true, force: true });
+
   const regPath = path.join(extRoot, 'extensions.json');
   let registry = [];
   if (fs.existsSync(regPath)) {
@@ -154,37 +152,35 @@ for (const extRoot of EXT_ROOTS) {
     }
   }
 
-  for (const ext of EXTENSIONS_TO_INSTALL) {
-    const destDir = path.join(extRoot, ext.targetFolder);
-    copyDirSync(ext.srcDir, destDir);
+  const destDir = path.join(extRoot, UNIFIED_EXT.targetFolder);
+  copyDirSync(UNIFIED_EXT.srcDir, destDir);
 
-    // Remove existing registration entry if present
-    registry = registry.filter(item => item?.identifier?.id !== ext.id);
-    const normalizedPath = destDir.replace(/\\/g, '/').replace(/^([A-Za-z]):/, (_, d) => `/${d.toLowerCase()}:`);
-    registry.push({
-      identifier: { id: ext.id },
-      version: ext.version,
-      location: {
-        $mid: 1,
-        path: normalizedPath,
-        scheme: 'file'
-      },
-      relativeLocation: ext.targetFolder,
-      metadata: {
-        installedTimestamp: Date.now(),
-        pinned: true,
-        source: 'vsix'
-      }
-    });
-  }
+  registry = registry.filter(
+    item => item?.identifier?.id !== UNIFIED_EXT.id && item?.identifier?.id !== 'elaand.jetbrains-intellij-keymap'
+  );
+  const normalizedPath = destDir.replace(/\\/g, '/').replace(/^([A-Za-z]):/, (_, d) => `/${d.toLowerCase()}:`);
+  registry.push({
+    identifier: { id: UNIFIED_EXT.id },
+    version: UNIFIED_EXT.version,
+    location: {
+      $mid: 1,
+      path: normalizedPath,
+      scheme: 'file'
+    },
+    relativeLocation: UNIFIED_EXT.targetFolder,
+    metadata: {
+      installedTimestamp: Date.now(),
+      pinned: true,
+      source: 'vsix'
+    }
+  });
 
   fs.writeFileSync(regPath, JSON.stringify(registry), 'utf8');
-  console.log(`Installed extensions and updated ${regPath}`);
+  console.log(`Installed unified extension and cleaned up ${regPath}`);
 }
 
-// 4. Safely backup and update settings.json for both Antigravity and Antigravity IDE (handling JSONC trailing commas)
+// 4. Safely backup and update settings.json for both Antigravity and Antigravity IDE
 function parseJsonc(raw) {
-  // Remove trailing commas before } or ] outside strings
   const cleaned = raw.replace(/,(\s*[}\]])/g, '$1');
   return JSON.parse(cleaned);
 }
@@ -223,6 +219,12 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
   settings['cSpell.enabled'] = false;
   settings['workbench.tree.indent'] = 16;
   settings['workbench.tree.renderIndentGuides'] = 'onHover';
+  if (settings['intellijNewUi.enableKeymap'] === undefined) {
+    settings['intellijNewUi.enableKeymap'] = true;
+  }
+  if (settings['intellijNewUi.onlyApplyInJavaProjects'] === undefined) {
+    settings['intellijNewUi.onlyApplyInJavaProjects'] = false;
+  }
 
   fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + '\n', 'utf8');
   console.log(`Backed up and updated ${settingsPath}`);
