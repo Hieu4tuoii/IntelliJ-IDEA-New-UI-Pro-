@@ -36,7 +36,7 @@ test('JetBrains Mono font, single unified VSIX package v1.1.0, extension directo
     const parsed = JSON.parse(content);
     assert.equal(parsed['workbench.colorTheme'], 'IntelliJ IDEA New UI Dark (Pro)');
     assert.equal(parsed['workbench.iconTheme'], 'intellij-new-ui-file-icons');
-    assert.equal(parsed['workbench.productIconTheme'], 'intellij-new-ui-product-icons');
+    assert.equal(parsed['workbench.productIconTheme'], undefined);
     assert.equal(parsed['editor.fontFamily'], "'JetBrains Mono', Consolas, monospace");
     assert.equal(parsed['editor.fontSize'], 13);
     assert.equal(parsed['editor.lineHeight'], 1.55);

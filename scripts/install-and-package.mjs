@@ -200,7 +200,7 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
 
   settings['workbench.colorTheme'] = 'IntelliJ IDEA New UI Dark (Pro)';
   settings['workbench.iconTheme'] = 'intellij-new-ui-file-icons';
-  settings['workbench.productIconTheme'] = 'intellij-new-ui-product-icons';
+  delete settings['workbench.productIconTheme'];
   settings['window.zoomLevel'] = 0.3;
   delete settings['editor.fontWeight'];
   delete settings['terminal.integrated.fontSize'];

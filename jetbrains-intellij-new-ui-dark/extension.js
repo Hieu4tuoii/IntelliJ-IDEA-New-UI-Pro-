@@ -5,7 +5,6 @@ const path = require('path');
 const RECOMMENDED_SETTINGS = {
   'workbench.colorTheme': 'IntelliJ IDEA New UI Dark (Pro)',
   'workbench.iconTheme': 'intellij-new-ui-file-icons',
-  'workbench.productIconTheme': 'intellij-new-ui-product-icons',
   'editor.fontFamily': "'JetBrains Mono', Consolas, monospace",
   'terminal.integrated.fontFamily': "'JetBrains Mono', Consolas, monospace",
   'editor.fontSize': 13,
@@ -145,6 +144,10 @@ async function writeSettingsFileAtomically(mode) {
       let changed = false;
 
       if (mode === 'intellij') {
+        if ('workbench.productIconTheme' in data) {
+          delete data['workbench.productIconTheme'];
+          changed = true;
+        }
         for (const [key, val] of Object.entries(RECOMMENDED_SETTINGS)) {
           if (JSON.stringify(data[key]) !== JSON.stringify(val)) {
             data[key] = val;
