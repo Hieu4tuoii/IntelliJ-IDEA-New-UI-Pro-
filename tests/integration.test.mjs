@@ -61,8 +61,10 @@ test('JetBrains Mono font, single unified VSIX package v1.1.0, extension directo
     assert.ok(Array.isArray(parsed['headwind.defaultSortOrder']), 'Existing headwind settings must be preserved');
   }
 
-  // 5. Verify extension.js atomic file switcher works on a mock settings.json without throwing CodeExpectedError
+  // 5. Verify extension.js workspace-scoped isolation (.vscode/settings.json + .git/info/exclude + files.exclude)
   const extSrc = fs.readFileSync(path.join(ROOT, 'jetbrains-intellij-new-ui-dark/extension.js'), 'utf8');
   assert.match(extSrc, /writeSettingsFileAtomically/, 'extension.js must use atomic file writes to avoid CodeExpectedError');
-  assert.match(extSrc, /onDidChangeWindowState/, 'extension.js must sync Java project scope when switching windows');
+  assert.match(extSrc, /writeWorkspaceSettingsAtomically/, 'extension.js must isolate Java project theme in workspace .vscode/settings.json');
+  assert.match(extSrc, /ensureGitExclude/, 'extension.js must hide .vscode/settings.json in .git/info/exclude');
+  assert.match(extSrc, /files\.exclude/, 'extension.js must hide .vscode in Explorer via files.exclude');
 });

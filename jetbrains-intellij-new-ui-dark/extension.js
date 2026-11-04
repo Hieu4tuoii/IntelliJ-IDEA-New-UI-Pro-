@@ -205,6 +205,146 @@ function getSettingsFilePaths() {
     .filter((p) => fs.existsSync(p));
 }
 
+function ensureGitExclude(rootPath) {
+  const gitDirs = [path.join(rootPath, '.git')];
+  try {
+    const entries = fs.readdirSync(rootPath, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'node_modules') {
+        gitDirs.push(path.join(rootPath, entry.name, '.git'));
+      }
+    }
+  } catch {
+    // Ignore read errors
+  }
+
+  for (const gitDir of gitDirs) {
+    try {
+      if (!fs.existsSync(gitDir) || !fs.statSync(gitDir).isDirectory()) continue;
+      const infoDir = path.join(gitDir, 'info');
+      fs.mkdirSync(infoDir, { recursive: true });
+      const excludePath = path.join(infoDir, 'exclude');
+      const existing = fs.existsSync(excludePath) ? fs.readFileSync(excludePath, 'utf8') : '';
+      const lines = existing.split(/\r?\n/).map((l) => l.trim());
+      const additions = [];
+      if (!lines.includes('.vscode/') && !lines.includes('.vscode')) {
+        additions.push('.vscode/');
+      }
+      if (!lines.includes('.vscode/settings.json')) {
+        additions.push('.vscode/settings.json');
+      }
+      if (additions.length > 0) {
+        const prefix = existing.length > 0 && !existing.endsWith('\n') ? '\n' : '';
+        fs.writeFileSync(excludePath, `${existing}${prefix}${additions.join('\n')}\n`, 'utf8');
+      }
+    } catch {
+      // Ignore git exclude write errors
+    }
+  }
+}
+
+async function writeWorkspaceSettingsAtomically(mode) {
+  const folders = vscode.workspace.workspaceFolders;
+  if (!folders || folders.length === 0) return;
+
+  for (const doc of vscode.workspace.textDocuments) {
+    if (doc.isDirty && doc.uri.fsPath && doc.uri.fsPath.endsWith('settings.json')) {
+      try {
+        await doc.save();
+      } catch {
+        // Ignore
+      }
+    }
+  }
+
+  const rootPath = folders[0].uri.fsPath;
+  const vscodeDir = path.join(rootPath, '.vscode');
+  const wsSettingsPath = path.join(vscodeDir, 'settings.json');
+
+  try {
+    if (mode === 'intellij') {
+      ensureGitExclude(rootPath);
+      fs.mkdirSync(vscodeDir, { recursive: true });
+      let data = {};
+      if (fs.existsSync(wsSettingsPath)) {
+        try {
+          const raw = fs.readFileSync(wsSettingsPath, 'utf8');
+          data = JSON.parse(raw.replace(/,(\s*[}\]])/g, '$1'));
+        } catch {
+          data = {};
+        }
+      }
+      let changed = false;
+      if ('workbench.productIconTheme' in data) {
+        delete data['workbench.productIconTheme'];
+        changed = true;
+      }
+      for (const [key, val] of Object.entries(RECOMMENDED_SETTINGS)) {
+        if (JSON.stringify(data[key]) !== JSON.stringify(val)) {
+          data[key] = val;
+          changed = true;
+        }
+      }
+      const filesExclude =
+        data['files.exclude'] && typeof data['files.exclude'] === 'object' ? { ...data['files.exclude'] } : {};
+      if (filesExclude['**/.vscode'] !== true || filesExclude['**/.vscode/settings.json'] !== true) {
+        filesExclude['**/.vscode'] = true;
+        filesExclude['**/.vscode/settings.json'] = true;
+        data['files.exclude'] = filesExclude;
+        changed = true;
+      }
+      if (changed) {
+        fs.writeFileSync(wsSettingsPath, JSON.stringify(data, null, 2) + '\n', 'utf8');
+      }
+    } else if (mode === 'clean') {
+      if (!fs.existsSync(wsSettingsPath)) return;
+      const raw = fs.readFileSync(wsSettingsPath, 'utf8');
+      const data = JSON.parse(raw.replace(/,(\s*[}\]])/g, '$1'));
+      let changed = false;
+
+      if ('workbench.productIconTheme' in data) {
+        delete data['workbench.productIconTheme'];
+        changed = true;
+      }
+      for (const key of Object.keys(RECOMMENDED_SETTINGS)) {
+        if (key in data) {
+          delete data[key];
+          changed = true;
+        }
+      }
+      if (data['files.exclude'] && typeof data['files.exclude'] === 'object') {
+        if ('**/.vscode' in data['files.exclude']) {
+          delete data['files.exclude']['**/.vscode'];
+          changed = true;
+        }
+        if ('**/.vscode/settings.json' in data['files.exclude']) {
+          delete data['files.exclude']['**/.vscode/settings.json'];
+          changed = true;
+        }
+        if (Object.keys(data['files.exclude']).length === 0) {
+          delete data['files.exclude'];
+          changed = true;
+        }
+      }
+
+      if (Object.keys(data).length === 0) {
+        fs.rmSync(wsSettingsPath, { force: true });
+        try {
+          if (fs.readdirSync(vscodeDir).length === 0) {
+            fs.rmdirSync(vscodeDir);
+          }
+        } catch {
+          // Ignore
+        }
+      } else if (changed) {
+        fs.writeFileSync(wsSettingsPath, JSON.stringify(data, null, 2) + '\n', 'utf8');
+      }
+    }
+  } catch {
+    // Ignore workspace settings errors
+  }
+}
+
 // Writes User/settings.json atomically on disk to avoid VS Code CodeExpectedError
 // ("Unable to write into user settings because the content of the file is newer / has unsaved changes")
 async function writeSettingsFileAtomically(mode) {
@@ -238,6 +378,10 @@ async function writeSettingsFileAtomically(mode) {
           }
         }
       } else if (mode === 'default') {
+        if ('workbench.productIconTheme' in data) {
+          delete data['workbench.productIconTheme'];
+          changed = true;
+        }
         for (const key of Object.keys(RECOMMENDED_SETTINGS)) {
           if (key in DEFAULT_FALLBACK_SETTINGS) {
             if (data[key] !== DEFAULT_FALLBACK_SETTINGS[key]) {
@@ -261,20 +405,30 @@ async function writeSettingsFileAtomically(mode) {
 }
 
 async function applySettings(context, silent = false) {
-  await writeSettingsFileAtomically('intellij');
+  const config = vscode.workspace.getConfiguration();
+  const onlyJava = config.get('intellijNewUi.onlyApplyInJavaProjects', false);
+  const isJavaProject = detectJavaWorkspace();
+  if (onlyJava && isJavaProject) {
+    await writeWorkspaceSettingsAtomically('intellij');
+    await writeSettingsFileAtomically('default');
+  } else {
+    await writeWorkspaceSettingsAtomically('clean');
+    await writeSettingsFileAtomically('intellij');
+  }
   if (!silent) {
     vscode.window.showInformationMessage('Đã áp dụng bộ giao diện, icon và font chuẩn IntelliJ IDEA New UI Dark (Pro).');
   }
 }
 
 async function restoreSettings(context, silent = false) {
+  await writeWorkspaceSettingsAtomically('clean');
   await writeSettingsFileAtomically('default');
   if (!silent) {
     vscode.window.showInformationMessage('Đã khôi phục cấu hình giao diện mặc định.');
   }
 }
 
-async function syncJavaProjectScope(context, forceRun = false) {
+async function syncJavaProjectScope(context) {
   const isJavaProject = detectJavaWorkspace();
   const config = vscode.workspace.getConfiguration();
   const onlyJava = config.get('intellijNewUi.onlyApplyInJavaProjects', false);
@@ -284,13 +438,18 @@ async function syncJavaProjectScope(context, forceRun = false) {
   vscode.commands.executeCommand('setContext', 'intellijNewUi.disabledInThisWindow', disabledInThisWindow);
   vscode.commands.executeCommand('setContext', 'intellijNewUi.isJavaProject', isJavaProject);
 
-  if (!onlyJava) return;
-  if (!forceRun && !vscode.window.state.focused) return;
-
-  if (isJavaProject) {
-    await applySettings(context, true);
+  if (onlyJava) {
+    // Isolate Java settings in workspace .vscode/settings.json (hidden via files.exclude & .git/info/exclude)
+    // and keep global User/settings.json on default so Java and JS windows can run side-by-side without conflict
+    if (isJavaProject) {
+      await writeWorkspaceSettingsAtomically('intellij');
+    } else {
+      await writeWorkspaceSettingsAtomically('clean');
+    }
+    await writeSettingsFileAtomically('default');
   } else {
-    await restoreSettings(context, true);
+    await writeWorkspaceSettingsAtomically('clean');
+    await writeSettingsFileAtomically('intellij');
   }
 }
 
@@ -306,25 +465,20 @@ async function toggleKeymap() {
 }
 
 function activate(context) {
-  syncJavaProjectScope(context, true);
+  syncJavaProjectScope(context);
   setImmediate(() => scanWorkspaceJavaIcons(context));
 
   context.subscriptions.push(
     vscode.commands.registerCommand('intellijNewUi.applySettings', () => applySettings(context, false)),
     vscode.commands.registerCommand('intellijNewUi.restoreSettings', () => restoreSettings(context, false)),
     vscode.commands.registerCommand('intellijNewUi.toggleKeymap', () => toggleKeymap()),
-    vscode.window.onDidChangeWindowState((state) => {
-      if (state.focused) {
-        syncJavaProjectScope(context, true);
-      }
-    }),
     vscode.workspace.onDidChangeWorkspaceFolders(() => {
-      syncJavaProjectScope(context, true);
+      syncJavaProjectScope(context);
       setImmediate(() => scanWorkspaceJavaIcons(context));
     }),
     vscode.workspace.onDidChangeConfiguration((e) => {
       if (e.affectsConfiguration('intellijNewUi.onlyApplyInJavaProjects')) {
-        syncJavaProjectScope(context, true);
+        syncJavaProjectScope(context);
       }
     }),
     vscode.workspace.onDidOpenTextDocument((doc) => updateJavaFileIconMapping(context, doc.uri)),
