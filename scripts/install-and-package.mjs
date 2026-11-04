@@ -205,8 +205,11 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
   settings['workbench.productIconTheme'] = 'intellij-new-ui-product-icons';
   settings['editor.fontFamily'] = "'JetBrains Mono', Consolas, monospace";
   settings['terminal.integrated.fontFamily'] = "'JetBrains Mono', Consolas, monospace";
-  settings['editor.fontSize'] = 13;
-  settings['editor.lineHeight'] = 1.35;
+  settings['editor.fontSize'] = 13.5;
+  settings['editor.lineHeight'] = 1.6;
+  settings['editor.letterSpacing'] = 0.3;
+  settings['terminal.integrated.lineHeight'] = 1.3;
+  settings['terminal.integrated.letterSpacing'] = 0.2;
   settings['editor.fontLigatures'] = false;
   settings['editor.semanticHighlighting.enabled'] = true;
   settings['editor.renderLineHighlight'] = 'all';

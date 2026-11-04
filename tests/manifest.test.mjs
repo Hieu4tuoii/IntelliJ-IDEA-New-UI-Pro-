@@ -21,6 +21,9 @@ test('Extension manifests have required IntelliJ New UI contributions and comman
   assert.equal(uiPkg.contributes.productIconThemes[0].id, 'intellij-new-ui-product-icons');
   assert.equal(uiPkg.contributes.productIconThemes[0].path, './icons/product-icons/intellij-new-ui-product-icons.json');
   assert.equal(uiPkg.contributes.configurationDefaults['editor.fontFamily'], "'JetBrains Mono', Consolas, monospace");
+  assert.equal(uiPkg.contributes.configurationDefaults['editor.fontSize'], 13.5);
+  assert.equal(uiPkg.contributes.configurationDefaults['editor.lineHeight'], 1.6);
+  assert.equal(uiPkg.contributes.configurationDefaults['editor.letterSpacing'], 0.3);
   assert.equal(uiPkg.contributes.configurationDefaults['editor.semanticHighlighting.enabled'], true);
 
   const keymapPkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'jetbrains-intellij-keymap/package.json'), 'utf8'));

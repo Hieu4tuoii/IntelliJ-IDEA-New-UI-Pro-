@@ -296,7 +296,7 @@ const theme = {
     'editorError.border': '#00000000',
     'editorWarning.foreground': '#F2C55C',
     'editorWarning.border': '#00000000',
-    'editorInfo.foreground': '#56A8F5',
+    'editorInfo.foreground': '#627858B3',
     'editorHint.foreground': '#857042',
     'problemsErrorIcon.foreground': '#F75464',
     'problemsWarningIcon.foreground': '#F2C55C',

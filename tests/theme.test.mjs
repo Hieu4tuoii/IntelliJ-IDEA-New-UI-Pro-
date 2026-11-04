@@ -19,6 +19,7 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   assert.equal(theme.colors['list.activeSelectionBackground'].toUpperCase(), '#2E436E');
   assert.equal(theme.colors['editor.selectionBackground'].toUpperCase(), '#214283');
   assert.equal(theme.colors['editor.lineHighlightBackground'].toUpperCase(), '#26282E');
+  assert.equal(theme.colors['editorInfo.foreground'].toUpperCase(), '#627858B3');
   assert.ok(Object.keys(theme.colors).length >= 320, `Must cover >= 320 workbench color keys, got ${Object.keys(theme.colors).length}`);
 
   // Semantic tokens for Java/Spring & TS

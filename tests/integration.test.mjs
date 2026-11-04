@@ -35,6 +35,9 @@ test('JetBrains Mono font, VSIX packages, extension directories, and IDE setting
     assert.equal(parsed['workbench.iconTheme'], 'intellij-new-ui-file-icons');
     assert.equal(parsed['workbench.productIconTheme'], 'intellij-new-ui-product-icons');
     assert.equal(parsed['editor.fontFamily'], "'JetBrains Mono', Consolas, monospace");
+    assert.equal(parsed['editor.fontSize'], 13.5);
+    assert.equal(parsed['editor.lineHeight'], 1.6);
+    assert.equal(parsed['editor.letterSpacing'], 0.3);
     assert.equal(parsed['editor.semanticHighlighting.enabled'], true);
     assert.ok(Array.isArray(parsed['headwind.defaultSortOrder']), 'Existing headwind settings must be preserved');
   }
