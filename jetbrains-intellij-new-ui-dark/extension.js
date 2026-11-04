@@ -24,6 +24,7 @@ const RECOMMENDED_SETTINGS = {
     '**/*.java': '${filename}'
   },
   'cSpell.enabled': false,
+  'problems.decorations.enabled': false,
   'workbench.tree.indent': 16,
   'workbench.tree.renderIndentGuides': 'onHover'
 };

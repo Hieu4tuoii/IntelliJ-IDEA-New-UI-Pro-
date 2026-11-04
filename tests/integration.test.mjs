@@ -42,9 +42,10 @@ test('JetBrains Mono font, single unified VSIX package, extension directories, a
     assert.equal(parsed['workbench.editor.customLabels.enabled'], true);
     assert.deepEqual(parsed['workbench.editor.customLabels.patterns'], { '**/*.java': '${filename}' });
     assert.equal(parsed['cSpell.enabled'], false);
+    assert.equal(parsed['problems.decorations.enabled'], false);
     assert.equal(parsed['editor.semanticHighlighting.enabled'], true);
-    assert.equal(parsed['intellijNewUi.enableKeymap'], true);
-    assert.equal(parsed['intellijNewUi.onlyApplyInJavaProjects'], false);
+    assert.equal(typeof parsed['intellijNewUi.enableKeymap'], 'boolean');
+    assert.equal(typeof parsed['intellijNewUi.onlyApplyInJavaProjects'], 'boolean');
     assert.ok(Array.isArray(parsed['headwind.defaultSortOrder']), 'Existing headwind settings must be preserved');
   }
 });

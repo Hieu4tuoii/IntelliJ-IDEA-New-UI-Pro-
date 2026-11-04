@@ -217,6 +217,7 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
     '**/*.java': '${filename}'
   };
   settings['cSpell.enabled'] = false;
+  settings['problems.decorations.enabled'] = false;
   settings['workbench.tree.indent'] = 16;
   settings['workbench.tree.renderIndentGuides'] = 'onHover';
   if (settings['intellijNewUi.enableKeymap'] === undefined) {

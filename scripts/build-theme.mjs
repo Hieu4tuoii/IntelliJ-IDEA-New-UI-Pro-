@@ -105,7 +105,7 @@ const theme = {
     'list.inactiveFocusOutline': '#43454A',
     'list.invalidItemForeground': '#F75464',
     'list.errorForeground': '#F75464',
-    'list.warningForeground': '#F2C55C',
+    'list.warningForeground': '#DFE1E5',
     'listFilterWidget.background': '#1E1F22',
     'listFilterWidget.outline': '#3574F0',
     'listFilterWidget.noMatchesOutline': '#F75464',
@@ -530,7 +530,17 @@ const theme = {
     'welcomePage.background': '#1E1F22',
     'welcomePage.tileBackground': '#2B2D30',
     'welcomePage.tileHoverBackground': '#393B40',
-    'welcomePage.tileBorder': '#393B40'
+    'welcomePage.tileBorder': '#393B40',
+    'symbolIcon.classForeground': '#548AF7',
+    'symbolIcon.interfaceForeground': '#57965C',
+    'symbolIcon.enumeratorForeground': '#C08DF2',
+    'symbolIcon.methodForeground': '#E5A14B',
+    'symbolIcon.functionForeground': '#E5A14B',
+    'symbolIcon.constructorForeground': '#E5A14B',
+    'symbolIcon.fieldForeground': '#CF8E6D',
+    'symbolIcon.propertyForeground': '#C77DBB',
+    'symbolIcon.packageForeground': '#9DA0A8',
+    'symbolIcon.namespaceForeground': '#9DA0A8'
   },
 
   // Deep Semantic Highlighting (JetBrains dark.xml exact rules)
