@@ -30,3 +30,4 @@ test('Extension manifests have required IntelliJ New UI contributions and comman
   );
   assert.equal(forbiddenKeys.length, 0, 'Keymap must not override ctrl+i or ctrl+1');
 });
+

@@ -846,3 +846,4 @@ const theme = {
 fs.mkdirSync(path.dirname(OUT_PATH), { recursive: true });
 fs.writeFileSync(OUT_PATH, JSON.stringify(theme, null, 2), 'utf8');
 console.log(`Generated ${OUT_PATH} with ${Object.keys(theme.colors).length} workbench colors.`);
+

@@ -28,11 +28,17 @@ function classifyJavaContent(src, fileName) {
     return '_java_exception';
   }
   const cleaned = src.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
-  if (/\b@interface\s+\w+/.test(cleaned)) return '_java_annotation';
+  if (/(?:^|\s)@interface\s+\w+/.test(cleaned)) return '_java_annotation';
   if (/\binterface\s+\w+/.test(cleaned)) return '_java_interface';
   if (/\benum\s+\w+/.test(cleaned)) return '_java_enum';
   if (/\brecord\s+\w+/.test(cleaned)) return '_java_record';
   if (/\babstract\s+class\s+\w+/.test(cleaned)) return '_java_abstract';
+  if (lower.endsWith('dto.java') || lower.endsWith('request.java') || lower.endsWith('response.java') || lower.endsWith('record.java')) {
+    return '_java_record';
+  }
+  if (lower.startsWith('abstract') || lower.startsWith('base')) {
+    return '_java_abstract';
+  }
   return '_java_class';
 }
 
@@ -98,3 +104,4 @@ function activate(context) {
 function deactivate() {}
 
 module.exports = { activate, deactivate };
+

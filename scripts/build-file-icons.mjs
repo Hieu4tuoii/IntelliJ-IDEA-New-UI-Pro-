@@ -285,7 +285,7 @@ function classifyJavaFile(filePath, baseName) {
     const src = fs.readFileSync(filePath, 'utf8');
     // Strip block & line comments quickly so we match actual declaration
     const cleaned = src.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
-    if (/\b@interface\s+\w+/.test(cleaned)) return '_java_annotation';
+    if (/(?:^|\s)@interface\s+\w+/.test(cleaned)) return '_java_annotation';
     if (/\binterface\s+\w+/.test(cleaned)) return '_java_interface';
     if (/\benum\s+\w+/.test(cleaned)) return '_java_enum';
     if (/\brecord\s+\w+/.test(cleaned)) return '_java_record';
@@ -457,3 +457,4 @@ const fileIconTheme = {
 
 fs.writeFileSync(JSON_PATH, JSON.stringify(fileIconTheme, null, 2), 'utf8');
 console.log(`Generated ${Object.keys(SVGS).length} expui SVGs and mapped ${Object.keys(fileNames).length} specific files in ${JSON_PATH}`);
+

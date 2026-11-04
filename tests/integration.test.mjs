@@ -39,3 +39,4 @@ test('JetBrains Mono font, VSIX packages, extension directories, and IDE setting
     assert.ok(Array.isArray(parsed['headwind.defaultSortOrder']), 'Existing headwind settings must be preserved');
   }
 });
+

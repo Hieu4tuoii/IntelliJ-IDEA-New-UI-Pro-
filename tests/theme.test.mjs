@@ -35,3 +35,4 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   assert.equal(sem['typeParameter'].foreground.toUpperCase(), '#507874');
   assert.equal(sem['method.static'].fontStyle, 'italic');
 });
+

@@ -33,3 +33,4 @@ test('Product icon theme defines valid WOFF font and maps core IDE toolbar/actio
     assert.match(theme.iconDefinitions[iconId].fontCharacter, /^\\e0[0-9a-f]{2}$/i);
   }
 });
+
