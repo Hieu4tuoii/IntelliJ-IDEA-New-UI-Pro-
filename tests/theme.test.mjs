@@ -29,8 +29,13 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   assert.equal(sem['method.declaration'].foreground.toUpperCase(), '#56A8F5');
   assert.equal(sem['function.declaration'].foreground.toUpperCase(), '#56A8F5');
   assert.equal(sem['property'].foreground.toUpperCase(), '#C77DBB');
+  assert.equal(sem['property'].fontStyle, '');
+  assert.equal(sem['property.readonly'].foreground.toUpperCase(), '#C77DBB');
+  assert.equal(sem['property.readonly'].fontStyle, '');
   assert.equal(sem['property.static'].foreground.toUpperCase(), '#C77DBB');
-  assert.equal(sem['property.static'].fontStyle, 'italic');
+  assert.equal(sem['property.static'].fontStyle, '');
+  assert.equal(sem['property.readonly.static'].foreground.toUpperCase(), '#C77DBB');
+  assert.equal(sem['property.readonly.static'].fontStyle, 'italic');
   assert.equal(sem['enumMember'].foreground.toUpperCase(), '#C77DBB');
   assert.equal(sem['enumMember'].fontStyle, 'italic');
   assert.equal(sem['typeParameter'].foreground.toUpperCase(), '#507874');

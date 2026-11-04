@@ -580,21 +580,25 @@ const theme = {
     'function.declaration': { foreground: '#56A8F5' },
     'function.static': { foreground: '#BCBEC4', fontStyle: 'italic' },
     'function.defaultLibrary': { foreground: '#BCBEC4', fontStyle: 'italic' },
-    'property': { foreground: '#C77DBB' },
-    'property.declaration': { foreground: '#C77DBB' },
-    'property.readonly': { foreground: '#C77DBB' },
-    'property.static': { foreground: '#C77DBB', fontStyle: 'italic' },
+    'property': { foreground: '#C77DBB', fontStyle: '' },
+    'property.declaration': { foreground: '#C77DBB', fontStyle: '' },
+    'property.readonly': { foreground: '#C77DBB', fontStyle: '' },
+    'property.readonly.declaration': { foreground: '#C77DBB', fontStyle: '' },
+    'property.static': { foreground: '#C77DBB', fontStyle: '' },
     'property.readonly.static': { foreground: '#C77DBB', fontStyle: 'italic' },
-    'property.defaultLibrary': { foreground: '#C77DBB', fontStyle: 'italic' },
+    'property.defaultLibrary': { foreground: '#C77DBB', fontStyle: '' },
     'enumMember': { foreground: '#C77DBB', fontStyle: 'italic' },
-    'variable': { foreground: '#BCBEC4' },
-    'variable.readonly': { foreground: '#BCBEC4' },
+    'variable': { foreground: '#BCBEC4', fontStyle: '' },
+    'variable.declaration': { foreground: '#BCBEC4', fontStyle: '' },
+    'variable.readonly': { foreground: '#BCBEC4', fontStyle: '' },
+    'variable.readonly.declaration': { foreground: '#BCBEC4', fontStyle: '' },
     'variable.modification': { foreground: '#BCBEC4', fontStyle: 'underline' },
-    'variable.static': { foreground: '#C77DBB', fontStyle: 'italic' },
+    'variable.static': { foreground: '#C77DBB', fontStyle: '' },
     'variable.readonly.static': { foreground: '#C77DBB', fontStyle: 'italic' },
-    'variable.defaultLibrary': { foreground: '#C77DBB', fontStyle: 'italic' },
-    'parameter': { foreground: '#BCBEC4' },
-    'parameter.declaration': { foreground: '#BCBEC4' },
+    'variable.defaultLibrary': { foreground: '#C77DBB', fontStyle: '' },
+    'parameter': { foreground: '#BCBEC4', fontStyle: '' },
+    'parameter.declaration': { foreground: '#BCBEC4', fontStyle: '' },
+    'parameter.readonly': { foreground: '#BCBEC4', fontStyle: '' },
     'parameter.modification': { foreground: '#BCBEC4', fontStyle: 'underline' },
     'keyword': { foreground: '#CF8E6D' },
     'keyword.documentation': { foreground: '#67A37C', fontStyle: 'italic bold underline' },
@@ -765,6 +769,7 @@ const theme = {
       scope: [
         'variable.other.property',
         'variable.other.object.property',
+        'variable.other.constant.property',
         'meta.field.declaration meta.definition.variable',
         'meta.field.declaration variable.other.definition',
         'support.variable.property',
@@ -773,16 +778,15 @@ const theme = {
         'entity.name.tag.yaml'
       ],
       settings: {
-        foreground: '#C77DBB'
+        foreground: '#C77DBB',
+        fontStyle: ''
       }
     },
     {
       name: 'Enum Constants & Static Constants',
       scope: [
         'variable.other.enummember',
-        'constant.other.enum',
-        'variable.other.constant',
-        'entity.name.constant'
+        'constant.other.enum'
       ],
       settings: {
         foreground: '#C77DBB',
