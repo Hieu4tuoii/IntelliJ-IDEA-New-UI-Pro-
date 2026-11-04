@@ -16,7 +16,8 @@ const RECOMMENDED_SETTINGS = {
   'editor.fontLigatures': false,
   'editor.semanticHighlighting.enabled': true,
   'editor.renderLineHighlight': 'all',
-  'editor.guides.bracketPairs': 'active',
+  'editor.bracketPairColorization.enabled': false,
+  'editor.guides.bracketPairs': false,
   'editor.inlayHints.padding': true,
   'editor.minimap.autohide': 'mouseover',
   'workbench.editor.customLabels.enabled': true,
@@ -25,6 +26,8 @@ const RECOMMENDED_SETTINGS = {
   },
   'cSpell.enabled': false,
   'problems.decorations.enabled': false,
+  'explorer.decorations.badges': false,
+  'explorer.decorations.colors': true,
   'workbench.tree.indent': 16,
   'workbench.tree.renderIndentGuides': 'onHover'
 };

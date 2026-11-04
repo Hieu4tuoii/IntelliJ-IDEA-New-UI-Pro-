@@ -211,7 +211,8 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
   settings['editor.fontLigatures'] = false;
   settings['editor.semanticHighlighting.enabled'] = true;
   settings['editor.renderLineHighlight'] = 'all';
-  settings['editor.guides.bracketPairs'] = 'active';
+  settings['editor.bracketPairColorization.enabled'] = false;
+  settings['editor.guides.bracketPairs'] = false;
   settings['editor.inlayHints.padding'] = true;
   settings['editor.minimap.autohide'] = 'mouseover';
   settings['workbench.editor.customLabels.enabled'] = true;
@@ -220,6 +221,8 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
   };
   settings['cSpell.enabled'] = false;
   settings['problems.decorations.enabled'] = false;
+  settings['explorer.decorations.badges'] = false;
+  settings['explorer.decorations.colors'] = true;
   settings['workbench.tree.indent'] = 16;
   settings['workbench.tree.renderIndentGuides'] = 'onHover';
   if (settings['intellijNewUi.enableKeymap'] === undefined) {

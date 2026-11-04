@@ -35,5 +35,38 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   assert.equal(sem['enumMember'].fontStyle, 'italic');
   assert.equal(sem['typeParameter'].foreground.toUpperCase(), '#507874');
   assert.equal(sem['method.static'].fontStyle, 'italic');
+  assert.equal(sem['operator'].foreground.toUpperCase(), '#BCBEC4');
+  assert.equal(sem['*.constructor'].foreground.toUpperCase(), '#BCBEC4');
+  assert.equal(sem['*.declaration.constructor'].foreground.toUpperCase(), '#56A8F5');
+  assert.equal(sem['variable.modification'].foreground.toUpperCase(), '#BCBEC4');
+  assert.equal(sem['variable.modification'].fontStyle, 'underline');
+  assert.equal(sem['parameter.modification'].foreground.toUpperCase(), '#BCBEC4');
+  assert.equal(sem['parameter.modification'].fontStyle, 'underline');
+
+  // Bracket highlights must all be flat #BCBEC4 (no rainbow brackets in IntelliJ New UI Dark)
+  for (let i = 1; i <= 6; i++) {
+    assert.equal(theme.colors[`editorBracketHighlight.foreground${i}`].toUpperCase(), '#BCBEC4');
+  }
+  assert.equal(theme.colors['list.errorForeground'].toUpperCase(), '#DFE1E5');
+  assert.equal(theme.colors['list.warningForeground'].toUpperCase(), '#DFE1E5');
+
+  // TextMate tokenColors verification for operators (=, ==, !=, +, :, |), semicolons (;), commas (,), and method calls
+  const keywordRule = theme.tokenColors.find(r => r.name.includes('Keywords'));
+  assert.ok(keywordRule, 'Must have Keywords rule');
+  assert.ok(!keywordRule.scope.includes('punctuation.terminator.java'), 'Semicolon must not be orange in New UI Dark');
+  assert.ok(!keywordRule.scope.includes('punctuation.separator.delimiter'), 'Comma must not be orange in New UI Dark');
+
+  const operatorRule = theme.tokenColors.find(r => r.name.includes('Operators'));
+  assert.ok(operatorRule, 'Must have dedicated Operators & Punctuation rule');
+  assert.equal(operatorRule.settings.foreground.toUpperCase(), '#BCBEC4');
+  assert.ok(operatorRule.scope.includes('keyword.operator'));
+  assert.ok(operatorRule.scope.includes('keyword.operator.assignment'));
+  assert.ok(operatorRule.scope.includes('keyword.control.ternary'));
+  assert.ok(operatorRule.scope.includes('punctuation.terminator.java'));
+  assert.ok(operatorRule.scope.includes('punctuation.separator.delimiter'));
+
+  const callRule = theme.tokenColors.find(r => r.name.includes('Function Calls'));
+  assert.ok(callRule, 'Must have Function Calls rule');
+  assert.equal(callRule.settings.foreground.toUpperCase(), '#BCBEC4');
 });
 

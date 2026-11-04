@@ -46,6 +46,8 @@ test('JetBrains Mono font, single unified VSIX package v1.1.0, extension directo
     assert.deepEqual(parsed['workbench.editor.customLabels.patterns'], { '**/*.java': '${filename}' });
     assert.equal(parsed['cSpell.enabled'], false);
     assert.equal(parsed['problems.decorations.enabled'], false);
+    assert.equal(parsed['explorer.decorations.badges'], false);
+    assert.equal(parsed['editor.bracketPairColorization.enabled'], false);
     assert.equal(parsed['editor.semanticHighlighting.enabled'], true);
     assert.equal(typeof parsed['intellijNewUi.enableKeymap'], 'boolean');
     assert.equal(typeof parsed['intellijNewUi.onlyApplyInJavaProjects'], 'boolean');
