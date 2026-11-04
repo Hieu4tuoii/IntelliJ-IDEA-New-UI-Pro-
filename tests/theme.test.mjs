@@ -59,12 +59,12 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   assert.equal(theme.colors['list.errorForeground'].toUpperCase(), '#DFE1E5');
   assert.equal(theme.colors['list.warningForeground'].toUpperCase(), '#DFE1E5');
 
-  // Diff & Gutter change colors must use Antigravity IDE defaults (not JetBrains gray diff)
-  assert.equal(theme.colors['diffEditor.removedLineBackground'], undefined);
-  assert.equal(theme.colors['diffEditor.insertedLineBackground'], undefined);
-  assert.equal(theme.colors['inlineChatDiff.removed'], undefined);
-  assert.equal(theme.colors['editorGutter.addedBackground'].toUpperCase(), '#2EA043');
-  assert.equal(theme.colors['editorGutter.deletedBackground'].toUpperCase(), '#F85149');
+  // Diff & Gutter change colors matching IntelliJ screenshot (#283541 modified line bg + #294436 inserted text highlight)
+  assert.equal(theme.colors['diffEditor.insertedLineBackground'].toUpperCase(), '#283541B3');
+  assert.equal(theme.colors['diffEditor.removedLineBackground'].toUpperCase(), '#28354180');
+  assert.equal(theme.colors['diffEditor.insertedTextBackground'].toUpperCase(), '#294436E6');
+  assert.equal(theme.colors['editorGutter.modifiedBackground'].toUpperCase(), '#375FAD');
+  assert.equal(theme.colors['editorGutter.addedBackground'].toUpperCase(), '#549159');
 
   // TextMate tokenColors verification for operators (=, ==, !=, +, :, |), semicolons (;), commas (,), and method calls
   const keywordRule = theme.tokenColors.find(r => r.name.includes('Keywords'));
