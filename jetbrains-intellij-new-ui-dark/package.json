@@ -29,7 +29,7 @@
     ],
     "themes": [
       {
-        "id": "intellij-new-ui-dark-pro",
+        "id": "IntelliJ IDEA New UI Dark (Pro)",
         "label": "IntelliJ IDEA New UI Dark (Pro)",
         "uiTheme": "vs-dark",
         "path": "./themes/intellij-new-ui-dark-pro.json"

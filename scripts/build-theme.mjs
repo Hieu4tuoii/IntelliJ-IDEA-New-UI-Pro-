@@ -694,6 +694,7 @@ const theme = {
         'variable.other.property',
         'variable.other.object.property',
         'meta.field.declaration meta.definition.variable',
+        'meta.field.declaration variable.other.definition',
         'support.variable.property',
         'meta.object-literal.key',
         'support.type.property-name.json',

@@ -10,6 +10,11 @@ test('Extension manifests have required IntelliJ New UI contributions and comman
   assert.equal(uiPkg.name, 'jetbrains-intellij-new-ui-dark');
   assert.equal(uiPkg.publisher, 'elaand');
   assert.equal(uiPkg.contributes.themes[0].label, 'IntelliJ IDEA New UI Dark (Pro)');
+  assert.equal(
+    uiPkg.contributes.themes[0].id ?? uiPkg.contributes.themes[0].label,
+    'IntelliJ IDEA New UI Dark (Pro)',
+    'Theme id (if present) must exactly match the workbench.colorTheme setting value'
+  );
   assert.equal(uiPkg.contributes.themes[0].path, './themes/intellij-new-ui-dark-pro.json');
   assert.equal(uiPkg.contributes.iconThemes[0].id, 'intellij-new-ui-file-icons');
   assert.equal(uiPkg.contributes.iconThemes[0].path, './icons/file-icons/intellij-new-ui-file-icons.json');
