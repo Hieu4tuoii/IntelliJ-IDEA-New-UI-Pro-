@@ -1,0 +1,78 @@
+{
+  "name": "jetbrains-intellij-new-ui-dark",
+  "publisher": "elaand",
+  "displayName": "IntelliJ IDEA New UI Dark (Pro)",
+  "description": "Complete IntelliJ IDEA New UI Dark experience for Antigravity IDE: official ExperimentalDark workbench palette, deep Java/Spring & TypeScript semantic highlighting, JetBrains expui File Icons, Product UI Icons, and JetBrains Mono typography.",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:intellijNewUi.applySettings",
+    "onCommand:intellijNewUi.restoreSettings"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "intellijNewUi.applySettings",
+        "title": "IntelliJ New UI: Apply Recommended IDE Settings & Layout"
+      },
+      {
+        "command": "intellijNewUi.restoreSettings",
+        "title": "IntelliJ New UI: Restore Previous IDE Settings"
+      }
+    ],
+    "themes": [
+      {
+        "id": "intellij-new-ui-dark-pro",
+        "label": "IntelliJ IDEA New UI Dark (Pro)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/intellij-new-ui-dark-pro.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "intellij-new-ui-file-icons",
+        "label": "IntelliJ IDEA New UI File Icons",
+        "path": "./icons/file-icons/intellij-new-ui-file-icons.json"
+      }
+    ],
+    "productIconThemes": [
+      {
+        "id": "intellij-new-ui-product-icons",
+        "label": "IntelliJ IDEA New UI Product Icons",
+        "path": "./icons/product-icons/intellij-new-ui-product-icons.json"
+      }
+    ],
+    "configurationDefaults": {
+      "editor.fontFamily": "'JetBrains Mono', Consolas, monospace",
+      "terminal.integrated.fontFamily": "'JetBrains Mono', Consolas, monospace",
+      "editor.fontSize": 13,
+      "editor.lineHeight": 1.35,
+      "editor.fontLigatures": false,
+      "editor.semanticHighlighting.enabled": true,
+      "editor.renderLineHighlight": "all",
+      "editor.guides.bracketPairs": "active",
+      "editor.inlayHints.padding": true,
+      "workbench.tree.indent": 16,
+      "workbench.tree.renderIndentGuides": "onHover",
+      "window.titleBarStyle": "custom"
+    }
+  },
+  "keywords": [
+    "jetbrains",
+    "intellij",
+    "new-ui",
+    "dark",
+    "darcula",
+    "icons",
+    "product-icons",
+    "java",
+    "spring"
+  ]
+}
