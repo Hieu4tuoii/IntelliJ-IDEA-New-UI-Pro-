@@ -215,6 +215,12 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
   settings['editor.renderLineHighlight'] = 'all';
   settings['editor.guides.bracketPairs'] = 'active';
   settings['editor.inlayHints.padding'] = true;
+  settings['editor.minimap.autohide'] = 'mouseover';
+  settings['workbench.editor.customLabels.enabled'] = true;
+  settings['workbench.editor.customLabels.patterns'] = {
+    '**/*.java': '${filename}'
+  };
+  settings['cSpell.enabled'] = false;
   settings['workbench.tree.indent'] = 16;
   settings['workbench.tree.renderIndentGuides'] = 'onHover';
 

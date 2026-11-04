@@ -18,6 +18,12 @@ const RECOMMENDED_SETTINGS = {
   'editor.renderLineHighlight': 'all',
   'editor.guides.bracketPairs': 'active',
   'editor.inlayHints.padding': true,
+  'editor.minimap.autohide': 'mouseover',
+  'workbench.editor.customLabels.enabled': true,
+  'workbench.editor.customLabels.patterns': {
+    '**/*.java': '${filename}'
+  },
+  'cSpell.enabled': false,
   'workbench.tree.indent': 16,
   'workbench.tree.renderIndentGuides': 'onHover'
 };
