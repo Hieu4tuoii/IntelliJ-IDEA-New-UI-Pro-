@@ -57,5 +57,33 @@ test('Runtime extension.js classifyJavaContent and scanWorkspaceJavaIcons auto-s
   assert.match(extSrc, /scanWorkspaceJavaIcons/, 'extension.js must auto-scan workspace Java files on startup');
   assert.match(extSrc, /onDidOpenTextDocument/, 'extension.js must update Java icon mapping on open document as well');
   assert.match(extSrc, /Exception\|Error\|Throwable/, 'extension.js must detect classes extending Exception/Error/Throwable');
+
+  const { createRequire } = await import('node:module');
+  const requireCjs = createRequire(import.meta.url);
+  const Module = requireCjs('node:module');
+  const origLoad = Module._load;
+  Module._load = (request, parent, isMain) => (request === 'vscode' ? {} : origLoad(request, parent, isMain));
+  const { classifyJavaContent } = requireCjs(path.join(ROOT, 'jetbrains-intellij-new-ui-dark/extension.js'));
+  Module._load = origLoad;
+
+  assert.equal(
+    classifyJavaContent('package a.b;\npublic class EcmMultiDocItemDto {\n}', 'EcmMultiDocItemDto.java'),
+    '_java_class',
+    'Regular class ending in Dto.java must receive _java_class (C), not _java_record (R)'
+  );
+  assert.equal(
+    classifyJavaContent('package a.b;\npublic class EcmBaseRequest {\n}', 'EcmBaseRequest.java'),
+    '_java_class',
+    'Regular class ending in Request.java must receive _java_class (C), not _java_record (R)'
+  );
+  assert.equal(
+    classifyJavaContent('package a.b;\npublic record UserRecord(String id) {}', 'UserRecord.java'),
+    '_java_record',
+    'Actual Java record must receive _java_record (R)'
+  );
+  assert.equal(
+    classifyJavaContent('package a.b;\npublic @interface Equal {}', 'Equal.java'),
+    '_java_annotation'
+  );
 });
 

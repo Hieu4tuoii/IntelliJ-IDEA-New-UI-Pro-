@@ -7,22 +7,23 @@ const RECOMMENDED_SETTINGS = {
   'workbench.iconTheme': 'intellij-new-ui-file-icons',
   'editor.fontFamily': "'JetBrains Mono', Consolas, monospace",
   'terminal.integrated.fontFamily': "'JetBrains Mono', Consolas, monospace",
-  'editor.fontSize': 13,
+  'editor.fontSize': 12.5,
   'editor.lineHeight': 1.55,
-  'editor.letterSpacing': 0.3,
+  'editor.letterSpacing': 0.29,
+  'terminal.integrated.fontSize': 12.5,
   'terminal.integrated.lineHeight': 1.3,
-  'terminal.integrated.letterSpacing': 0.2,
+  'terminal.integrated.letterSpacing': 0.19,
   'editor.fontLigatures': false,
   'editor.semanticHighlighting.enabled': true,
   'editor.renderLineHighlight': 'all',
   'editor.bracketPairColorization.enabled': false,
   'editor.guides.bracketPairs': false,
   'editor.inlayHints.enabled': 'on',
-  'editor.inlayHints.fontSize': 12,
+  'editor.inlayHints.fontSize': 11.5,
   'editor.inlayHints.fontFamily': "'JetBrains Mono', Consolas, monospace",
   'editor.inlayHints.padding': true,
   'java.inlayHints.parameterNames.enabled': 'literals',
-  'editor.codeLensFontSize': 12,
+  'editor.codeLensFontSize': 11.5,
   'editor.codeLensFontFamily': "'Segoe UI', Inter, sans-serif",
   'editor.stickyScroll.enabled': true,
   'editor.minimap.autohide': 'mouseover',
@@ -73,23 +74,46 @@ function detectJavaWorkspace() {
   return false;
 }
 
-function classifyJavaContent(src, fileName) {
-  const lower = fileName.toLowerCase();
+const COMMENT_RE = /\/\*[\s\S]*?\*\/|\/\/.*/g;
+const ANNOTATION_RE = /(?:^|\s)@interface\s+\w+/;
+const INTERFACE_RE = /\binterface\s+\w+/;
+const ENUM_RE = /\benum\s+\w+/;
+const RECORD_RE = /\brecord\s+\w+/;
+const ABSTRACT_CLASS_RE = /\babstract\s+class\s+\w+/;
+const EXCEPTION_CLASS_RE = /\bclass\s+\w+[^{;]*?\bextends\s+\w*(?:Exception|Error|Throwable)\b/;
+const CLASS_RE = /\bclass\s+\w+/;
+const HEADER_BUF = Buffer.allocUnsafe(4096);
+
+function classifyJavaByFileNameFast(lower) {
   if (lower.endsWith('test.java') || lower.endsWith('tests.java') || lower.endsWith('it.java')) {
     return '_java_test';
   }
   if (lower.endsWith('exception.java') || lower.endsWith('error.java')) {
     return '_java_exception';
   }
-  const cleaned = src.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
-  if (/(?:^|\s)@interface\s+\w+/.test(cleaned)) return '_java_annotation';
-  if (/\binterface\s+\w+/.test(cleaned)) return '_java_interface';
-  if (/\benum\s+\w+/.test(cleaned)) return '_java_enum';
-  if (/\brecord\s+\w+/.test(cleaned)) return '_java_record';
-  if (/\babstract\s+class\s+\w+/.test(cleaned)) return '_java_abstract';
-  if (/\bclass\s+\w+[^{]*\bextends\s+\w*(?:Exception|Error|Throwable)\b/.test(cleaned)) return '_java_exception';
-  if (lower.endsWith('dto.java') || lower.endsWith('request.java') || lower.endsWith('response.java') || lower.endsWith('record.java')) {
+  return null;
+}
+
+function classifyJavaContent(src, fileName) {
+  const lower = fileName.toLowerCase();
+  const fast = classifyJavaByFileNameFast(lower);
+  if (fast) return fast;
+
+  const cleaned = src ? src.replace(COMMENT_RE, '') : '';
+  if (cleaned) {
+    if (ANNOTATION_RE.test(cleaned)) return '_java_annotation';
+    if (INTERFACE_RE.test(cleaned)) return '_java_interface';
+    if (ENUM_RE.test(cleaned)) return '_java_enum';
+    if (RECORD_RE.test(cleaned)) return '_java_record';
+    if (ABSTRACT_CLASS_RE.test(cleaned)) return '_java_abstract';
+    if (EXCEPTION_CLASS_RE.test(cleaned)) return '_java_exception';
+    if (CLASS_RE.test(cleaned)) return '_java_class';
+  }
+  if (lower.endsWith('record.java')) {
     return '_java_record';
+  }
+  if (lower.endsWith('dto.java') || lower.endsWith('request.java') || lower.endsWith('response.java')) {
+    return '_java_class';
   }
   if (lower.startsWith('abstract') || lower.startsWith('base')) {
     return '_java_abstract';
@@ -97,14 +121,13 @@ function classifyJavaContent(src, fileName) {
   return '_java_class';
 }
 
-// Fast 4KB header reader so scanning an entire Java workspace takes < 30ms
+// Fast 4KB header reader reusing a single shared buffer
 function readJavaHeader(filePath) {
   let fd;
   try {
     fd = fs.openSync(filePath, 'r');
-    const buf = Buffer.allocUnsafe(4096);
-    const bytesRead = fs.readSync(fd, buf, 0, 4096, 0);
-    return buf.toString('utf8', 0, bytesRead);
+    const bytesRead = fs.readSync(fd, HEADER_BUF, 0, 4096, 0);
+    return HEADER_BUF.toString('utf8', 0, bytesRead);
   } catch {
     return '';
   } finally {
@@ -132,35 +155,83 @@ const SKIP_SCAN_DIRS = new Set([
   '.gradle'
 ]);
 
-function scanWorkspaceJavaIcons(context) {
+let iconThemeCache = null;
+let iconJsonFilePath = null;
+let flushTimer = null;
+const scannedFilePaths = new Set();
+const seenBaseNames = new Map();
+
+function getIconThemeCache(context) {
+  if (!iconJsonFilePath) {
+    iconJsonFilePath = path.join(context.extensionPath, 'icons', 'file-icons', 'intellij-new-ui-file-icons.json');
+  }
+  if (!iconThemeCache) {
+    if (!fs.existsSync(iconJsonFilePath)) return null;
+    iconThemeCache = JSON.parse(fs.readFileSync(iconJsonFilePath, 'utf8'));
+    if (!iconThemeCache.fileNames) iconThemeCache.fileNames = {};
+  }
+  return iconThemeCache;
+}
+
+function applyJavaIconMapping(theme, baseName, iconId) {
+  const currentEffective = theme.fileNames[baseName] || '_java_class';
+  if (currentEffective === iconId) {
+    if (iconId === '_java_class' && baseName in theme.fileNames && baseName !== 'createattachmentserviceimpl.java') {
+      delete theme.fileNames[baseName];
+      return true;
+    }
+    return false;
+  }
+  if (iconId === '_java_class' && baseName !== 'createattachmentserviceimpl.java') {
+    delete theme.fileNames[baseName];
+    return true;
+  }
+  theme.fileNames[baseName] = iconId;
+  return true;
+}
+
+function scheduleIconThemeFlush() {
+  if (flushTimer) clearTimeout(flushTimer);
+  flushTimer = setTimeout(async () => {
+    flushTimer = null;
+    if (!iconThemeCache || !iconJsonFilePath) return;
+    try {
+      await fs.promises.writeFile(iconJsonFilePath, JSON.stringify(iconThemeCache, null, 2), 'utf8');
+    } catch {
+      // Ignore write error
+    }
+  }, 250);
+}
+
+async function scanWorkspaceJavaIcons(context) {
   try {
     const folders = vscode.workspace.workspaceFolders;
-    if (!folders || folders.length === 0) return;
-    const iconJsonPath = path.join(context.extensionPath, 'icons', 'file-icons', 'intellij-new-ui-file-icons.json');
-    if (!fs.existsSync(iconJsonPath)) return;
-    const theme = JSON.parse(fs.readFileSync(iconJsonPath, 'utf8'));
-    if (!theme.fileNames) theme.fileNames = {};
+    if (!folders || folders.length === 0 || !detectJavaWorkspace()) return;
+    const theme = getIconThemeCache(context);
+    if (!theme) return;
     let changed = false;
 
-    const walk = (dir) => {
+    const walk = async (dir) => {
       let entries;
       try {
-        entries = fs.readdirSync(dir, { withFileTypes: true });
+        entries = await fs.promises.readdir(dir, { withFileTypes: true });
       } catch {
         return;
       }
       for (const entry of entries) {
         if (entry.isDirectory()) {
           if (!SKIP_SCAN_DIRS.has(entry.name) && !entry.name.startsWith('.')) {
-            walk(path.join(dir, entry.name));
+            await walk(path.join(dir, entry.name));
           }
         } else if (entry.isFile() && entry.name.endsWith('.java')) {
           const baseName = entry.name.toLowerCase();
           const fullPath = path.join(dir, entry.name);
-          const header = readJavaHeader(fullPath);
-          const iconId = classifyJavaContent(header, baseName);
-          if (theme.fileNames[baseName] !== iconId) {
-            theme.fileNames[baseName] = iconId;
+          scannedFilePaths.add(fullPath);
+          if (seenBaseNames.has(baseName)) continue;
+          const fastIcon = classifyJavaByFileNameFast(baseName);
+          const iconId = fastIcon || classifyJavaContent(readJavaHeader(fullPath), baseName);
+          seenBaseNames.set(baseName, iconId);
+          if (applyJavaIconMapping(theme, baseName, iconId)) {
             changed = true;
           }
         }
@@ -168,29 +239,50 @@ function scanWorkspaceJavaIcons(context) {
     };
 
     for (const folder of folders) {
-      walk(folder.uri.fsPath);
+      await walk(folder.uri.fsPath);
     }
 
     if (changed) {
-      fs.writeFileSync(iconJsonPath, JSON.stringify(theme, null, 2), 'utf8');
+      scheduleIconThemeFlush();
     }
   } catch {
     // Ignore workspace scan errors
   }
 }
 
-function updateJavaFileIconMapping(context, uri) {
+function updateJavaFileIconMapping(context, docOrUri, isSave = false) {
   try {
+    const isDoc = docOrUri && typeof docOrUri.getText === 'function';
+    const uri = isDoc ? docOrUri.uri : docOrUri;
     if (!uri || !uri.fsPath || !uri.fsPath.endsWith('.java')) return;
-    const iconJsonPath = path.join(context.extensionPath, 'icons', 'file-icons', 'intellij-new-ui-file-icons.json');
-    if (!fs.existsSync(iconJsonPath) || !fs.existsSync(uri.fsPath)) return;
-    const src = readJavaHeader(uri.fsPath);
-    const baseName = path.basename(uri.fsPath).toLowerCase();
-    const iconId = classifyJavaContent(src, baseName);
-    const theme = JSON.parse(fs.readFileSync(iconJsonPath, 'utf8'));
-    if (theme.fileNames && theme.fileNames[baseName] !== iconId) {
-      theme.fileNames[baseName] = iconId;
-      fs.writeFileSync(iconJsonPath, JSON.stringify(theme, null, 2), 'utf8');
+    const fsPath = uri.fsPath;
+    const baseName = path.basename(fsPath).toLowerCase();
+
+    if (!isSave && (scannedFilePaths.has(fsPath) || seenBaseNames.has(baseName))) {
+      return;
+    }
+
+    const theme = getIconThemeCache(context);
+    if (!theme) return;
+
+    const fastIcon = classifyJavaByFileNameFast(baseName);
+    let iconId = fastIcon;
+    if (!iconId) {
+      let src = '';
+      if (isDoc) {
+        src = vscode.Range ? docOrUri.getText(new vscode.Range(0, 0, 100, 0)) : docOrUri.getText().slice(0, 4096);
+      } else if (fs.existsSync(fsPath)) {
+        src = readJavaHeader(fsPath);
+      } else {
+        return;
+      }
+      iconId = classifyJavaContent(src, baseName);
+    }
+
+    scannedFilePaths.add(fsPath);
+    seenBaseNames.set(baseName, iconId);
+    if (applyJavaIconMapping(theme, baseName, iconId)) {
+      scheduleIconThemeFlush();
     }
   } catch {
     // Ignore transient file access errors
@@ -243,6 +335,18 @@ function ensureGitExclude(rootPath) {
   }
 }
 
+function settingsValueEquals(a, b) {
+  if (a === b) return true;
+  if (!a || !b || typeof a !== 'object' || typeof b !== 'object') return false;
+  const keysA = Object.keys(a);
+  const keysB = Object.keys(b);
+  if (keysA.length !== keysB.length) return false;
+  for (const k of keysA) {
+    if (a[k] !== b[k]) return false;
+  }
+  return true;
+}
+
 async function writeWorkspaceSettingsAtomically(mode) {
   const folders = vscode.workspace.workspaceFolders;
   if (!folders || folders.length === 0) return;
@@ -280,7 +384,7 @@ async function writeWorkspaceSettingsAtomically(mode) {
         changed = true;
       }
       for (const [key, val] of Object.entries(RECOMMENDED_SETTINGS)) {
-        if (JSON.stringify(data[key]) !== JSON.stringify(val)) {
+        if (!settingsValueEquals(data[key], val)) {
           data[key] = val;
           changed = true;
         }
@@ -372,7 +476,7 @@ async function writeSettingsFileAtomically(mode) {
           changed = true;
         }
         for (const [key, val] of Object.entries(RECOMMENDED_SETTINGS)) {
-          if (JSON.stringify(data[key]) !== JSON.stringify(val)) {
+          if (!settingsValueEquals(data[key], val)) {
             data[key] = val;
             changed = true;
           }
@@ -481,16 +585,21 @@ function activate(context) {
         syncJavaProjectScope(context);
       }
     }),
-    vscode.workspace.onDidOpenTextDocument((doc) => updateJavaFileIconMapping(context, doc.uri)),
-    vscode.workspace.onDidSaveTextDocument((doc) => updateJavaFileIconMapping(context, doc.uri)),
+    vscode.workspace.onDidOpenTextDocument((doc) => updateJavaFileIconMapping(context, doc, false)),
+    vscode.workspace.onDidSaveTextDocument((doc) => updateJavaFileIconMapping(context, doc, true)),
     vscode.workspace.onDidCreateFiles((event) => {
       for (const uri of event.files) {
-        updateJavaFileIconMapping(context, uri);
+        updateJavaFileIconMapping(context, uri, false);
       }
     })
   );
 }
 
-function deactivate() {}
+function deactivate() {
+  if (flushTimer) {
+    clearTimeout(flushTimer);
+    flushTimer = null;
+  }
+}
 
-module.exports = { activate, deactivate };
+module.exports = { activate, deactivate, classifyJavaContent };
