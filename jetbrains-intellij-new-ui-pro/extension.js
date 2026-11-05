@@ -27,7 +27,7 @@ const RECOMMENDED_SETTINGS = {
   'editor.codeLensFontFamily': "'Segoe UI', Inter, sans-serif",
   'editor.stickyScroll.enabled': true,
   'editor.minimap.autohide': 'mouseover',
-  'diffEditor.renderIndicators': false,
+  'diffEditor.renderIndicators': true,
   'workbench.editor.customLabels.enabled': true,
   'workbench.editor.customLabels.patterns': {
     '**/*.java': '${filename}'
