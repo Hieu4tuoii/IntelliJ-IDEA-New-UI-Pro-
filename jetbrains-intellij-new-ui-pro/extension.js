@@ -46,6 +46,15 @@ const DEFAULT_FALLBACK_SETTINGS = {
   'workbench.iconTheme': 'material-icon-theme'
 };
 
+const INTELLIJ_THEMES = new Set([
+  'IntelliJ IDEA New UI Dark (Pro)',
+  'IntelliJ IDEA New UI Light (Pro)'
+]);
+
+function resolvePreferredIntelliJTheme(currentTheme) {
+  return INTELLIJ_THEMES.has(currentTheme) ? currentTheme : RECOMMENDED_SETTINGS['workbench.colorTheme'];
+}
+
 const JAVA_MARKERS = ['pom.xml', 'build.gradle', 'build.gradle.kts', 'mvnw', 'gradlew', '.mvn'];
 
 // Fast synchronous 1-time check (< 1ms) at startup: checks root and 1-level subfolders
@@ -174,19 +183,30 @@ function getIconThemeCache(context) {
 }
 
 function applyJavaIconMapping(theme, baseName, iconId) {
+  const lightFiles = theme.light && theme.light.fileNames ? theme.light.fileNames : null;
+  const lightIconId = iconId.replace(/^_/, '_light_');
   const currentEffective = theme.fileNames[baseName] || '_java_class';
   if (currentEffective === iconId) {
     if (iconId === '_java_class' && baseName in theme.fileNames && baseName !== 'createattachmentserviceimpl.java') {
       delete theme.fileNames[baseName];
+      if (lightFiles) delete lightFiles[baseName];
+      return true;
+    }
+    if (lightFiles && iconId !== '_java_class' && lightFiles[baseName] !== lightIconId) {
+      lightFiles[baseName] = lightIconId;
       return true;
     }
     return false;
   }
   if (iconId === '_java_class' && baseName !== 'createattachmentserviceimpl.java') {
     delete theme.fileNames[baseName];
+    if (lightFiles) delete lightFiles[baseName];
     return true;
   }
   theme.fileNames[baseName] = iconId;
+  if (lightFiles) {
+    lightFiles[baseName] = lightIconId;
+  }
   return true;
 }
 
@@ -391,8 +411,9 @@ async function writeWorkspaceSettingsAtomically(mode) {
         changed = true;
       }
       for (const [key, val] of Object.entries(RECOMMENDED_SETTINGS)) {
-        if (!settingsValueEquals(data[key], val)) {
-          data[key] = val;
+        const targetVal = key === 'workbench.colorTheme' ? resolvePreferredIntelliJTheme(data[key]) : val;
+        if (!settingsValueEquals(data[key], targetVal)) {
+          data[key] = targetVal;
           changed = true;
         }
       }
@@ -483,8 +504,9 @@ async function writeSettingsFileAtomically(mode) {
           changed = true;
         }
         for (const [key, val] of Object.entries(RECOMMENDED_SETTINGS)) {
-          if (!settingsValueEquals(data[key], val)) {
-            data[key] = val;
+          const targetVal = key === 'workbench.colorTheme' ? resolvePreferredIntelliJTheme(data[key]) : val;
+          if (!settingsValueEquals(data[key], targetVal)) {
+            data[key] = targetVal;
             changed = true;
           }
         }
@@ -527,7 +549,7 @@ async function applySettings(context, silent = false) {
     await writeSettingsFileAtomically('intellij');
   }
   if (!silent) {
-    vscode.window.showInformationMessage('Đã áp dụng bộ giao diện, icon và font chuẩn IntelliJ IDEA New UI Dark (Pro).');
+    vscode.window.showInformationMessage('Đã áp dụng bộ giao diện, icon và font chuẩn IntelliJ IDEA New UI (Pro).');
   }
 }
 
@@ -616,4 +638,4 @@ function deactivate() {
   }
 }
 
-module.exports = { activate, deactivate, classifyJavaContent };
+module.exports = { activate, deactivate, classifyJavaContent, resolvePreferredIntelliJTheme };

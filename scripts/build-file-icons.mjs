@@ -2,11 +2,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const ICON_DIR = path.join(ROOT, 'jetbrains-intellij-new-ui-dark/icons/file-icons');
+const ICON_DIR = path.join(ROOT, 'jetbrains-intellij-new-ui-pro/icons/file-icons');
 const SVG_DIR = path.join(ICON_DIR, 'svgs');
+const LIGHT_SVG_DIR = path.join(SVG_DIR, 'light');
 const JSON_PATH = path.join(ICON_DIR, 'intellij-new-ui-file-icons.json');
 
 fs.mkdirSync(SVG_DIR, { recursive: true });
+fs.mkdirSync(LIGHT_SVG_DIR, { recursive: true });
 
 // Helper for crisp 16x16 JetBrains expui SVGs
 const svgWrap = (inner) =>
@@ -224,12 +226,209 @@ const SVGS = {
   `)
 };
 
+const LIGHT_SVGS = {
+  // Folders (JetBrains New UI expui Light folder palette)
+  _folder: folderSvg('#EBECF0', '#6C707E'),
+  _folder_open: folderOpenSvg('#EBECF0', '#4E5157'),
+  _folder_src: folderSvg('#E7EFFD', '#3574F0'),
+  _folder_src_open: folderOpenSvg('#E7EFFD', '#3574F0'),
+  _folder_java: folderSvg('#E7EFFD', '#3574F0'),
+  _folder_java_open: folderOpenSvg('#E7EFFD', '#3574F0'),
+  _folder_test: folderSvg('#E5F4EA', '#208A3C'),
+  _folder_test_open: folderOpenSvg('#E5F4EA', '#208A3C'),
+  _folder_resources: folderSvg('#FFF7E0', '#C27D00', `<rect x="10" y="9" width="3" height="3" rx="0.5" fill="#C27D00"/>`),
+  _folder_resources_open: folderOpenSvg('#FFF7E0', '#C27D00', `<rect x="10" y="9" width="3" height="3" rx="0.5" fill="#C27D00"/>`),
+  _folder_excluded: folderSvg('#FFF0E5', '#E56E17'),
+  _folder_excluded_open: folderOpenSvg('#FFF0E5', '#E56E17'),
+  _folder_config: folderSvg('#EBECF0', '#6C707E', `<circle cx="11.5" cy="10" r="1.8" stroke="#6C707E" stroke-width="1"/>`),
+  _folder_config_open: folderOpenSvg('#EBECF0', '#4E5157', `<circle cx="11.5" cy="10" r="1.8" stroke="#4E5157" stroke-width="1"/>`),
+
+  // Default file (Light)
+  _file: svgWrap(`
+    <path d="M3.5 2.5C3.5 1.94772 3.94772 1.5 4.5 1.5H9.79289L12.5 4.20711V13.5C12.5 14.0523 12.0523 14.5 11.5 14.5H4.5C3.94772 14.5 3.5 14.0523 3.5 13.5V2.5Z" fill="#FFFFFF" stroke="#6C707E" stroke-width="1"/>
+    <path d="M9.5 1.5V4.5H12.5" stroke="#6C707E" stroke-width="1"/>
+  `),
+
+  // Java Class (Light expui/nodes/class.svg)
+  _java_class: circleBadgeSvg('#E7EFFD', '#3574F0', `
+    <path d="M10.2 5.8C9.7 5.2 8.9 4.9 8.1 4.9C6.4 4.9 5.2 6.2 5.2 8C5.2 9.8 6.4 11.1 8.1 11.1C8.9 11.1 9.7 10.8 10.2 10.2" stroke="#3574F0" stroke-width="1.5" stroke-linecap="round"/>
+  `),
+
+  // Java Interface (Light expui/nodes/interface.svg)
+  _java_interface: circleBadgeSvg('#E5F4EA', '#208A3C', `
+    <path d="M6.5 5H9.5M8 5V11M6.5 11H9.5" stroke="#208A3C" stroke-width="1.5" stroke-linecap="round"/>
+  `),
+
+  // Java Enum (Light expui/nodes/enum.svg)
+  _java_enum: circleBadgeSvg('#F2EBF9', '#834DF0', `
+    <path d="M9.8 5H6.3V11H9.8M6.3 8H9.2" stroke="#834DF0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  `),
+
+  // Java Abstract Class (Light expui/nodes/abstractClass.svg)
+  _java_abstract: svgWrap(`
+    <circle cx="8" cy="8" r="6" fill="#E7EFFD" stroke="#3574F0" stroke-width="1"/>
+    <path d="M8 2A6 6 0 0 1 14 8H8V2Z" fill="#DFE1E5"/>
+    <path d="M10.2 5.8C9.7 5.2 8.9 4.9 8.1 4.9C6.4 4.9 5.2 6.2 5.2 8C5.2 9.8 6.4 11.1 8.1 11.1C8.9 11.1 9.7 10.8 10.2 10.2" stroke="#3574F0" stroke-width="1.5" stroke-linecap="round"/>
+  `),
+
+  // Java Record (Light expui/nodes/record.svg)
+  _java_record: circleBadgeSvg('#E7EFFD', '#3574F0', `
+    <path d="M6.2 11V5H8.5C9.5 5 10.1 5.6 10.1 6.5C10.1 7.4 9.5 8 8.5 8H6.2M8.2 8L10.1 11" stroke="#3574F0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+  `),
+
+  // Java Exception (Light expui/nodes/exceptionClass.svg)
+  _java_exception: circleBadgeSvg('#FFF0E5', '#E56E17', `
+    <path d="M8.7 4.2L5.5 8.5H8.1L7.3 11.8L10.5 7.5H7.9L8.7 4.2Z" fill="#E56E17"/>
+  `),
+
+  // Java Annotation (Light expui/nodes/annotationtype.svg)
+  _java_annotation: circleBadgeSvg('#FFF7E0', '#C27D00', `
+    <circle cx="8" cy="8" r="1.8" stroke="#C27D00" stroke-width="1.2"/>
+    <path d="M9.8 6.2V8.8C9.8 9.6 10.4 10 11 9.6C11.6 9.1 11.8 7.5 11.2 6.1C10.5 4.6 8.5 4.1 6.7 4.7C4.8 5.3 4.1 7.5 4.8 9.4C5.5 11.2 7.7 11.8 9.6 11.2" stroke="#C27D00" stroke-width="1.1" stroke-linecap="round"/>
+  `),
+
+  // Java Test Class (Light)
+  _java_test: svgWrap(`
+    <circle cx="7.5" cy="7.5" r="5.5" fill="#E7EFFD" stroke="#3574F0" stroke-width="1"/>
+    <path d="M9.5 5.5C9 5 8.3 4.7 7.6 4.7C6.1 4.7 5 5.9 5 7.5C5 9.1 6.1 10.3 7.6 10.3C8.3 10.3 9 10 9.5 9.5" stroke="#3574F0" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M11 9.5L15 12L11 14.5V9.5Z" fill="#208A3C"/>
+  `),
+
+  // Spring Boot (Light)
+  _spring: svgWrap(`
+    <path d="M8 1.5L13.5 4.7V11.3L8 14.5L2.5 11.3V4.7L8 1.5Z" fill="#E5F4EA" stroke="#389E1F" stroke-width="1"/>
+    <path d="M11.2 5.2C8.2 5.2 5.2 6.8 5.2 9.8C5.2 10.5 5.6 11 5.6 11C5.6 11 7.6 9.2 9.8 8.5C7.6 9.8 6.4 11.2 6.4 11.2C8.8 11.6 11.4 9.8 11.4 6.2C11.4 5.7 11.2 5.2 11.2 5.2Z" fill="#389E1F"/>
+  `),
+
+  // Maven (Light)
+  _maven: fileBadgeSvg('#E7EFFD', '#3574F0', `
+    <path d="M4.2 10.5V5.5L6.8 8.8L9.4 5.5V10.5M9.4 5.5H11.8" stroke="#3574F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  `),
+
+  // Gradle (Light)
+  _gradle: fileBadgeSvg('#E3F6F8', '#007E8A', `
+    <path d="M5 9.5C5 7.5 6.5 6 8.5 6H11V9.5C11 10.6 10.1 11.5 9 11.5H7C5.9 11.5 5 10.6 5 9.5Z" stroke="#007E8A" stroke-width="1.3"/>
+    <circle cx="9.2" cy="7.8" r="0.8" fill="#007E8A"/>
+  `),
+
+  // Kotlin (Light)
+  _kotlin: fileBadgeSvg('#F2EBF9', '#834DF0', `
+    <path d="M4.5 4.5H11.5L8 8L11.5 11.5H4.5V4.5Z" fill="#834DF0"/>
+  `),
+
+  // TypeScript (.ts Light)
+  _ts: fileBadgeSvg('#E7EFFD', '#3574F0', `
+    <path d="M4.2 5.5H8.2M6.2 5.5V11M11.8 6.2C11.2 5.6 9.5 5.5 9.5 6.8C9.5 8.5 12 8 12 9.8C12 11 10 11.2 9.2 10.4" stroke="#3574F0" stroke-width="1.4" stroke-linecap="round"/>
+  `),
+
+  // React TSX / JSX (.tsx, .jsx Light)
+  _tsx: svgWrap(`
+    <circle cx="8" cy="8" r="1.5" fill="#007ACC"/>
+    <ellipse cx="8" cy="8" rx="6.2" ry="2.4" stroke="#007ACC" stroke-width="1"/>
+    <ellipse cx="8" cy="8" rx="6.2" ry="2.4" transform="rotate(60 8 8)" stroke="#007ACC" stroke-width="1"/>
+    <ellipse cx="8" cy="8" rx="6.2" ry="2.4" transform="rotate(120 8 8)" stroke="#007ACC" stroke-width="1"/>
+  `),
+
+  // JavaScript (.js Light)
+  _js: fileBadgeSvg('#FFF7E0', '#C27D00', `
+    <path d="M6.8 5.5V9.8C6.8 10.6 6.2 11 5.4 11C4.8 11 4.4 10.7 4.2 10.3M11.6 6.2C11 5.6 9.3 5.5 9.3 6.8C9.3 8.5 11.8 8 11.8 9.8C11.8 11 9.8 11.2 9 10.4" stroke="#C27D00" stroke-width="1.4" stroke-linecap="round"/>
+  `),
+
+  // JSON (.json Light)
+  _json: fileBadgeSvg('#FFFFFF', '#6C707E', `
+    <path d="M6.2 4.8C5.2 4.8 5.2 5.8 5.2 6.8C5.2 7.5 4.4 8 4.4 8C4.4 8 5.2 8.5 5.2 9.2C5.2 10.2 5.2 11.2 6.2 11.2M9.8 4.8C10.8 4.8 10.8 5.8 10.8 6.8C10.8 7.5 11.6 8 11.6 8C11.6 8 10.8 8.5 10.8 9.2C10.8 10.2 10.8 11.2 9.8 11.2" stroke="#C27D00" stroke-width="1.3" stroke-linecap="round"/>
+  `),
+
+  // YAML (.yml Light)
+  _yaml: fileBadgeSvg('#F2EBF9', '#834DF0', `
+    <path d="M4.5 5L6.8 8V11M9.1 5L6.8 8M9.5 11H11.8M9.5 8H11.8" stroke="#834DF0" stroke-width="1.4" stroke-linecap="round"/>
+  `),
+
+  // XML (.xml Light)
+  _xml: fileBadgeSvg('#FFF0E5', '#E56E17', `
+    <path d="M6 5.5L3.8 8L6 10.5M10 5.5L12.2 8L10 10.5M8.6 5L7.4 11" stroke="#E56E17" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+  `),
+
+  // SQL (.sql Light)
+  _sql: svgWrap(`
+    <ellipse cx="8" cy="4" rx="5" ry="2" fill="#FFF7E0" stroke="#C27D00" stroke-width="1.1"/>
+    <path d="M3 4V12C3 13.1 5.2 14 8 14C10.8 14 13 13.1 13 12V4" fill="#FFF7E0" stroke="#C27D00" stroke-width="1.1"/>
+    <path d="M3 8C3 9.1 5.2 10 8 10C10.8 10 13 9.1 13 8" stroke="#C27D00" stroke-width="1.1"/>
+  `),
+
+  // HTML (.html Light)
+  _html: fileBadgeSvg('#FFF0E5', '#E56E17', `
+    <path d="M4.5 5V11M8.5 5V11M4.5 8H8.5M11 5V11" stroke="#E56E17" stroke-width="1.4" stroke-linecap="round"/>
+  `),
+
+  // CSS / SCSS (.css Light)
+  _css: fileBadgeSvg('#E7EFFD', '#3574F0', `
+    <path d="M6 4.5L5 11.5M10.5 4.5L9.5 11.5M4.2 6.8H11.8M4 9.5H11.5" stroke="#3574F0" stroke-width="1.3" stroke-linecap="round"/>
+  `),
+
+  // Markdown (.md Light)
+  _md: fileBadgeSvg('#E7EFFD', '#3574F0', `
+    <path d="M3.8 10.5V5.5L6 8L8.2 5.5V10.5M11.2 5.5V10.5M9.6 8.8L11.2 10.5L12.8 8.8" stroke="#3574F0" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+  `),
+
+  // Git (Light)
+  _git: circleBadgeSvg('#FFF0E5', '#D1453B', `
+    <circle cx="6" cy="6" r="1.2" fill="#D1453B"/>
+    <circle cx="10" cy="6" r="1.2" fill="#D1453B"/>
+    <circle cx="6" cy="10.5" r="1.2" fill="#D1453B"/>
+    <path d="M6 7.2V9.3M6 7.5C6 7.5 10 7.5 10 6" stroke="#D1453B" stroke-width="1.2"/>
+  `),
+
+  // Docker (Light)
+  _docker: fileBadgeSvg('#E3F6F8', '#007E8A', `
+    <rect x="4.5" y="7" width="2" height="2" fill="#007E8A"/>
+    <rect x="7" y="7" width="2" height="2" fill="#007E8A"/>
+    <rect x="7" y="4.5" width="2" height="2" fill="#007E8A"/>
+    <path d="M3.5 9.5H12.5C12.2 11.5 10.5 12.2 8 12.2C5.5 12.2 3.8 11.2 3.5 9.5Z" fill="#007E8A"/>
+  `),
+
+  // Shell / Terminal (Light)
+  _shell: fileBadgeSvg('#FFFFFF', '#6C707E', `
+    <path d="M4.5 6L7 8L4.5 10M8 10.5H11.5" stroke="#208A3C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+  `),
+
+  // Properties / Env (Light)
+  _properties: fileBadgeSvg('#E5F4EA', '#208A3C', `
+    <path d="M4.5 5.5H11.5M4.5 8H11.5M4.5 10.5H9" stroke="#208A3C" stroke-width="1.4" stroke-linecap="round"/>
+  `),
+
+  // PDF (Light)
+  _pdf: fileBadgeSvg('#FCF0F1', '#E53E4D', `
+    <path d="M5 10.5V5.5H7.5C8.5 5.5 9 6 9 6.8C9 7.6 8.5 8.1 7.5 8.1H5M10.5 5.5V10.5" stroke="#E53E4D" stroke-width="1.3" stroke-linecap="round"/>
+  `),
+
+  // Archive / JAR (Light)
+  _jar: fileBadgeSvg('#FFF7E0', '#C27D00', `
+    <path d="M8 3V13M6.5 5H9.5M6.5 7.5H9.5M6.5 10H9.5" stroke="#C27D00" stroke-width="1.3" stroke-linecap="round"/>
+  `),
+
+  // Image (Light)
+  _image: fileBadgeSvg('#E5F4EA', '#208A3C', `
+    <circle cx="6" cy="6" r="1.2" fill="#208A3C"/>
+    <path d="M3.5 11.5L6.5 8.5L8.5 10.5L10.5 8L12.5 11.5" stroke="#208A3C" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+  `)
+};
+
 const iconDefinitions = {};
 for (const [id, content] of Object.entries(SVGS)) {
   const filename = `${id.replace(/^_/, '')}.svg`;
   fs.writeFileSync(path.join(SVG_DIR, filename), content.trim(), 'utf8');
   iconDefinitions[id] = { iconPath: `./svgs/${filename}` };
 }
+for (const [id, content] of Object.entries(LIGHT_SVGS)) {
+  const filename = `${id.replace(/^_/, '')}.svg`;
+  const lightId = id.replace(/^_/, '_light_');
+  fs.writeFileSync(path.join(LIGHT_SVG_DIR, filename), content.trim(), 'utf8');
+  iconDefinitions[lightId] = { iconPath: `./svgs/light/${filename}` };
+}
+
+const toLightMap = (obj) =>
+  Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, v.replace(/^_/, '_light_')]));
 
 // Scan workspace Java files to classify exact Java type (interface, enum, record, abstract class, annotation, exception, test, class)
 const fileNames = {
@@ -480,6 +679,17 @@ const fileIconTheme = {
     'properties': '_properties',
     'dockerfile': '_docker'
   }
+};
+
+fileIconTheme.light = {
+  file: '_light_file',
+  folder: '_light_folder',
+  folderExpanded: '_light_folder_open',
+  folderNames: toLightMap(fileIconTheme.folderNames),
+  folderNamesExpanded: toLightMap(fileIconTheme.folderNamesExpanded),
+  fileExtensions: toLightMap(fileIconTheme.fileExtensions),
+  fileNames: toLightMap(fileIconTheme.fileNames),
+  languageIds: toLightMap(fileIconTheme.languageIds)
 };
 
 fs.writeFileSync(JSON_PATH, JSON.stringify(fileIconTheme, null, 2), 'utf8');

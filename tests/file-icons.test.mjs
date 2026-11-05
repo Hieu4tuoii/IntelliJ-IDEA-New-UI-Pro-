@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const ICON_DIR = path.join(ROOT, 'jetbrains-intellij-new-ui-dark/icons/file-icons');
+const ICON_DIR = path.join(ROOT, 'jetbrains-intellij-new-ui-pro/icons/file-icons');
 const JSON_PATH = path.join(ICON_DIR, 'intellij-new-ui-file-icons.json');
 
 test('File icon theme defines valid 16x16 SVGs and maps Java/Spring/FE files accurately', () => {
@@ -48,11 +48,27 @@ test('File icon theme defines valid 16x16 SVGs and maps Java/Spring/FE files acc
   assert.notEqual(theme.fileNames['workflowserviceimpl.java'], '_java_record', 'Class WorkflowServiceImpl.java must not be _java_record');
   assert.equal(theme.fileNames['queuemessagebase.java'], '_java_record', 'Actual Java record QueueMessageBase.java must be _java_record');
   assert.ok(Object.keys(theme.fileNames).length < 600, `fileNames should be compacted without redundant _java_class bloat, got ${Object.keys(theme.fileNames).length}`);
+
+  // Dark SVGs must remain 100% untouched
+  const darkJavaClassSvg = fs.readFileSync(path.resolve(ICON_DIR, theme.iconDefinitions._java_class.iconPath), 'utf8');
+  assert.match(darkJavaClassSvg, /fill="#25324D"/, 'Dark _java_class SVG fill must remain untouched (#25324D)');
+
+  // Light theme icon variant must exist and map light expui SVGs without affecting Dark
+  assert.ok(theme.light, 'File icon theme must include a top-level light override object');
+  assert.equal(theme.light.file, '_light_file');
+  assert.equal(theme.light.folder, '_light_folder');
+  assert.equal(theme.light.folderExpanded, '_light_folder_open');
+  assert.equal(theme.light.folderNames['java'], '_light_folder_java');
+  assert.equal(theme.light.fileExtensions['java'], '_light_java_class');
+  assert.equal(theme.light.fileNames['pom.xml'], '_light_maven');
+  assert.equal(theme.light.fileNames['createattachmentservice.java'], '_light_java_interface');
+  const lightJavaClassSvg = fs.readFileSync(path.resolve(ICON_DIR, theme.iconDefinitions._light_java_class.iconPath), 'utf8');
+  assert.match(lightJavaClassSvg, /fill="#E7EFFD"/, 'Light _light_java_class SVG must use expui Light blue tint (#E7EFFD)');
 });
 
 test('Runtime extension.js classifyJavaContent and scanWorkspaceJavaIcons auto-scan workspace Java files on startup', async () => {
   const extSrc = fs.readFileSync(
-    path.join(ROOT, 'jetbrains-intellij-new-ui-dark/extension.js'),
+    path.join(ROOT, 'jetbrains-intellij-new-ui-pro/extension.js'),
     'utf8'
   );
   assert.doesNotMatch(extSrc, /\\b@interface/, 'extension.js must not use broken \\b@interface regex');
@@ -66,8 +82,24 @@ test('Runtime extension.js classifyJavaContent and scanWorkspaceJavaIcons auto-s
   const Module = requireCjs('node:module');
   const origLoad = Module._load;
   Module._load = (request, parent, isMain) => (request === 'vscode' ? {} : origLoad(request, parent, isMain));
-  const { classifyJavaContent } = requireCjs(path.join(ROOT, 'jetbrains-intellij-new-ui-dark/extension.js'));
+  const { classifyJavaContent, resolvePreferredIntelliJTheme } = requireCjs(path.join(ROOT, 'jetbrains-intellij-new-ui-pro/extension.js'));
   Module._load = origLoad;
+
+  assert.equal(
+    resolvePreferredIntelliJTheme('IntelliJ IDEA New UI Light (Pro)'),
+    'IntelliJ IDEA New UI Light (Pro)',
+    'Selecting Light theme in IDE menu must be preserved by extension.js'
+  );
+  assert.equal(
+    resolvePreferredIntelliJTheme('IntelliJ IDEA New UI Dark (Pro)'),
+    'IntelliJ IDEA New UI Dark (Pro)',
+    'Dark theme selection must be preserved by extension.js'
+  );
+  assert.equal(
+    resolvePreferredIntelliJTheme('Default Dark+'),
+    'IntelliJ IDEA New UI Dark (Pro)',
+    'Non-IntelliJ theme must default to IntelliJ IDEA New UI Dark (Pro) when applying IntelliJ mode'
+  );
 
   assert.equal(
     classifyJavaContent('package a.b;\npublic class EcmMultiDocItemDto {\n}', 'EcmMultiDocItemDto.java'),
