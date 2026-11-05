@@ -5,7 +5,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const THEME_PATH = path.join(ROOT, 'jetbrains-intellij-new-ui-dark/themes/intellij-new-ui-dark-pro.json');
+const THEME_PATH = path.join(ROOT, 'jetbrains-intellij-new-ui-pro/themes/intellij-new-ui-dark-pro.json');
+const LIGHT_THEME_PATH = path.join(ROOT, 'jetbrains-intellij-new-ui-pro/themes/intellij-new-ui-light-pro.json');
 
 test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semantic tokens', () => {
   const theme = JSON.parse(fs.readFileSync(THEME_PATH, 'utf8'));
@@ -96,3 +97,48 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   assert.ok(typeRule.scope.includes('storage.type.package.java'), 'Java packages must be #BCBEC4 in TextMate to prevent orange-to-gray text flicker');
 });
 
+
+test('Light color theme matches exact JetBrains New UI Light (ExperimentalLight) palette and Java/TS semantic tokens', () => {
+  const theme = JSON.parse(fs.readFileSync(LIGHT_THEME_PATH, 'utf8'));
+  assert.equal(theme.name, 'IntelliJ IDEA New UI Light (Pro)');
+  assert.equal(theme.type, 'light');
+  assert.equal(theme.semanticHighlighting, true);
+
+  // Core ExperimentalLight surfaces
+  assert.equal(theme.colors['editor.background'].toUpperCase(), '#FFFFFF');
+  assert.equal(theme.colors['editor.foreground'].toUpperCase(), '#080808');
+  assert.equal(theme.colors['sideBar.background'].toUpperCase(), '#F7F8FA');
+  assert.equal(theme.colors['activityBar.background'].toUpperCase(), '#EBECF0');
+  assert.equal(theme.colors['statusBar.background'].toUpperCase(), '#F7F8FA');
+  assert.equal(theme.colors['titleBar.activeBackground'].toUpperCase(), '#EBECF0');
+  assert.equal(theme.colors['terminal.background'].toUpperCase(), '#FFFFFF');
+  assert.equal(theme.colors['focusBorder'].toUpperCase(), '#3574F0');
+  assert.equal(theme.colors['list.activeSelectionBackground'].toUpperCase(), '#D4E2FF');
+  assert.equal(theme.colors['editor.selectionBackground'].toUpperCase(), '#A6D2FF');
+  assert.equal(theme.colors['editor.lineHighlightBackground'].toUpperCase(), '#F5F8FE');
+  assert.ok(Object.keys(theme.colors).length >= 320, `Must cover >= 320 workbench color keys, got ${Object.keys(theme.colors).length}`);
+
+  // Semantic tokens matching JetBrains light.xml
+  const sem = theme.semanticTokenColors;
+  assert.equal(sem['keyword'].foreground.toUpperCase(), '#0033B3');
+  assert.equal(sem['annotation'].foreground.toUpperCase(), '#9E880D');
+  assert.equal(sem['decorator'].foreground.toUpperCase(), '#9E880D');
+  assert.equal(sem['method.declaration'].foreground.toUpperCase(), '#00627A');
+  assert.equal(sem['function.declaration'].foreground.toUpperCase(), '#00627A');
+  assert.equal(sem['property'].foreground.toUpperCase(), '#871094');
+  assert.equal(sem['property.readonly.static'].fontStyle, 'italic');
+  assert.equal(sem['enumMember'].foreground.toUpperCase(), '#871094');
+  assert.equal(sem['enumMember'].fontStyle, 'italic');
+  assert.equal(sem['string'].foreground.toUpperCase(), '#067D17');
+  assert.equal(sem['number'].foreground.toUpperCase(), '#1750EB');
+  assert.equal(sem['typeParameter'].foreground.toUpperCase(), '#007E8A');
+  assert.equal(sem['operator'].foreground.toUpperCase(), '#080808');
+  assert.equal(sem['*.importDeclaration'].foreground.toUpperCase(), '#080808');
+
+  // Anti-flicker TextMate alignment for Java imports/packages
+  const typeRule = theme.tokenColors.find(r => r.name.includes('Classes, Interfaces, Types'));
+  assert.ok(typeRule, 'Must have Classes, Interfaces, Types & Parameters rule');
+  assert.ok(typeRule.scope.includes('storage.type.import.java'));
+  assert.ok(typeRule.scope.includes('storage.type.package.java'));
+  assert.equal(typeRule.settings.foreground.toUpperCase(), '#080808');
+});
