@@ -1,9 +1,9 @@
 {
-  "name": "jetbrains-intellij-new-ui-dark",
+  "name": "jetbrains-intellij-new-ui-pro",
   "publisher": "elaand",
-  "displayName": "IntelliJ IDEA New UI Dark (Pro)",
-  "description": "All-in-one IntelliJ IDEA New UI Dark experience for Antigravity IDE: official ExperimentalDark workbench palette, deep Java/Spring & TypeScript semantic highlighting, JetBrains expui File Icons, Product UI Icons, JetBrains Mono typography, and toggleable IntelliJ Keymap.",
-  "version": "1.1.0",
+  "displayName": "IntelliJ IDEA New UI (Pro)",
+  "description": "All-in-one IntelliJ IDEA New UI (Dark & Light) experience for Antigravity IDE: official ExperimentalDark & ExperimentalLight workbench palettes, deep Java/Spring & TypeScript semantic highlighting, JetBrains expui File Icons, Product UI Icons, JetBrains Mono typography, and toggleable IntelliJ Keymap.",
+  "version": "1.2.0",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -55,6 +55,12 @@
         "label": "IntelliJ IDEA New UI Dark (Pro)",
         "uiTheme": "vs-dark",
         "path": "./themes/intellij-new-ui-dark-pro.json"
+      },
+      {
+        "id": "IntelliJ IDEA New UI Light (Pro)",
+        "label": "IntelliJ IDEA New UI Light (Pro)",
+        "uiTheme": "vs",
+        "path": "./themes/intellij-new-ui-light-pro.json"
       }
     ],
     "iconThemes": [
@@ -310,6 +316,7 @@
     "intellij",
     "new-ui",
     "dark",
+    "light",
     "darcula",
     "icons",
     "product-icons",

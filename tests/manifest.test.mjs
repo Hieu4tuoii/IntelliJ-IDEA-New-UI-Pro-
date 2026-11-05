@@ -6,20 +6,27 @@ import path from 'node:path';
 const ROOT = path.resolve(import.meta.dirname, '..');
 
 test('Single unified extension manifest has themes, icons, settings, eager activation, and flat conditional keybindings', () => {
-  const uiPkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'jetbrains-intellij-new-ui-dark/package.json'), 'utf8'));
-  assert.equal(uiPkg.name, 'jetbrains-intellij-new-ui-dark');
+  const uiPkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'jetbrains-intellij-new-ui-pro/package.json'), 'utf8'));
+  assert.equal(uiPkg.name, 'jetbrains-intellij-new-ui-pro');
+  assert.equal(uiPkg.displayName, 'IntelliJ IDEA New UI (Pro)');
   assert.equal(uiPkg.publisher, 'elaand');
-  assert.equal(uiPkg.version, '1.1.0', 'Version must be bumped to 1.1.0 to invalidate IDE manifest cache');
+  assert.equal(uiPkg.version, '1.2.0', 'Version must be bumped to 1.2.0 to invalidate IDE manifest cache');
   assert.ok(uiPkg.activationEvents.includes('*'), 'Must activate eagerly with "*" so keymap context and project detection run at 0ms');
   assert.equal(uiPkg.contributes.configurationDefaults, undefined, 'configurationDefaults must not be hardcoded in package.json so non-Java projects are unaffected');
 
-  assert.equal(uiPkg.contributes.themes[0].label, 'IntelliJ IDEA New UI Dark (Pro)');
-  assert.equal(
-    uiPkg.contributes.themes[0].id ?? uiPkg.contributes.themes[0].label,
-    'IntelliJ IDEA New UI Dark (Pro)',
-    'Theme id (if present) must exactly match the workbench.colorTheme setting value'
-  );
-  assert.equal(uiPkg.contributes.themes[0].path, './themes/intellij-new-ui-dark-pro.json');
+  assert.equal(uiPkg.contributes.themes.length, 2, 'Must contribute both Dark and Light themes');
+  assert.deepEqual(uiPkg.contributes.themes[0], {
+    id: 'IntelliJ IDEA New UI Dark (Pro)',
+    label: 'IntelliJ IDEA New UI Dark (Pro)',
+    uiTheme: 'vs-dark',
+    path: './themes/intellij-new-ui-dark-pro.json'
+  });
+  assert.deepEqual(uiPkg.contributes.themes[1], {
+    id: 'IntelliJ IDEA New UI Light (Pro)',
+    label: 'IntelliJ IDEA New UI Light (Pro)',
+    uiTheme: 'vs',
+    path: './themes/intellij-new-ui-light-pro.json'
+  });
   assert.equal(uiPkg.contributes.iconThemes[0].id, 'intellij-new-ui-file-icons');
   assert.equal(uiPkg.contributes.iconThemes[0].path, './icons/file-icons/intellij-new-ui-file-icons.json');
   assert.equal(uiPkg.contributes.productIconThemes[0].id, 'intellij-new-ui-product-icons');

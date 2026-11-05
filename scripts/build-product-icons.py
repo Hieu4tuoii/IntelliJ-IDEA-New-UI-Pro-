@@ -5,7 +5,7 @@ import struct
 import zlib
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-PROD_DIR = os.path.join(ROOT, "jetbrains-intellij-new-ui-dark", "icons", "product-icons")
+PROD_DIR = os.path.join(ROOT, "jetbrains-intellij-new-ui-pro", "icons", "product-icons")
 WOFF_PATH = os.path.join(PROD_DIR, "intellij-expui-icons.woff")
 JSON_PATH = os.path.join(PROD_DIR, "intellij-new-ui-product-icons.json")
 
