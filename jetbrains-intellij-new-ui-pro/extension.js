@@ -86,7 +86,9 @@ function detectJavaWorkspace() {
 const COMMENT_RE = /\/\*[\s\S]*?\*\/|\/\/.*|"(?:\\.|[^"\\])*"/g;
 const TOP_LEVEL_TYPE_RE = /(?:(^|\s)@interface\s+[A-Za-z_$]\w*|\b(abstract\s+class|interface|enum|class)\s+[A-Za-z_$]\w*|\b(record)\s+[A-Z]\w*\s*(?:<[^>]*>)?\s*\()/;
 const EXCEPTION_CLASS_RE = /\bclass\s+\w+[^{;]*?\bextends\s+\w*(?:Exception|Error|Throwable)\b/;
-const HEADER_BUF = Buffer.allocUnsafe(4096);
+const FINAL_CLASS_RE = /\bfinal\s+class\s+[A-Za-z_$]\w*/;
+const MAIN_METHOD_RE = /@SpringBootApplication\b|\b(?:public\s+)?static\s+void\s+main\s*\(\s*(?:final\s+)?String\b/;
+const HEADER_BUF = Buffer.allocUnsafe(8192);
 
 function classifyJavaByFileNameFast(lower) {
   if (lower.endsWith('test.java') || lower.endsWith('tests.java') || lower.endsWith('it.java')) {
@@ -114,8 +116,13 @@ function classifyJavaContent(src, fileName) {
       if (kind === 'enum') return '_java_enum';
       if (kind === 'abstract class') return '_java_abstract';
       if (EXCEPTION_CLASS_RE.test(cleaned)) return '_java_exception';
+      if (MAIN_METHOD_RE.test(cleaned) || lower.endsWith('application.java')) return '_java_runnable';
+      if (FINAL_CLASS_RE.test(cleaned)) return '_java_final_class';
       return '_java_class';
     }
+  }
+  if (lower.endsWith('application.java')) {
+    return '_java_runnable';
   }
   if (lower.endsWith('record.java')) {
     return '_java_record';
@@ -129,12 +136,12 @@ function classifyJavaContent(src, fileName) {
   return '_java_class';
 }
 
-// Fast 4KB header reader reusing a single shared buffer
+// Fast 8KB header reader reusing a single shared buffer
 function readJavaHeader(filePath) {
   let fd;
   try {
     fd = fs.openSync(filePath, 'r');
-    const bytesRead = fs.readSync(fd, HEADER_BUF, 0, 4096, 0);
+    const bytesRead = fs.readSync(fd, HEADER_BUF, 0, 8192, 0);
     return HEADER_BUF.toString('utf8', 0, bytesRead);
   } catch {
     return '';
@@ -294,7 +301,7 @@ function updateJavaFileIconMapping(context, docOrUri, isSave = false) {
     if (!iconId) {
       let src = '';
       if (isDoc) {
-        src = vscode.Range ? docOrUri.getText(new vscode.Range(0, 0, 100, 0)) : docOrUri.getText().slice(0, 4096);
+        src = vscode.Range ? docOrUri.getText(new vscode.Range(0, 0, 200, 0)) : docOrUri.getText().slice(0, 8192);
       } else if (fs.existsSync(fsPath)) {
         src = readJavaHeader(fsPath);
       } else {

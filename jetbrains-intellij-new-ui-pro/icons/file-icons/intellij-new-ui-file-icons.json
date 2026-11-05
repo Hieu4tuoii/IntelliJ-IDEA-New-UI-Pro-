@@ -42,8 +42,41 @@
     "_folder_config_open": {
       "iconPath": "./svgs/folder_config_open.svg"
     },
+    "_folder_github": {
+      "iconPath": "./svgs/folder_github.svg"
+    },
+    "_folder_github_open": {
+      "iconPath": "./svgs/folder_github_open.svg"
+    },
+    "_folder_library": {
+      "iconPath": "./svgs/folder_library.svg"
+    },
+    "_folder_library_open": {
+      "iconPath": "./svgs/folder_library_open.svg"
+    },
+    "_folder_log": {
+      "iconPath": "./svgs/folder_log.svg"
+    },
+    "_folder_log_open": {
+      "iconPath": "./svgs/folder_log_open.svg"
+    },
+    "_folder_package": {
+      "iconPath": "./svgs/folder_package.svg"
+    },
+    "_folder_package_open": {
+      "iconPath": "./svgs/folder_package_open.svg"
+    },
     "_file": {
       "iconPath": "./svgs/file.svg"
+    },
+    "_text": {
+      "iconPath": "./svgs/text.svg"
+    },
+    "_ignored": {
+      "iconPath": "./svgs/ignored.svg"
+    },
+    "_iml": {
+      "iconPath": "./svgs/iml.svg"
     },
     "_java_class": {
       "iconPath": "./svgs/java_class.svg"
@@ -66,11 +99,23 @@
     "_java_annotation": {
       "iconPath": "./svgs/java_annotation.svg"
     },
+    "_java_runnable": {
+      "iconPath": "./svgs/java_runnable.svg"
+    },
+    "_java_final_class": {
+      "iconPath": "./svgs/java_final_class.svg"
+    },
     "_java_test": {
       "iconPath": "./svgs/java_test.svg"
     },
+    "_java_compiled": {
+      "iconPath": "./svgs/java_compiled.svg"
+    },
     "_spring": {
       "iconPath": "./svgs/spring.svg"
+    },
+    "_lombok": {
+      "iconPath": "./svgs/lombok.svg"
     },
     "_maven": {
       "iconPath": "./svgs/maven.svg"
@@ -81,26 +126,47 @@
     "_kotlin": {
       "iconPath": "./svgs/kotlin.svg"
     },
+    "_kotlin_gradle": {
+      "iconPath": "./svgs/kotlin_gradle.svg"
+    },
+    "_python": {
+      "iconPath": "./svgs/python.svg"
+    },
     "_ts": {
       "iconPath": "./svgs/ts.svg"
+    },
+    "_ts_test": {
+      "iconPath": "./svgs/ts_test.svg"
     },
     "_tsx": {
       "iconPath": "./svgs/tsx.svg"
     },
+    "_tsx_test": {
+      "iconPath": "./svgs/tsx_test.svg"
+    },
+    "_jsx": {
+      "iconPath": "./svgs/jsx.svg"
+    },
+    "_jsx_test": {
+      "iconPath": "./svgs/jsx_test.svg"
+    },
     "_js": {
       "iconPath": "./svgs/js.svg"
     },
-    "_json": {
-      "iconPath": "./svgs/json.svg"
+    "_js_test": {
+      "iconPath": "./svgs/js_test.svg"
     },
-    "_yaml": {
-      "iconPath": "./svgs/yaml.svg"
+    "_npm": {
+      "iconPath": "./svgs/npm.svg"
     },
-    "_xml": {
-      "iconPath": "./svgs/xml.svg"
+    "_eslint": {
+      "iconPath": "./svgs/eslint.svg"
     },
-    "_sql": {
-      "iconPath": "./svgs/sql.svg"
+    "_prettier": {
+      "iconPath": "./svgs/prettier.svg"
+    },
+    "_vue": {
+      "iconPath": "./svgs/vue.svg"
     },
     "_html": {
       "iconPath": "./svgs/html.svg"
@@ -108,14 +174,41 @@
     "_css": {
       "iconPath": "./svgs/css.svg"
     },
+    "_json": {
+      "iconPath": "./svgs/json.svg"
+    },
+    "_json_schema": {
+      "iconPath": "./svgs/json_schema.svg"
+    },
+    "_yaml": {
+      "iconPath": "./svgs/yaml.svg"
+    },
+    "_xml": {
+      "iconPath": "./svgs/xml.svg"
+    },
+    "_xsd": {
+      "iconPath": "./svgs/xsd.svg"
+    },
+    "_wsdl": {
+      "iconPath": "./svgs/wsdl.svg"
+    },
+    "_sql": {
+      "iconPath": "./svgs/sql.svg"
+    },
     "_md": {
       "iconPath": "./svgs/md.svg"
     },
     "_git": {
       "iconPath": "./svgs/git.svg"
     },
+    "_gitlab": {
+      "iconPath": "./svgs/gitlab.svg"
+    },
     "_docker": {
       "iconPath": "./svgs/docker.svg"
+    },
+    "_docker_compose": {
+      "iconPath": "./svgs/docker_compose.svg"
     },
     "_shell": {
       "iconPath": "./svgs/shell.svg"
@@ -123,14 +216,38 @@
     "_properties": {
       "iconPath": "./svgs/properties.svg"
     },
-    "_pdf": {
-      "iconPath": "./svgs/pdf.svg"
+    "_config": {
+      "iconPath": "./svgs/config.svg"
+    },
+    "_editorconfig": {
+      "iconPath": "./svgs/editorconfig.svg"
+    },
+    "_toml": {
+      "iconPath": "./svgs/toml.svg"
+    },
+    "_http": {
+      "iconPath": "./svgs/http.svg"
+    },
+    "_csv": {
+      "iconPath": "./svgs/csv.svg"
+    },
+    "_manifest": {
+      "iconPath": "./svgs/manifest.svg"
     },
     "_jar": {
       "iconPath": "./svgs/jar.svg"
     },
     "_image": {
       "iconPath": "./svgs/image.svg"
+    },
+    "_font": {
+      "iconPath": "./svgs/font.svg"
+    },
+    "_patch": {
+      "iconPath": "./svgs/patch.svg"
+    },
+    "_pdf": {
+      "iconPath": "./svgs/pdf.svg"
     },
     "_light_folder": {
       "iconPath": "./svgs/light/folder.svg"
@@ -174,8 +291,41 @@
     "_light_folder_config_open": {
       "iconPath": "./svgs/light/folder_config_open.svg"
     },
+    "_light_folder_github": {
+      "iconPath": "./svgs/light/folder_github.svg"
+    },
+    "_light_folder_github_open": {
+      "iconPath": "./svgs/light/folder_github_open.svg"
+    },
+    "_light_folder_library": {
+      "iconPath": "./svgs/light/folder_library.svg"
+    },
+    "_light_folder_library_open": {
+      "iconPath": "./svgs/light/folder_library_open.svg"
+    },
+    "_light_folder_log": {
+      "iconPath": "./svgs/light/folder_log.svg"
+    },
+    "_light_folder_log_open": {
+      "iconPath": "./svgs/light/folder_log_open.svg"
+    },
+    "_light_folder_package": {
+      "iconPath": "./svgs/light/folder_package.svg"
+    },
+    "_light_folder_package_open": {
+      "iconPath": "./svgs/light/folder_package_open.svg"
+    },
     "_light_file": {
       "iconPath": "./svgs/light/file.svg"
+    },
+    "_light_text": {
+      "iconPath": "./svgs/light/text.svg"
+    },
+    "_light_ignored": {
+      "iconPath": "./svgs/light/ignored.svg"
+    },
+    "_light_iml": {
+      "iconPath": "./svgs/light/iml.svg"
     },
     "_light_java_class": {
       "iconPath": "./svgs/light/java_class.svg"
@@ -198,11 +348,23 @@
     "_light_java_annotation": {
       "iconPath": "./svgs/light/java_annotation.svg"
     },
+    "_light_java_runnable": {
+      "iconPath": "./svgs/light/java_runnable.svg"
+    },
+    "_light_java_final_class": {
+      "iconPath": "./svgs/light/java_final_class.svg"
+    },
     "_light_java_test": {
       "iconPath": "./svgs/light/java_test.svg"
     },
+    "_light_java_compiled": {
+      "iconPath": "./svgs/light/java_compiled.svg"
+    },
     "_light_spring": {
       "iconPath": "./svgs/light/spring.svg"
+    },
+    "_light_lombok": {
+      "iconPath": "./svgs/light/lombok.svg"
     },
     "_light_maven": {
       "iconPath": "./svgs/light/maven.svg"
@@ -213,26 +375,47 @@
     "_light_kotlin": {
       "iconPath": "./svgs/light/kotlin.svg"
     },
+    "_light_kotlin_gradle": {
+      "iconPath": "./svgs/light/kotlin_gradle.svg"
+    },
+    "_light_python": {
+      "iconPath": "./svgs/light/python.svg"
+    },
     "_light_ts": {
       "iconPath": "./svgs/light/ts.svg"
+    },
+    "_light_ts_test": {
+      "iconPath": "./svgs/light/ts_test.svg"
     },
     "_light_tsx": {
       "iconPath": "./svgs/light/tsx.svg"
     },
+    "_light_tsx_test": {
+      "iconPath": "./svgs/light/tsx_test.svg"
+    },
+    "_light_jsx": {
+      "iconPath": "./svgs/light/jsx.svg"
+    },
+    "_light_jsx_test": {
+      "iconPath": "./svgs/light/jsx_test.svg"
+    },
     "_light_js": {
       "iconPath": "./svgs/light/js.svg"
     },
-    "_light_json": {
-      "iconPath": "./svgs/light/json.svg"
+    "_light_js_test": {
+      "iconPath": "./svgs/light/js_test.svg"
     },
-    "_light_yaml": {
-      "iconPath": "./svgs/light/yaml.svg"
+    "_light_npm": {
+      "iconPath": "./svgs/light/npm.svg"
     },
-    "_light_xml": {
-      "iconPath": "./svgs/light/xml.svg"
+    "_light_eslint": {
+      "iconPath": "./svgs/light/eslint.svg"
     },
-    "_light_sql": {
-      "iconPath": "./svgs/light/sql.svg"
+    "_light_prettier": {
+      "iconPath": "./svgs/light/prettier.svg"
+    },
+    "_light_vue": {
+      "iconPath": "./svgs/light/vue.svg"
     },
     "_light_html": {
       "iconPath": "./svgs/light/html.svg"
@@ -240,14 +423,41 @@
     "_light_css": {
       "iconPath": "./svgs/light/css.svg"
     },
+    "_light_json": {
+      "iconPath": "./svgs/light/json.svg"
+    },
+    "_light_json_schema": {
+      "iconPath": "./svgs/light/json_schema.svg"
+    },
+    "_light_yaml": {
+      "iconPath": "./svgs/light/yaml.svg"
+    },
+    "_light_xml": {
+      "iconPath": "./svgs/light/xml.svg"
+    },
+    "_light_xsd": {
+      "iconPath": "./svgs/light/xsd.svg"
+    },
+    "_light_wsdl": {
+      "iconPath": "./svgs/light/wsdl.svg"
+    },
+    "_light_sql": {
+      "iconPath": "./svgs/light/sql.svg"
+    },
     "_light_md": {
       "iconPath": "./svgs/light/md.svg"
     },
     "_light_git": {
       "iconPath": "./svgs/light/git.svg"
     },
+    "_light_gitlab": {
+      "iconPath": "./svgs/light/gitlab.svg"
+    },
     "_light_docker": {
       "iconPath": "./svgs/light/docker.svg"
+    },
+    "_light_docker_compose": {
+      "iconPath": "./svgs/light/docker_compose.svg"
     },
     "_light_shell": {
       "iconPath": "./svgs/light/shell.svg"
@@ -255,14 +465,38 @@
     "_light_properties": {
       "iconPath": "./svgs/light/properties.svg"
     },
-    "_light_pdf": {
-      "iconPath": "./svgs/light/pdf.svg"
+    "_light_config": {
+      "iconPath": "./svgs/light/config.svg"
+    },
+    "_light_editorconfig": {
+      "iconPath": "./svgs/light/editorconfig.svg"
+    },
+    "_light_toml": {
+      "iconPath": "./svgs/light/toml.svg"
+    },
+    "_light_http": {
+      "iconPath": "./svgs/light/http.svg"
+    },
+    "_light_csv": {
+      "iconPath": "./svgs/light/csv.svg"
+    },
+    "_light_manifest": {
+      "iconPath": "./svgs/light/manifest.svg"
     },
     "_light_jar": {
       "iconPath": "./svgs/light/jar.svg"
     },
     "_light_image": {
       "iconPath": "./svgs/light/image.svg"
+    },
+    "_light_font": {
+      "iconPath": "./svgs/light/font.svg"
+    },
+    "_light_patch": {
+      "iconPath": "./svgs/light/patch.svg"
+    },
+    "_light_pdf": {
+      "iconPath": "./svgs/light/pdf.svg"
     }
   },
   "file": "_file",
@@ -271,6 +505,8 @@
   "folderNames": {
     "java": "_folder_java",
     "kotlin": "_folder_java",
+    "groovy": "_folder_java",
+    "scala": "_folder_java",
     "test": "_folder_test",
     "tests": "_folder_test",
     "__tests__": "_folder_test",
@@ -279,20 +515,30 @@
     "public": "_folder_resources",
     "static": "_folder_resources",
     "i18n": "_folder_resources",
+    "META-INF": "_folder_resources",
+    "meta-inf": "_folder_resources",
     "target": "_folder_excluded",
     "build": "_folder_excluded",
     "out": "_folder_excluded",
     "dist": "_folder_excluded",
     ".next": "_folder_excluded",
     "node_modules": "_folder_excluded",
+    ".gradle": "_folder_excluded",
     ".idea": "_folder_config",
     ".vscode": "_folder_config",
-    ".github": "_folder_config",
-    ".agents": "_folder_config"
+    ".mvn": "_folder_config",
+    ".agents": "_folder_config",
+    ".github": "_folder_github",
+    "lib": "_folder_library",
+    "libs": "_folder_library",
+    "logs": "_folder_log",
+    "log": "_folder_log"
   },
   "folderNamesExpanded": {
     "java": "_folder_java_open",
     "kotlin": "_folder_java_open",
+    "groovy": "_folder_java_open",
+    "scala": "_folder_java_open",
     "test": "_folder_test_open",
     "tests": "_folder_test_open",
     "__tests__": "_folder_test_open",
@@ -301,36 +547,61 @@
     "public": "_folder_resources_open",
     "static": "_folder_resources_open",
     "i18n": "_folder_resources_open",
+    "META-INF": "_folder_resources_open",
+    "meta-inf": "_folder_resources_open",
     "target": "_folder_excluded_open",
     "build": "_folder_excluded_open",
     "out": "_folder_excluded_open",
     "dist": "_folder_excluded_open",
     ".next": "_folder_excluded_open",
     "node_modules": "_folder_excluded_open",
+    ".gradle": "_folder_excluded_open",
     ".idea": "_folder_config_open",
     ".vscode": "_folder_config_open",
-    ".github": "_folder_config_open",
-    ".agents": "_folder_config_open"
+    ".mvn": "_folder_config_open",
+    ".agents": "_folder_config_open",
+    ".github": "_folder_github_open",
+    "lib": "_folder_library_open",
+    "libs": "_folder_library_open",
+    "logs": "_folder_log_open",
+    "log": "_folder_log_open"
   },
   "fileExtensions": {
     "java": "_java_class",
-    "class": "_java_class",
+    "class": "_java_compiled",
+    "iml": "_iml",
     "kt": "_kotlin",
     "kts": "_kotlin",
+    "gradle": "_gradle",
+    "gradle.kts": "_kotlin_gradle",
+    "py": "_python",
     "ts": "_ts",
     "d.ts": "_ts",
+    "mts": "_ts",
+    "cts": "_ts",
+    "spec.ts": "_ts_test",
+    "test.ts": "_ts_test",
     "tsx": "_tsx",
-    "jsx": "_tsx",
+    "spec.tsx": "_tsx_test",
+    "test.tsx": "_tsx_test",
+    "jsx": "_jsx",
+    "spec.jsx": "_jsx_test",
+    "test.jsx": "_jsx_test",
     "js": "_js",
     "mjs": "_js",
     "cjs": "_js",
+    "spec.js": "_js_test",
+    "test.js": "_js_test",
+    "vue": "_vue",
     "json": "_json",
     "jsonc": "_json",
+    "schema.json": "_json_schema",
     "yml": "_yaml",
     "yaml": "_yaml",
     "xml": "_xml",
-    "xsd": "_xml",
-    "wsdl": "_xml",
+    "pom": "_maven",
+    "xsd": "_xsd",
+    "wsdl": "_wsdl",
     "sql": "_sql",
     "html": "_html",
     "htm": "_html",
@@ -339,36 +610,62 @@
     "less": "_css",
     "md": "_md",
     "mdx": "_md",
+    "txt": "_text",
+    "log": "_text",
     "sh": "_shell",
     "bash": "_shell",
+    "zsh": "_shell",
     "ps1": "_shell",
     "bat": "_shell",
     "cmd": "_shell",
     "properties": "_properties",
-    "ini": "_properties",
-    "conf": "_properties",
+    "ini": "_config",
+    "conf": "_config",
+    "cfg": "_config",
+    "toml": "_toml",
+    "http": "_http",
+    "rest": "_http",
+    "csv": "_csv",
+    "tsv": "_csv",
+    "mf": "_manifest",
+    "patch": "_patch",
+    "diff": "_patch",
     "pdf": "_pdf",
     "jar": "_jar",
     "war": "_jar",
+    "ear": "_jar",
     "zip": "_jar",
+    "tar": "_jar",
+    "gz": "_jar",
+    "tgz": "_jar",
+    "7z": "_jar",
     "png": "_image",
     "jpg": "_image",
     "jpeg": "_image",
     "gif": "_image",
     "svg": "_image",
     "ico": "_image",
-    "webp": "_image"
+    "webp": "_image",
+    "bmp": "_image",
+    "ttf": "_font",
+    "otf": "_font",
+    "woff": "_font",
+    "woff2": "_font"
   },
   "fileNames": {
     "pom.xml": "_maven",
-    "mvnw": "_maven",
-    "mvnw.cmd": "_maven",
+    "maven.config": "_maven",
+    "jvm.config": "_maven",
+    "mvnw": "_shell",
+    "mvnw.cmd": "_text",
     "build.gradle": "_gradle",
-    "build.gradle.kts": "_gradle",
     "settings.gradle": "_gradle",
-    "settings.gradle.kts": "_gradle",
-    "gradlew": "_gradle",
-    "gradlew.bat": "_gradle",
+    "gradle.properties": "_gradle",
+    "build.gradle.kts": "_kotlin_gradle",
+    "settings.gradle.kts": "_kotlin_gradle",
+    "gradlew": "_shell",
+    "gradlew.bat": "_shell",
+    "lombok.config": "_lombok",
     "application.yml": "_spring",
     "application.yaml": "_spring",
     "application-dev.yml": "_spring",
@@ -376,27 +673,76 @@
     "application-prod.yml": "_spring",
     "application-sit.yml": "_spring",
     "application-uat.yml": "_spring",
+    "application-test.yml": "_spring",
+    "application-staging.yml": "_spring",
+    "application-dev.yaml": "_spring",
+    "application-local.yaml": "_spring",
+    "application-prod.yaml": "_spring",
     "application.properties": "_spring",
     "application-dev.properties": "_spring",
     "application-local.properties": "_spring",
     "application-prod.properties": "_spring",
+    "application-sit.properties": "_spring",
+    "application-uat.properties": "_spring",
+    "application-test.properties": "_spring",
     "bootstrap.yml": "_spring",
+    "bootstrap.yaml": "_spring",
     "bootstrap.properties": "_spring",
     "dockerfile": "_docker",
-    "docker-compose.yml": "_docker",
-    "docker-compose.yaml": "_docker",
-    ".gitignore": "_git",
+    "dockerfile.dev": "_docker",
+    "dockerfile.prod": "_docker",
+    "docker-compose.yml": "_docker_compose",
+    "docker-compose.yaml": "_docker_compose",
+    "docker-compose.dev.yml": "_docker_compose",
+    "docker-compose.prod.yml": "_docker_compose",
+    "compose.yml": "_docker_compose",
+    "compose.yaml": "_docker_compose",
+    ".gitignore": "_ignored",
+    ".dockerignore": "_ignored",
+    ".npmignore": "_ignored",
+    ".eslintignore": "_ignored",
+    ".prettierignore": "_ignored",
     ".gitattributes": "_git",
     ".gitmodules": "_git",
+    ".gitkeep": "_git",
+    ".keep": "_git",
+    ".gitlab-ci.yml": "_gitlab",
+    ".gitlab-ci.yaml": "_gitlab",
+    ".editorconfig": "_editorconfig",
     ".env": "_properties",
     ".env.local": "_properties",
     ".env.development": "_properties",
     ".env.production": "_properties",
-    "package.json": "_json",
+    ".env.test": "_properties",
+    ".env.example": "_properties",
+    "manifest.mf": "_manifest",
+    "package.json": "_npm",
+    "package-lock.json": "_npm",
+    ".npmrc": "_npm",
+    ".eslintrc": "_eslint",
+    ".eslintrc.js": "_eslint",
+    ".eslintrc.cjs": "_eslint",
+    ".eslintrc.json": "_eslint",
+    ".eslintrc.yml": "_eslint",
+    "eslint.config.js": "_eslint",
+    "eslint.config.mjs": "_eslint",
+    "eslint.config.cjs": "_eslint",
+    ".prettierrc": "_prettier",
+    ".prettierrc.js": "_prettier",
+    ".prettierrc.cjs": "_prettier",
+    ".prettierrc.json": "_prettier",
+    ".prettierrc.yml": "_prettier",
+    "prettier.config.js": "_prettier",
+    "prettier.config.mjs": "_prettier",
     "tsconfig.json": "_ts",
+    "tsconfig.app.json": "_ts",
+    "tsconfig.node.json": "_ts",
+    "tsconfig.base.json": "_ts",
     "next.config.js": "_js",
     "next.config.mjs": "_js",
     "next.config.ts": "_ts",
+    "vite.config.js": "_js",
+    "vite.config.ts": "_ts",
     "tailwind.config.js": "_css",
     "tailwind.config.ts": "_css",
     "requirecommon.java": "_java_annotation",
@@ -787,15 +1133,29 @@
     "messageprocessingexception.java": "_java_exception",
     "messagepublisher.java": "_java_interface",
     "logcallapirepo.java": "_java_interface",
-    "queuemessagebase.java": "_java_record"
+    "queuemessagebase.java": "_java_record",
+    "commonapplication.java": "_java_runnable",
+    "transfermatrixutil.java": "_java_final_class",
+    "customjwtgrantedauthoritiesconverter.java": "_java_final_class",
+    "jwtpayloaddecoder.java": "_java_final_class",
+    "jsonutils.java": "_java_final_class",
+    "lendingapplication.java": "_java_runnable",
+    "schedulejobvalidateapplication.java": "_java_runnable",
+    "cardapplication.java": "_java_runnable",
+    "cardserviceconstants.java": "_java_final_class",
+    "authenticateutils.java": "_java_final_class",
+    "workercontext.java": "_java_final_class",
+    "messageheaders.java": "_java_final_class"
   },
   "languageIds": {
     "java": "_java_class",
     "kotlin": "_kotlin",
+    "python": "_python",
     "typescript": "_ts",
     "typescriptreact": "_tsx",
     "javascript": "_js",
-    "javascriptreact": "_tsx",
+    "javascriptreact": "_jsx",
+    "vue": "_vue",
     "json": "_json",
     "jsonc": "_json",
     "yaml": "_yaml",
@@ -805,11 +1165,16 @@
     "css": "_css",
     "scss": "_css",
     "markdown": "_md",
+    "plaintext": "_text",
     "shellscript": "_shell",
     "powershell": "_shell",
     "bat": "_shell",
     "properties": "_properties",
-    "dockerfile": "_docker"
+    "ini": "_config",
+    "toml": "_toml",
+    "http": "_http",
+    "dockerfile": "_docker",
+    "ignore": "_ignored"
   },
   "light": {
     "file": "_light_file",
@@ -818,6 +1183,8 @@
     "folderNames": {
       "java": "_light_folder_java",
       "kotlin": "_light_folder_java",
+      "groovy": "_light_folder_java",
+      "scala": "_light_folder_java",
       "test": "_light_folder_test",
       "tests": "_light_folder_test",
       "__tests__": "_light_folder_test",
@@ -826,20 +1193,30 @@
       "public": "_light_folder_resources",
       "static": "_light_folder_resources",
       "i18n": "_light_folder_resources",
+      "META-INF": "_light_folder_resources",
+      "meta-inf": "_light_folder_resources",
       "target": "_light_folder_excluded",
       "build": "_light_folder_excluded",
       "out": "_light_folder_excluded",
       "dist": "_light_folder_excluded",
       ".next": "_light_folder_excluded",
       "node_modules": "_light_folder_excluded",
+      ".gradle": "_light_folder_excluded",
       ".idea": "_light_folder_config",
       ".vscode": "_light_folder_config",
-      ".github": "_light_folder_config",
-      ".agents": "_light_folder_config"
+      ".mvn": "_light_folder_config",
+      ".agents": "_light_folder_config",
+      ".github": "_light_folder_github",
+      "lib": "_light_folder_library",
+      "libs": "_light_folder_library",
+      "logs": "_light_folder_log",
+      "log": "_light_folder_log"
     },
     "folderNamesExpanded": {
       "java": "_light_folder_java_open",
       "kotlin": "_light_folder_java_open",
+      "groovy": "_light_folder_java_open",
+      "scala": "_light_folder_java_open",
       "test": "_light_folder_test_open",
       "tests": "_light_folder_test_open",
       "__tests__": "_light_folder_test_open",
@@ -848,36 +1225,61 @@
       "public": "_light_folder_resources_open",
       "static": "_light_folder_resources_open",
       "i18n": "_light_folder_resources_open",
+      "META-INF": "_light_folder_resources_open",
+      "meta-inf": "_light_folder_resources_open",
       "target": "_light_folder_excluded_open",
       "build": "_light_folder_excluded_open",
       "out": "_light_folder_excluded_open",
       "dist": "_light_folder_excluded_open",
       ".next": "_light_folder_excluded_open",
       "node_modules": "_light_folder_excluded_open",
+      ".gradle": "_light_folder_excluded_open",
       ".idea": "_light_folder_config_open",
       ".vscode": "_light_folder_config_open",
-      ".github": "_light_folder_config_open",
-      ".agents": "_light_folder_config_open"
+      ".mvn": "_light_folder_config_open",
+      ".agents": "_light_folder_config_open",
+      ".github": "_light_folder_github_open",
+      "lib": "_light_folder_library_open",
+      "libs": "_light_folder_library_open",
+      "logs": "_light_folder_log_open",
+      "log": "_light_folder_log_open"
     },
     "fileExtensions": {
       "java": "_light_java_class",
-      "class": "_light_java_class",
+      "class": "_light_java_compiled",
+      "iml": "_light_iml",
       "kt": "_light_kotlin",
       "kts": "_light_kotlin",
+      "gradle": "_light_gradle",
+      "gradle.kts": "_light_kotlin_gradle",
+      "py": "_light_python",
       "ts": "_light_ts",
       "d.ts": "_light_ts",
+      "mts": "_light_ts",
+      "cts": "_light_ts",
+      "spec.ts": "_light_ts_test",
+      "test.ts": "_light_ts_test",
       "tsx": "_light_tsx",
-      "jsx": "_light_tsx",
+      "spec.tsx": "_light_tsx_test",
+      "test.tsx": "_light_tsx_test",
+      "jsx": "_light_jsx",
+      "spec.jsx": "_light_jsx_test",
+      "test.jsx": "_light_jsx_test",
       "js": "_light_js",
       "mjs": "_light_js",
       "cjs": "_light_js",
+      "spec.js": "_light_js_test",
+      "test.js": "_light_js_test",
+      "vue": "_light_vue",
       "json": "_light_json",
       "jsonc": "_light_json",
+      "schema.json": "_light_json_schema",
       "yml": "_light_yaml",
       "yaml": "_light_yaml",
       "xml": "_light_xml",
-      "xsd": "_light_xml",
-      "wsdl": "_light_xml",
+      "pom": "_light_maven",
+      "xsd": "_light_xsd",
+      "wsdl": "_light_wsdl",
       "sql": "_light_sql",
       "html": "_light_html",
       "htm": "_light_html",
@@ -886,36 +1288,62 @@
       "less": "_light_css",
       "md": "_light_md",
       "mdx": "_light_md",
+      "txt": "_light_text",
+      "log": "_light_text",
       "sh": "_light_shell",
       "bash": "_light_shell",
+      "zsh": "_light_shell",
       "ps1": "_light_shell",
       "bat": "_light_shell",
       "cmd": "_light_shell",
       "properties": "_light_properties",
-      "ini": "_light_properties",
-      "conf": "_light_properties",
+      "ini": "_light_config",
+      "conf": "_light_config",
+      "cfg": "_light_config",
+      "toml": "_light_toml",
+      "http": "_light_http",
+      "rest": "_light_http",
+      "csv": "_light_csv",
+      "tsv": "_light_csv",
+      "mf": "_light_manifest",
+      "patch": "_light_patch",
+      "diff": "_light_patch",
       "pdf": "_light_pdf",
       "jar": "_light_jar",
       "war": "_light_jar",
+      "ear": "_light_jar",
       "zip": "_light_jar",
+      "tar": "_light_jar",
+      "gz": "_light_jar",
+      "tgz": "_light_jar",
+      "7z": "_light_jar",
       "png": "_light_image",
       "jpg": "_light_image",
       "jpeg": "_light_image",
       "gif": "_light_image",
       "svg": "_light_image",
       "ico": "_light_image",
-      "webp": "_light_image"
+      "webp": "_light_image",
+      "bmp": "_light_image",
+      "ttf": "_light_font",
+      "otf": "_light_font",
+      "woff": "_light_font",
+      "woff2": "_light_font"
     },
     "fileNames": {
       "pom.xml": "_light_maven",
-      "mvnw": "_light_maven",
-      "mvnw.cmd": "_light_maven",
+      "maven.config": "_light_maven",
+      "jvm.config": "_light_maven",
+      "mvnw": "_light_shell",
+      "mvnw.cmd": "_light_text",
       "build.gradle": "_light_gradle",
-      "build.gradle.kts": "_light_gradle",
       "settings.gradle": "_light_gradle",
-      "settings.gradle.kts": "_light_gradle",
-      "gradlew": "_light_gradle",
-      "gradlew.bat": "_light_gradle",
+      "gradle.properties": "_light_gradle",
+      "build.gradle.kts": "_light_kotlin_gradle",
+      "settings.gradle.kts": "_light_kotlin_gradle",
+      "gradlew": "_light_shell",
+      "gradlew.bat": "_light_shell",
+      "lombok.config": "_light_lombok",
       "application.yml": "_light_spring",
       "application.yaml": "_light_spring",
       "application-dev.yml": "_light_spring",
@@ -923,27 +1351,76 @@
       "application-prod.yml": "_light_spring",
       "application-sit.yml": "_light_spring",
       "application-uat.yml": "_light_spring",
+      "application-test.yml": "_light_spring",
+      "application-staging.yml": "_light_spring",
+      "application-dev.yaml": "_light_spring",
+      "application-local.yaml": "_light_spring",
+      "application-prod.yaml": "_light_spring",
       "application.properties": "_light_spring",
       "application-dev.properties": "_light_spring",
       "application-local.properties": "_light_spring",
       "application-prod.properties": "_light_spring",
+      "application-sit.properties": "_light_spring",
+      "application-uat.properties": "_light_spring",
+      "application-test.properties": "_light_spring",
       "bootstrap.yml": "_light_spring",
+      "bootstrap.yaml": "_light_spring",
       "bootstrap.properties": "_light_spring",
       "dockerfile": "_light_docker",
-      "docker-compose.yml": "_light_docker",
-      "docker-compose.yaml": "_light_docker",
-      ".gitignore": "_light_git",
+      "dockerfile.dev": "_light_docker",
+      "dockerfile.prod": "_light_docker",
+      "docker-compose.yml": "_light_docker_compose",
+      "docker-compose.yaml": "_light_docker_compose",
+      "docker-compose.dev.yml": "_light_docker_compose",
+      "docker-compose.prod.yml": "_light_docker_compose",
+      "compose.yml": "_light_docker_compose",
+      "compose.yaml": "_light_docker_compose",
+      ".gitignore": "_light_ignored",
+      ".dockerignore": "_light_ignored",
+      ".npmignore": "_light_ignored",
+      ".eslintignore": "_light_ignored",
+      ".prettierignore": "_light_ignored",
       ".gitattributes": "_light_git",
       ".gitmodules": "_light_git",
+      ".gitkeep": "_light_git",
+      ".keep": "_light_git",
+      ".gitlab-ci.yml": "_light_gitlab",
+      ".gitlab-ci.yaml": "_light_gitlab",
+      ".editorconfig": "_light_editorconfig",
       ".env": "_light_properties",
       ".env.local": "_light_properties",
       ".env.development": "_light_properties",
       ".env.production": "_light_properties",
-      "package.json": "_light_json",
+      ".env.test": "_light_properties",
+      ".env.example": "_light_properties",
+      "manifest.mf": "_light_manifest",
+      "package.json": "_light_npm",
+      "package-lock.json": "_light_npm",
+      ".npmrc": "_light_npm",
+      ".eslintrc": "_light_eslint",
+      ".eslintrc.js": "_light_eslint",
+      ".eslintrc.cjs": "_light_eslint",
+      ".eslintrc.json": "_light_eslint",
+      ".eslintrc.yml": "_light_eslint",
+      "eslint.config.js": "_light_eslint",
+      "eslint.config.mjs": "_light_eslint",
+      "eslint.config.cjs": "_light_eslint",
+      ".prettierrc": "_light_prettier",
+      ".prettierrc.js": "_light_prettier",
+      ".prettierrc.cjs": "_light_prettier",
+      ".prettierrc.json": "_light_prettier",
+      ".prettierrc.yml": "_light_prettier",
+      "prettier.config.js": "_light_prettier",
+      "prettier.config.mjs": "_light_prettier",
       "tsconfig.json": "_light_ts",
+      "tsconfig.app.json": "_light_ts",
+      "tsconfig.node.json": "_light_ts",
+      "tsconfig.base.json": "_light_ts",
       "next.config.js": "_light_js",
       "next.config.mjs": "_light_js",
       "next.config.ts": "_light_ts",
+      "vite.config.js": "_light_js",
+      "vite.config.ts": "_light_ts",
       "tailwind.config.js": "_light_css",
       "tailwind.config.ts": "_light_css",
       "requirecommon.java": "_light_java_annotation",
@@ -1334,15 +1811,29 @@
       "messageprocessingexception.java": "_light_java_exception",
       "messagepublisher.java": "_light_java_interface",
       "logcallapirepo.java": "_light_java_interface",
-      "queuemessagebase.java": "_light_java_record"
+      "queuemessagebase.java": "_light_java_record",
+      "commonapplication.java": "_light_java_runnable",
+      "transfermatrixutil.java": "_light_java_final_class",
+      "customjwtgrantedauthoritiesconverter.java": "_light_java_final_class",
+      "jwtpayloaddecoder.java": "_light_java_final_class",
+      "jsonutils.java": "_light_java_final_class",
+      "lendingapplication.java": "_light_java_runnable",
+      "schedulejobvalidateapplication.java": "_light_java_runnable",
+      "cardapplication.java": "_light_java_runnable",
+      "cardserviceconstants.java": "_light_java_final_class",
+      "authenticateutils.java": "_light_java_final_class",
+      "workercontext.java": "_light_java_final_class",
+      "messageheaders.java": "_light_java_final_class"
     },
     "languageIds": {
       "java": "_light_java_class",
       "kotlin": "_light_kotlin",
+      "python": "_light_python",
       "typescript": "_light_ts",
       "typescriptreact": "_light_tsx",
       "javascript": "_light_js",
-      "javascriptreact": "_light_tsx",
+      "javascriptreact": "_light_jsx",
+      "vue": "_light_vue",
       "json": "_light_json",
       "jsonc": "_light_json",
       "yaml": "_light_yaml",
@@ -1352,11 +1843,16 @@
       "css": "_light_css",
       "scss": "_light_css",
       "markdown": "_light_md",
+      "plaintext": "_light_text",
       "shellscript": "_light_shell",
       "powershell": "_light_shell",
       "bat": "_light_shell",
       "properties": "_light_properties",
-      "dockerfile": "_light_docker"
+      "ini": "_light_config",
+      "toml": "_light_toml",
+      "http": "_light_http",
+      "dockerfile": "_light_docker",
+      "ignore": "_light_ignored"
     }
   }
 }

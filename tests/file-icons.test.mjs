@@ -35,10 +35,17 @@ test('File icon theme defines valid 16x16 SVGs and maps Java/Spring/FE files acc
   assert.equal(theme.folderNames['resources'], '_folder_resources');
   assert.equal(theme.folderNames['target'], '_folder_excluded');
 
-  // File name mappings (including Spring, Maven & lendingfo Java patterns)
+  // File name mappings (including Spring, Maven, GitLab, Ignore, IML & Java patterns matching official IntelliJ New UI)
   assert.equal(theme.fileNames['pom.xml'], '_maven');
+  assert.equal(theme.fileNames['mvnw'], '_shell');
+  assert.equal(theme.fileNames['mvnw.cmd'], '_text');
+  assert.equal(theme.fileNames['.gitignore'], '_ignored');
+  assert.equal(theme.fileNames['.gitlab-ci.yml'], '_gitlab');
+  assert.equal(theme.fileExtensions['iml'], '_iml');
+  assert.equal(theme.fileExtensions['class'], '_java_compiled');
   assert.equal(theme.fileNames['application.yml'], '_spring');
   assert.equal(theme.fileNames['application.properties'], '_spring');
+  assert.equal(theme.fileNames['cardapplication.java'], '_java_runnable');
   assert.equal(theme.fileNames['createattachmentserviceimpl.java'], '_java_class');
   assert.equal(theme.fileNames['createattachmentservice.java'], '_java_interface');
   assert.equal(theme.fileNames['equal.java'], '_java_annotation', '@interface Equal.java must map to _java_annotation');
@@ -49,9 +56,14 @@ test('File icon theme defines valid 16x16 SVGs and maps Java/Spring/FE files acc
   assert.equal(theme.fileNames['queuemessagebase.java'], '_java_record', 'Actual Java record QueueMessageBase.java must be _java_record');
   assert.ok(Object.keys(theme.fileNames).length < 600, `fileNames should be compacted without redundant _java_class bloat, got ${Object.keys(theme.fileNames).length}`);
 
-  // Dark SVGs must remain 100% untouched
+  // Official JetBrains expui Dark SVGs verification
   const darkJavaClassSvg = fs.readFileSync(path.resolve(ICON_DIR, theme.iconDefinitions._java_class.iconPath), 'utf8');
-  assert.match(darkJavaClassSvg, /fill="#25324D"/, 'Dark _java_class SVG fill must remain untouched (#25324D)');
+  assert.match(darkJavaClassSvg, /fill="#25324D"/, 'Dark _java_class SVG fill must use official expui (#25324D)');
+  assert.match(darkJavaClassSvg, /stroke="#548AF7"/, 'Dark _java_class SVG stroke must use official expui (#548AF7)');
+  const darkRunnableSvg = fs.readFileSync(path.resolve(ICON_DIR, theme.iconDefinitions._java_runnable.iconPath), 'utf8');
+  assert.match(darkRunnableSvg, /#57965C/, 'Dark _java_runnable SVG must include official runnableMark green badge (#57965C)');
+  const darkFinalSvg = fs.readFileSync(path.resolve(ICON_DIR, theme.iconDefinitions._java_final_class.iconPath), 'utf8');
+  assert.match(darkFinalSvg, /#CED0D6/, 'Dark _java_final_class SVG must include official finalMark pin (#CED0D6)');
 
   // Light theme icon variant must exist and map light expui SVGs without affecting Dark
   assert.ok(theme.light, 'File icon theme must include a top-level light override object');
@@ -127,6 +139,16 @@ test('Runtime extension.js classifyJavaContent and scanWorkspaceJavaIcons auto-s
   assert.equal(
     classifyJavaContent('package a.b;\npublic @interface Equal {}', 'Equal.java'),
     '_java_annotation'
+  );
+  assert.equal(
+    classifyJavaContent('package a.b;\n@SpringBootApplication\npublic class CardApplication {\n  public static void main(String[] args) {}\n}', 'CardApplication.java'),
+    '_java_runnable',
+    'Runnable class with @SpringBootApplication or main method must receive _java_runnable'
+  );
+  assert.equal(
+    classifyJavaContent('package a.b;\npublic final class Constants {\n}', 'Constants.java'),
+    '_java_final_class',
+    'Final class must receive _java_final_class'
   );
 });
 
