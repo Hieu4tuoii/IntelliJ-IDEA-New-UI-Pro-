@@ -89,5 +89,10 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   const callRule = theme.tokenColors.find(r => r.name.includes('Function Calls'));
   assert.ok(callRule, 'Must have Function Calls rule');
   assert.equal(callRule.settings.foreground.toUpperCase(), '#BCBEC4');
+
+  const typeRule = theme.tokenColors.find(r => r.name.includes('Classes, Interfaces, Types'));
+  assert.ok(typeRule, 'Must have Classes, Interfaces, Types & Parameters rule');
+  assert.ok(typeRule.scope.includes('storage.type.import.java'), 'Java imports must be #BCBEC4 in TextMate to prevent orange-to-gray text flicker');
+  assert.ok(typeRule.scope.includes('storage.type.package.java'), 'Java packages must be #BCBEC4 in TextMate to prevent orange-to-gray text flicker');
 });
 

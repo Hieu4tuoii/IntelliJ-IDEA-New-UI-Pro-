@@ -744,6 +744,7 @@ const theme = {
       name: 'Method & Function Declarations',
       scope: [
         'meta.method.identifier entity.name.function',
+        'meta.method.identifier entity.name.type',
         'meta.definition.method entity.name.function',
         'meta.definition.function entity.name.function',
         'entity.name.function.declaration'
@@ -787,7 +788,9 @@ const theme = {
       name: 'Enum Constants & Static Constants',
       scope: [
         'variable.other.enummember',
-        'constant.other.enum'
+        'constant.other.enum',
+        'constant.other.java',
+        'variable.other.constant.java'
       ],
       settings: {
         foreground: '#C77DBB',
@@ -810,6 +813,8 @@ const theme = {
         'entity.name.type',
         'entity.name.class',
         'storage.type.java',
+        'storage.type.import.java',
+        'storage.type.package.java',
         'storage.type.generic',
         'storage.type.generic.java',
         'storage.type.object.array.java',
