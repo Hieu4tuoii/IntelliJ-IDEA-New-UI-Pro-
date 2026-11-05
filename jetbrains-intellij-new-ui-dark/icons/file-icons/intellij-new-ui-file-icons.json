@@ -647,17 +647,15 @@
     "tabsettingservice.java": "_java_interface",
     "workflowmatrixservice.java": "_java_interface",
     "ibcorporatefeign.java": "_java_interface",
-    "mailserviceimpl.java": "_java_record",
-    "workflowserviceimpl.java": "_java_record",
     "mailservice.java": "_java_interface",
     "workflowservice.java": "_java_interface",
     "tracklog.java": "_java_annotation",
     "idempotentconsumer.java": "_java_interface",
     "enumauthenstatus.java": "_java_enum",
     "messageprocessingexception.java": "_java_exception",
-    "queuemessagebase.java": "_java_record",
     "messagepublisher.java": "_java_interface",
-    "logcallapirepo.java": "_java_interface"
+    "logcallapirepo.java": "_java_interface",
+    "queuemessagebase.java": "_java_record"
   },
   "languageIds": {
     "java": "_java_class",

@@ -198,50 +198,53 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
   const raw = fs.readFileSync(settingsPath, 'utf8');
   const settings = parseJsonc(raw);
 
-  settings['workbench.colorTheme'] = 'IntelliJ IDEA New UI Dark (Pro)';
-  settings['workbench.iconTheme'] = 'intellij-new-ui-file-icons';
-  delete settings['workbench.productIconTheme'];
-  settings['window.zoomLevel'] = 0.3;
-  delete settings['editor.fontWeight'];
-  delete settings['terminal.integrated.fontSize'];
-  settings['editor.fontFamily'] = "'JetBrains Mono', Consolas, monospace";
-  settings['terminal.integrated.fontFamily'] = "'JetBrains Mono', Consolas, monospace";
-  settings['editor.fontSize'] = 13;
-  settings['editor.lineHeight'] = 1.55;
-  settings['editor.letterSpacing'] = 0.3;
-  settings['terminal.integrated.lineHeight'] = 1.3;
-  settings['terminal.integrated.letterSpacing'] = 0.2;
-  settings['editor.fontLigatures'] = false;
-  settings['editor.semanticHighlighting.enabled'] = true;
-  settings['editor.renderLineHighlight'] = 'all';
-  settings['editor.bracketPairColorization.enabled'] = false;
-  settings['editor.guides.bracketPairs'] = false;
-  settings['editor.inlayHints.enabled'] = 'on';
-  settings['editor.inlayHints.fontSize'] = 12;
-  settings['editor.inlayHints.fontFamily'] = "'JetBrains Mono', Consolas, monospace";
-  settings['editor.inlayHints.padding'] = true;
-  settings['java.inlayHints.parameterNames.enabled'] = 'literals';
-  settings['editor.codeLensFontSize'] = 12;
-  settings['editor.codeLensFontFamily'] = "'Segoe UI', Inter, sans-serif";
-  settings['editor.stickyScroll.enabled'] = true;
-  settings['editor.minimap.autohide'] = 'mouseover';
-  settings['diffEditor.renderIndicators'] = false;
-  settings['workbench.editor.customLabels.enabled'] = true;
-  settings['workbench.editor.customLabels.patterns'] = {
-    '**/*.java': '${filename}'
-  };
-  settings['workbench.editor.decorations.badges'] = false;
-  settings['cSpell.enabled'] = false;
-  settings['problems.decorations.enabled'] = false;
-  settings['explorer.decorations.badges'] = false;
-  settings['explorer.decorations.colors'] = true;
-  settings['workbench.tree.indent'] = 16;
-  settings['workbench.tree.renderIndentGuides'] = 'onHover';
   if (settings['intellijNewUi.enableKeymap'] === undefined) {
     settings['intellijNewUi.enableKeymap'] = true;
   }
   if (settings['intellijNewUi.onlyApplyInJavaProjects'] === undefined) {
     settings['intellijNewUi.onlyApplyInJavaProjects'] = false;
+  }
+
+  if (!settings['intellijNewUi.onlyApplyInJavaProjects'] && settings['workbench.colorTheme'] === 'IntelliJ IDEA New UI Dark (Pro)') {
+    settings['workbench.colorTheme'] = 'IntelliJ IDEA New UI Dark (Pro)';
+    settings['workbench.iconTheme'] = 'intellij-new-ui-file-icons';
+    delete settings['workbench.productIconTheme'];
+    settings['window.zoomLevel'] = 0.3;
+    delete settings['editor.fontWeight'];
+    settings['editor.fontFamily'] = "'JetBrains Mono', Consolas, monospace";
+    settings['terminal.integrated.fontFamily'] = "'JetBrains Mono', Consolas, monospace";
+    settings['editor.fontSize'] = 12.5;
+    settings['editor.lineHeight'] = 1.55;
+    settings['editor.letterSpacing'] = 0.29;
+    settings['terminal.integrated.fontSize'] = 12.5;
+    settings['terminal.integrated.lineHeight'] = 1.3;
+    settings['terminal.integrated.letterSpacing'] = 0.19;
+    settings['editor.fontLigatures'] = false;
+    settings['editor.semanticHighlighting.enabled'] = true;
+    settings['editor.renderLineHighlight'] = 'all';
+    settings['editor.bracketPairColorization.enabled'] = false;
+    settings['editor.guides.bracketPairs'] = false;
+    settings['editor.inlayHints.enabled'] = 'on';
+    settings['editor.inlayHints.fontSize'] = 11.5;
+    settings['editor.inlayHints.fontFamily'] = "'JetBrains Mono', Consolas, monospace";
+    settings['editor.inlayHints.padding'] = true;
+    settings['java.inlayHints.parameterNames.enabled'] = 'literals';
+    settings['editor.codeLensFontSize'] = 11.5;
+    settings['editor.codeLensFontFamily'] = "'Segoe UI', Inter, sans-serif";
+    settings['editor.stickyScroll.enabled'] = true;
+    settings['editor.minimap.autohide'] = 'mouseover';
+    settings['diffEditor.renderIndicators'] = false;
+    settings['workbench.editor.customLabels.enabled'] = true;
+    settings['workbench.editor.customLabels.patterns'] = {
+      '**/*.java': '${filename}'
+    };
+    settings['workbench.editor.decorations.badges'] = false;
+    settings['cSpell.enabled'] = false;
+    settings['problems.decorations.enabled'] = false;
+    settings['explorer.decorations.badges'] = false;
+    settings['explorer.decorations.colors'] = true;
+    settings['workbench.tree.indent'] = 16;
+    settings['workbench.tree.renderIndentGuides'] = 'onHover';
   }
 
   fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + '\n', 'utf8');

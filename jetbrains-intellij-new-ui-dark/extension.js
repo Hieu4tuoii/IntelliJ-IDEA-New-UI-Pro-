@@ -74,14 +74,9 @@ function detectJavaWorkspace() {
   return false;
 }
 
-const COMMENT_RE = /\/\*[\s\S]*?\*\/|\/\/.*/g;
-const ANNOTATION_RE = /(?:^|\s)@interface\s+\w+/;
-const INTERFACE_RE = /\binterface\s+\w+/;
-const ENUM_RE = /\benum\s+\w+/;
-const RECORD_RE = /\brecord\s+\w+/;
-const ABSTRACT_CLASS_RE = /\babstract\s+class\s+\w+/;
+const COMMENT_RE = /\/\*[\s\S]*?\*\/|\/\/.*|"(?:\\.|[^"\\])*"/g;
+const TOP_LEVEL_TYPE_RE = /(?:(^|\s)@interface\s+[A-Za-z_$]\w*|\b(abstract\s+class|interface|enum|class)\s+[A-Za-z_$]\w*|\b(record)\s+[A-Z]\w*\s*(?:<[^>]*>)?\s*\()/;
 const EXCEPTION_CLASS_RE = /\bclass\s+\w+[^{;]*?\bextends\s+\w*(?:Exception|Error|Throwable)\b/;
-const CLASS_RE = /\bclass\s+\w+/;
 const HEADER_BUF = Buffer.allocUnsafe(4096);
 
 function classifyJavaByFileNameFast(lower) {
@@ -101,13 +96,17 @@ function classifyJavaContent(src, fileName) {
 
   const cleaned = src ? src.replace(COMMENT_RE, '') : '';
   if (cleaned) {
-    if (ANNOTATION_RE.test(cleaned)) return '_java_annotation';
-    if (INTERFACE_RE.test(cleaned)) return '_java_interface';
-    if (ENUM_RE.test(cleaned)) return '_java_enum';
-    if (RECORD_RE.test(cleaned)) return '_java_record';
-    if (ABSTRACT_CLASS_RE.test(cleaned)) return '_java_abstract';
-    if (EXCEPTION_CLASS_RE.test(cleaned)) return '_java_exception';
-    if (CLASS_RE.test(cleaned)) return '_java_class';
+    const m = TOP_LEVEL_TYPE_RE.exec(cleaned);
+    if (m) {
+      if (m[1] !== undefined) return '_java_annotation';
+      if (m[3] === 'record') return '_java_record';
+      const kind = m[2].replace(/\s+/g, ' ');
+      if (kind === 'interface') return '_java_interface';
+      if (kind === 'enum') return '_java_enum';
+      if (kind === 'abstract class') return '_java_abstract';
+      if (EXCEPTION_CLASS_RE.test(cleaned)) return '_java_exception';
+      return '_java_class';
+    }
   }
   if (lower.endsWith('record.java')) {
     return '_java_record';
@@ -160,6 +159,7 @@ let iconJsonFilePath = null;
 let flushTimer = null;
 const scannedFilePaths = new Set();
 const seenBaseNames = new Map();
+const baseNameOwnerPath = new Map();
 
 function getIconThemeCache(context) {
   if (!iconJsonFilePath) {
@@ -231,6 +231,7 @@ async function scanWorkspaceJavaIcons(context) {
           const fastIcon = classifyJavaByFileNameFast(baseName);
           const iconId = fastIcon || classifyJavaContent(readJavaHeader(fullPath), baseName);
           seenBaseNames.set(baseName, iconId);
+          baseNameOwnerPath.set(baseName, fullPath);
           if (applyJavaIconMapping(theme, baseName, iconId)) {
             changed = true;
           }
@@ -261,6 +262,9 @@ function updateJavaFileIconMapping(context, docOrUri, isSave = false) {
     if (!isSave && (scannedFilePaths.has(fsPath) || seenBaseNames.has(baseName))) {
       return;
     }
+    if (baseNameOwnerPath.has(baseName) && baseNameOwnerPath.get(baseName) !== fsPath) {
+      return;
+    }
 
     const theme = getIconThemeCache(context);
     if (!theme) return;
@@ -281,6 +285,9 @@ function updateJavaFileIconMapping(context, docOrUri, isSave = false) {
 
     scannedFilePaths.add(fsPath);
     seenBaseNames.set(baseName, iconId);
+    if (!baseNameOwnerPath.has(baseName)) {
+      baseNameOwnerPath.set(baseName, fsPath);
+    }
     if (applyJavaIconMapping(theme, baseName, iconId)) {
       scheduleIconThemeFlush();
     }
@@ -599,6 +606,13 @@ function deactivate() {
   if (flushTimer) {
     clearTimeout(flushTimer);
     flushTimer = null;
+    if (iconThemeCache && iconJsonFilePath) {
+      try {
+        fs.writeFileSync(iconJsonFilePath, JSON.stringify(iconThemeCache, null, 2), 'utf8');
+      } catch {
+        // Ignore write error on shutdown
+      }
+    }
   }
 }
 

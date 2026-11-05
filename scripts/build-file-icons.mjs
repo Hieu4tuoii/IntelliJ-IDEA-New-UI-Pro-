@@ -284,15 +284,19 @@ function classifyJavaFile(filePath, baseName) {
   }
   try {
     const src = fs.readFileSync(filePath, 'utf8');
-    // Strip block & line comments quickly so we match actual declaration
-    const cleaned = src.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
-    if (/(?:^|\s)@interface\s+\w+/.test(cleaned)) return '_java_annotation';
-    if (/\binterface\s+\w+/.test(cleaned)) return '_java_interface';
-    if (/\benum\s+\w+/.test(cleaned)) return '_java_enum';
-    if (/\brecord\s+\w+/.test(cleaned)) return '_java_record';
-    if (/\babstract\s+class\s+\w+/.test(cleaned)) return '_java_abstract';
-    if (/\bclass\s+\w+[^{;]*?\bextends\s+\w*(?:Exception|Error|Throwable)\b/.test(cleaned)) return '_java_exception';
-    if (/\bclass\s+\w+/.test(cleaned)) return '_java_class';
+    // Strip block/line comments & string literals so words inside strings never false-match declarations
+    const cleaned = src.replace(/\/\*[\s\S]*?\*\/|\/\/.*|"(?:\\.|[^"\\])*"/g, '');
+    const m = /(?:(^|\s)@interface\s+[A-Za-z_$]\w*|\b(abstract\s+class|interface|enum|class)\s+[A-Za-z_$]\w*|\b(record)\s+[A-Z]\w*\s*(?:<[^>]*>)?\s*\()/.exec(cleaned);
+    if (m) {
+      if (m[1] !== undefined) return '_java_annotation';
+      if (m[3] === 'record') return '_java_record';
+      const kind = m[2].replace(/\s+/g, ' ');
+      if (kind === 'interface') return '_java_interface';
+      if (kind === 'enum') return '_java_enum';
+      if (kind === 'abstract class') return '_java_abstract';
+      if (/\bclass\s+\w+[^{;]*?\bextends\s+\w*(?:Exception|Error|Throwable)\b/.test(cleaned)) return '_java_exception';
+      return '_java_class';
+    }
   } catch {
     // Fallback to naming conventions
   }
@@ -314,14 +318,14 @@ function classifyJavaFile(filePath, baseName) {
   return '_java_class';
 }
 
-// Preserve non-default Java mappings from existing JSON if source dirs are absent, while stripping _java_class bloat and DTO record misclassifications
+// Preserve non-default Java mappings from existing JSON if source dirs are absent, while stripping _java_class bloat and non-record misclassifications
 if (fs.existsSync(JSON_PATH)) {
   try {
     const existing = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
     if (existing.fileNames) {
       for (const [k, v] of Object.entries(existing.fileNames)) {
         if (!k.endsWith('.java')) continue;
-        if (v === '_java_record' && (k.endsWith('dto.java') || k.endsWith('request.java') || k.endsWith('response.java'))) {
+        if (v === '_java_record' && !k.endsWith('record.java')) {
           continue;
         }
         if (v !== '_java_class' || k === 'createattachmentserviceimpl.java') {
