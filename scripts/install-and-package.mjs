@@ -13,6 +13,7 @@ fs.mkdirSync(FONT_DIR, { recursive: true });
 fs.rmSync(path.join(ROOT, 'jetbrains-intellij-keymap'), { recursive: true, force: true });
 fs.rmSync(path.join(DIST_DIR, 'jetbrains-intellij-keymap-1.0.0.vsix'), { force: true });
 fs.rmSync(path.join(DIST_DIR, 'jetbrains-intellij-new-ui-dark-1.0.0.vsix'), { force: true });
+fs.rmSync(path.join(DIST_DIR, 'jetbrains-intellij-new-ui-dark-1.1.0.vsix'), { force: true });
 
 // 1. Download & install official JetBrains Mono TTF fonts into Windows User Fonts + Registry + GDI32 live load
 const FONTS = [
@@ -107,7 +108,7 @@ def build_vsix(ext_folder_name, vsix_filename):
                 zf.write(full, f"extension/{rel}")
     print(f"Packaged {vsix_path} ({os.path.getsize(vsix_path)} bytes)")
 
-build_vsix("jetbrains-intellij-new-ui-dark", "jetbrains-intellij-new-ui-dark-1.1.0.vsix")
+build_vsix("jetbrains-intellij-new-ui-pro", "jetbrains-intellij-new-ui-pro-1.2.0.vsix")
 `;
 execSync('python -', { input: pyPackageVsix, stdio: ['pipe', 'inherit', 'inherit'] });
 
@@ -131,18 +132,19 @@ const EXT_ROOTS = [
 ];
 
 const UNIFIED_EXT = {
-  srcDir: path.join(ROOT, 'jetbrains-intellij-new-ui-dark'),
-  targetFolder: 'elaand.jetbrains-intellij-new-ui-dark-1.1.0',
-  id: 'elaand.jetbrains-intellij-new-ui-dark',
-  version: '1.1.0'
+  srcDir: path.join(ROOT, 'jetbrains-intellij-new-ui-pro'),
+  targetFolder: 'elaand.jetbrains-intellij-new-ui-pro-1.2.0',
+  id: 'elaand.jetbrains-intellij-new-ui-pro',
+  version: '1.2.0'
 };
 
 for (const extRoot of EXT_ROOTS) {
   if (!fs.existsSync(extRoot)) continue;
 
-  // Remove old separate keymap extension folder and old 1.0.0 folder (forces Antigravity IDE manifest cache reload)
+  // Remove old separate keymap extension folder and old dark / 1.0.0 / 1.1.0 folders (forces Antigravity IDE manifest cache reload)
   fs.rmSync(path.join(extRoot, 'elaand.jetbrains-intellij-keymap-1.0.0'), { recursive: true, force: true });
   fs.rmSync(path.join(extRoot, 'elaand.jetbrains-intellij-new-ui-dark-1.0.0'), { recursive: true, force: true });
+  fs.rmSync(path.join(extRoot, 'elaand.jetbrains-intellij-new-ui-dark-1.1.0'), { recursive: true, force: true });
 
   const regPath = path.join(extRoot, 'extensions.json');
   let registry = [];
@@ -158,7 +160,10 @@ for (const extRoot of EXT_ROOTS) {
   copyDirSync(UNIFIED_EXT.srcDir, destDir);
 
   registry = registry.filter(
-    item => item?.identifier?.id !== UNIFIED_EXT.id && item?.identifier?.id !== 'elaand.jetbrains-intellij-keymap'
+    item =>
+      item?.identifier?.id !== UNIFIED_EXT.id &&
+      item?.identifier?.id !== 'elaand.jetbrains-intellij-new-ui-dark' &&
+      item?.identifier?.id !== 'elaand.jetbrains-intellij-keymap'
   );
   const normalizedPath = destDir.replace(/\\/g, '/').replace(/^([A-Za-z]):/, (_, d) => `/${d.toLowerCase()}:`);
   registry.push({
@@ -205,8 +210,10 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
     settings['intellijNewUi.onlyApplyInJavaProjects'] = false;
   }
 
-  if (!settings['intellijNewUi.onlyApplyInJavaProjects'] && settings['workbench.colorTheme'] === 'IntelliJ IDEA New UI Dark (Pro)') {
-    settings['workbench.colorTheme'] = 'IntelliJ IDEA New UI Dark (Pro)';
+  const isIntelliJTheme =
+    settings['workbench.colorTheme'] === 'IntelliJ IDEA New UI Dark (Pro)' ||
+    settings['workbench.colorTheme'] === 'IntelliJ IDEA New UI Light (Pro)';
+  if (!settings['intellijNewUi.onlyApplyInJavaProjects'] && isIntelliJTheme) {
     settings['workbench.iconTheme'] = 'intellij-new-ui-file-icons';
     delete settings['workbench.productIconTheme'];
     settings['window.zoomLevel'] = 0.3;
