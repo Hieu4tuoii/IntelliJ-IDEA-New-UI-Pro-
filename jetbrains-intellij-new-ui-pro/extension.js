@@ -7,12 +7,12 @@ const RECOMMENDED_SETTINGS = {
   'workbench.iconTheme': 'intellij-new-ui-file-icons',
   'editor.fontFamily': "'JetBrains Mono', Consolas, monospace",
   'terminal.integrated.fontFamily': "'JetBrains Mono', Consolas, monospace",
-  'editor.fontSize': 12.5,
-  'editor.lineHeight': 1.55,
-  'editor.letterSpacing': 0.29,
-  'terminal.integrated.fontSize': 12.5,
+  'editor.fontSize': 13,
+  'editor.lineHeight': 1.38,
+  'editor.letterSpacing': 0,
+  'terminal.integrated.fontSize': 13,
   'terminal.integrated.lineHeight': 1.3,
-  'terminal.integrated.letterSpacing': 0.19,
+  'terminal.integrated.letterSpacing': 0,
   'editor.fontLigatures': false,
   'editor.semanticHighlighting.enabled': true,
   'editor.renderLineHighlight': 'all',
@@ -85,17 +85,22 @@ function detectJavaWorkspace() {
 
 const COMMENT_RE = /\/\*[\s\S]*?\*\/|\/\/.*|"(?:\\.|[^"\\])*"/g;
 const TOP_LEVEL_TYPE_RE = /(?:(^|\s)@interface\s+[A-Za-z_$]\w*|\b(abstract\s+class|interface|enum|class)\s+[A-Za-z_$]\w*|\b(record)\s+[A-Z]\w*\s*(?:<[^>]*>)?\s*\()/;
-const EXCEPTION_CLASS_RE = /\bclass\s+\w+[^{;]*?\bextends\s+\w*(?:Exception|Error|Throwable)\b/;
+const EXCEPTION_CLASS_RE = /\b(?:abstract\s+)?class\s+\w+[^{;]*?\bextends\s+\w*(?:Exception|Error|Throwable)\b/;
 const FINAL_CLASS_RE = /\bfinal\s+class\s+[A-Za-z_$]\w*/;
 const MAIN_METHOD_RE = /@SpringBootApplication\b|\b(?:public\s+)?static\s+void\s+main\s*\(\s*(?:final\s+)?String\b/;
 const HEADER_BUF = Buffer.allocUnsafe(8192);
+const MODULE_MARKER_FILES = new Set(['pom.xml', 'build.gradle', 'build.gradle.kts']);
+const PROTECTED_FOLDER_NAMES = new Set([
+  'src', 'main', 'java', 'kotlin', 'groovy', 'scala',
+  'test', 'tests', '__tests__', 'resources', 'assets', 'public', 'static', 'i18n', 'meta-inf',
+  'target', 'build', 'out', 'dist', '.next', 'node_modules', '.gradle',
+  '.idea', '.vscode', '.mvn', '.agents', '.github', 'lib', 'libs', 'logs', 'log',
+  'common', 'docs'
+]);
 
 function classifyJavaByFileNameFast(lower) {
   if (lower.endsWith('test.java') || lower.endsWith('tests.java') || lower.endsWith('it.java')) {
     return '_java_test';
-  }
-  if (lower.endsWith('exception.java') || lower.endsWith('error.java')) {
-    return '_java_exception';
   }
   return null;
 }
@@ -105,6 +110,7 @@ function classifyJavaContent(src, fileName) {
   const fast = classifyJavaByFileNameFast(lower);
   if (fast) return fast;
 
+  const isExceptionName = lower.endsWith('exception.java') || lower.endsWith('error.java');
   const cleaned = src ? src.replace(COMMENT_RE, '') : '';
   if (cleaned) {
     const m = TOP_LEVEL_TYPE_RE.exec(cleaned);
@@ -114,12 +120,18 @@ function classifyJavaContent(src, fileName) {
       const kind = m[2].replace(/\s+/g, ' ');
       if (kind === 'interface') return '_java_interface';
       if (kind === 'enum') return '_java_enum';
-      if (kind === 'abstract class') return '_java_abstract';
-      if (EXCEPTION_CLASS_RE.test(cleaned)) return '_java_exception';
+      if (kind === 'abstract class') {
+        if (isExceptionName || EXCEPTION_CLASS_RE.test(cleaned)) return '_java_abstract_exception';
+        return '_java_abstract';
+      }
+      if (isExceptionName || EXCEPTION_CLASS_RE.test(cleaned)) return '_java_exception';
       if (MAIN_METHOD_RE.test(cleaned) || lower.endsWith('application.java')) return '_java_runnable';
       if (FINAL_CLASS_RE.test(cleaned)) return '_java_final_class';
       return '_java_class';
     }
+  }
+  if (isExceptionName) {
+    return (lower.startsWith('abstract') || lower.startsWith('base')) ? '_java_abstract_exception' : '_java_exception';
   }
   if (lower.endsWith('application.java')) {
     return '_java_runnable';
@@ -217,6 +229,35 @@ function applyJavaIconMapping(theme, baseName, iconId) {
   return true;
 }
 
+function applyModuleFolderMapping(theme, folderName) {
+  const lower = folderName.toLowerCase();
+  if (PROTECTED_FOLDER_NAMES.has(lower)) return false;
+  if (!theme.folderNames) theme.folderNames = {};
+  if (!theme.folderNamesExpanded) theme.folderNamesExpanded = {};
+  let changed = false;
+  if (theme.folderNames[lower] !== '_folder_config') {
+    theme.folderNames[lower] = '_folder_config';
+    changed = true;
+  }
+  if (theme.folderNamesExpanded[lower] !== '_folder_config_open') {
+    theme.folderNamesExpanded[lower] = '_folder_config_open';
+    changed = true;
+  }
+  if (theme.light) {
+    if (!theme.light.folderNames) theme.light.folderNames = {};
+    if (!theme.light.folderNamesExpanded) theme.light.folderNamesExpanded = {};
+    if (theme.light.folderNames[lower] !== '_light_folder_config') {
+      theme.light.folderNames[lower] = '_light_folder_config';
+      changed = true;
+    }
+    if (theme.light.folderNamesExpanded[lower] !== '_light_folder_config_open') {
+      theme.light.folderNamesExpanded[lower] = '_light_folder_config_open';
+      changed = true;
+    }
+  }
+  return changed;
+}
+
 function scheduleIconThemeFlush() {
   if (flushTimer) clearTimeout(flushTimer);
   flushTimer = setTimeout(async () => {
@@ -238,25 +279,35 @@ async function scanWorkspaceJavaIcons(context) {
     if (!theme) return;
     let changed = false;
 
-    const walk = async (dir) => {
+    const walk = async (dir, isRoot = false) => {
       let entries;
       try {
         entries = await fs.promises.readdir(dir, { withFileTypes: true });
       } catch {
         return;
       }
+      if (!isRoot) {
+        const isModule = entries.some(
+          (e) => e.isFile() && (MODULE_MARKER_FILES.has(e.name.toLowerCase()) || e.name.toLowerCase().endsWith('.iml'))
+        );
+        if (isModule && applyModuleFolderMapping(theme, path.basename(dir))) {
+          changed = true;
+        }
+      }
       for (const entry of entries) {
         if (entry.isDirectory()) {
           if (!SKIP_SCAN_DIRS.has(entry.name) && !entry.name.startsWith('.')) {
-            await walk(path.join(dir, entry.name));
+            await walk(path.join(dir, entry.name), false);
           }
         } else if (entry.isFile() && entry.name.endsWith('.java')) {
           const baseName = entry.name.toLowerCase();
           const fullPath = path.join(dir, entry.name);
           scannedFilePaths.add(fullPath);
-          if (seenBaseNames.has(baseName)) continue;
+          const existingIcon = seenBaseNames.get(baseName);
+          if (existingIcon && existingIcon !== '_java_class') continue;
           const fastIcon = classifyJavaByFileNameFast(baseName);
           const iconId = fastIcon || classifyJavaContent(readJavaHeader(fullPath), baseName);
+          if (existingIcon === '_java_class' && iconId === '_java_class') continue;
           seenBaseNames.set(baseName, iconId);
           baseNameOwnerPath.set(baseName, fullPath);
           if (applyJavaIconMapping(theme, baseName, iconId)) {
@@ -267,7 +318,7 @@ async function scanWorkspaceJavaIcons(context) {
     };
 
     for (const folder of folders) {
-      await walk(folder.uri.fsPath);
+      await walk(folder.uri.fsPath, true);
     }
 
     if (changed) {
@@ -645,4 +696,4 @@ function deactivate() {
   }
 }
 
-module.exports = { activate, deactivate, classifyJavaContent, resolvePreferredIntelliJTheme, applyJavaIconMapping };
+module.exports = { activate, deactivate, classifyJavaContent, resolvePreferredIntelliJTheme, applyJavaIconMapping, applyModuleFolderMapping };

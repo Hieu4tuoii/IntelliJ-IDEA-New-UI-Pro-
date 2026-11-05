@@ -220,12 +220,12 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
     delete settings['editor.fontWeight'];
     settings['editor.fontFamily'] = "'JetBrains Mono', Consolas, monospace";
     settings['terminal.integrated.fontFamily'] = "'JetBrains Mono', Consolas, monospace";
-    settings['editor.fontSize'] = 12.5;
-    settings['editor.lineHeight'] = 1.55;
-    settings['editor.letterSpacing'] = 0.29;
-    settings['terminal.integrated.fontSize'] = 12.5;
+    settings['editor.fontSize'] = 13;
+    settings['editor.lineHeight'] = 1.38;
+    settings['editor.letterSpacing'] = 0;
+    settings['terminal.integrated.fontSize'] = 13;
     settings['terminal.integrated.lineHeight'] = 1.3;
-    settings['terminal.integrated.letterSpacing'] = 0.19;
+    settings['terminal.integrated.letterSpacing'] = 0;
     settings['editor.fontLigatures'] = false;
     settings['editor.semanticHighlighting.enabled'] = true;
     settings['editor.renderLineHighlight'] = 'all';

@@ -42,6 +42,7 @@ const SVGS = {
   "_java_interface": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"8\" cy=\"8\" r=\"6.5\" fill=\"#253627\" stroke=\"#57965C\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10 4.5V5.5L8.5 5.5V10.5H10V11.5L8.5 11.5H7.5L6 11.5V10.5H7.5V5.5L6 5.5V4.5H7.5H8.5H10Z\" fill=\"#57965C\"/>\n</svg>",
   "_java_enum": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"8\" cy=\"8\" r=\"6.5\" fill=\"#2F2936\" stroke=\"#A571E6\"/>\n<path d=\"M5.49023 11.5H10.5102V10.585H6.48023V8.435H10.0702V7.515H6.48023V5.415H10.4102V4.5H5.49023V11.5Z\" fill=\"#A571E6\"/>\n</svg>",
   "_java_abstract": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.9497 3.05025C15.6834 5.78392 15.6834 10.2161 12.9497 12.9497C10.216 15.6834 5.78388 15.6834 3.05021 12.9497C0.316541 10.2161 0.316541 5.78392 3.05021 3.05025C5.78388 0.316583 10.216 0.316583 12.9497 3.05025Z\" fill=\"#25324D\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M14.9143 6.90481L13.9264 7.06045C13.7359 5.85124 13.1755 4.69027 12.2426 3.75736C11.3097 2.82445 10.1487 2.26404 8.93951 2.07352L9.09515 1.0857C10.5062 1.30802 11.8623 1.96287 12.9497 3.05025C14.0371 4.13763 14.6919 5.49375 14.9143 6.90481ZM6.90477 1.0857L7.06041 2.07352C5.8512 2.26404 4.69023 2.82445 3.75732 3.75736C2.82441 4.69027 2.26399 5.85124 2.07348 7.06045L1.08566 6.90481C1.30798 5.49375 1.96283 4.13763 3.05021 3.05025C4.13759 1.96287 5.49371 1.30802 6.90477 1.0857ZM1.08566 9.09519C1.30798 10.5063 1.96283 11.8624 3.05021 12.9497C4.13759 14.0371 5.49371 14.692 6.90477 14.9143L7.0604 13.9265C5.8512 13.736 4.69023 13.1755 3.75732 12.2426C2.82441 11.3097 2.26399 10.1488 2.07348 8.93955L1.08566 9.09519ZM9.09515 14.9143L8.93951 13.9265C10.1487 13.736 11.3097 13.1755 12.2426 12.2426C13.1755 11.3097 13.7359 10.1488 13.9264 8.93955L14.9143 9.09519C14.6919 10.5063 14.0371 11.8624 12.9497 12.9497C11.8623 14.0371 10.5062 14.692 9.09515 14.9143Z\" fill=\"#548AF7\"/>\n<path d=\"M8.13295 11.5C9.61223 11.5 10.8836 10.6105 11.2075 9.33909H10.2213C9.90229 10.0739 9.11914 10.6057 8.13295 10.6057C6.77936 10.6057 5.80284 9.51796 5.80284 8C5.80284 6.48204 6.77936 5.39434 8.13295 5.39434C9.11914 5.39434 9.90229 5.92611 10.2213 6.66091H11.2075C10.8836 5.3895 9.61223 4.5 8.13295 4.5C6.21859 4.5 4.79248 5.99378 4.79248 8C4.79248 10.0062 6.21859 11.5 8.13295 11.5Z\" fill=\"#548AF7\"/>\n</svg>",
+  "_java_abstract_exception": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.9498 3.05025C15.6835 5.78392 15.6835 10.2161 12.9498 12.9497C10.2162 15.6834 5.784 15.6834 3.05033 12.9497C0.316663 10.2161 0.316663 5.78392 3.05033 3.05025C5.784 0.316582 10.2162 0.316583 12.9498 3.05025Z\" fill=\"#3D3223\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M14.9144 6.90481L13.9266 7.06045C13.736 5.85124 13.1756 4.69027 12.2427 3.75736C11.3098 2.82445 10.1488 2.26404 8.93963 2.07352L9.09527 1.0857C10.5063 1.30802 11.8624 1.96287 12.9498 3.05025C14.0372 4.13763 14.6921 5.49375 14.9144 6.90481ZM6.90489 1.0857L7.06053 2.07352C5.85132 2.26404 4.69035 2.82445 3.75744 3.75736C2.82453 4.69027 2.26412 5.85124 2.0736 7.06045L1.08579 6.90481C1.30811 5.49375 1.96295 4.13763 3.05033 3.05025C4.13771 1.96287 5.49383 1.30802 6.90489 1.0857ZM1.08579 9.09519C1.30811 10.5063 1.96295 11.8624 3.05033 12.9497C4.13771 14.0371 5.49383 14.692 6.90489 14.9143L7.06053 13.9265C5.85132 13.736 4.69035 13.1755 3.75744 12.2426C2.82453 11.3097 2.26412 10.1488 2.0736 8.93955L1.08579 9.09519ZM9.09527 14.9143L8.93963 13.9265C10.1488 13.736 11.3098 13.1755 12.2427 12.2426C13.1756 11.3097 13.736 10.1488 13.9266 8.93955L14.9144 9.09519C14.6921 10.5063 14.0372 11.8624 12.9498 12.9497C11.8624 14.0371 10.5063 14.692 9.09527 14.9143Z\" fill=\"#D6AE58\"/>\n<path d=\"M9 4.5L6 8H10L7 11.5\" stroke=\"#D6AE58\" stroke-linecap=\"round\"/>\n</svg>",
   "_java_record": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"8\" cy=\"8\" r=\"6.5\" fill=\"#25324D\" stroke=\"#548AF7\"/>\n<path d=\"M7.92995 8.405H9.02495L10.925 11.5H9.77495L7.92995 8.405ZM5.69995 4.5H8.58495C9.04828 4.5 9.45328 4.58667 9.79995 4.76C10.15 4.93 10.42 5.17167 10.61 5.485C10.8 5.795 10.895 6.15833 10.895 6.575C10.895 6.98833 10.7983 7.35333 10.605 7.67C10.4116 7.98667 10.1383 8.23167 9.78495 8.405C9.43162 8.575 9.01828 8.66 8.54495 8.66H6.69995V11.5H5.69995V4.5ZM8.55995 7.77C8.81995 7.77 9.04662 7.72167 9.23995 7.625C9.43328 7.52833 9.58328 7.39 9.68995 7.21C9.79662 7.03 9.84995 6.81833 9.84995 6.575C9.84995 6.335 9.79662 6.12667 9.68995 5.95C9.58328 5.77 9.43328 5.63167 9.23995 5.535C9.04662 5.43833 8.81995 5.39 8.55995 5.39H6.69995V7.77H8.55995Z\" fill=\"#548AF7\"/>\n</svg>",
   "_java_exception": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"8\" cy=\"8\" r=\"6.5\" fill=\"#3D3223\" stroke=\"#D6AE58\"/>\n<path d=\"M9 4.5L6 8H10L7 11.5\" stroke=\"#D6AE58\" stroke-linecap=\"round\"/>\n</svg>",
   "_java_annotation": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"8\" cy=\"8\" r=\"7\" fill=\"#253627\"/>\n<path d=\"M9.72989 5.38506V6.35862H9.70012C9.35494 5.69 8.71609 5.3046 7.87126 5.3046C6.38276 5.3046 5.26437 6.47931 5.26437 8.04023C5.26437 9.60115 6.38276 10.7759 7.87126 10.7759C8.81103 10.7759 9.58828 10.339 10.0026 9.65425C10.442 10.3357 11.2602 10.7517 12.2885 10.7517C13.9218 10.7517 15 9.60115 15 7.91954C15 4.11379 11.854 1 8 1C4.14598 1 1 4.18621 1 8.08046C1 11.8862 4.14598 15 8 15C9.85057 15 11.5161 14.2356 12.4333 13.4069L11.7092 12.6103C10.8966 13.3345 9.5931 13.9943 8 13.9943C4.70115 13.9943 2.00575 11.331 2.00575 8.08046C2.00575 4.74138 4.70115 2.00575 8 2.00575C11.2989 2.00575 13.9943 4.66897 13.9943 7.91954C13.9943 9.02989 13.3264 9.78621 12.2885 9.78621C11.3471 9.78621 10.6552 9.1908 10.6552 8.32184V5.38506H9.72989ZM7.95977 9.8908C6.99425 9.8908 6.27011 9.09425 6.27011 8.04023C6.27011 6.98621 6.99425 6.18966 7.95977 6.18966C8.92529 6.18966 9.64943 6.98621 9.64943 8.04023C9.64943 9.09425 8.92529 9.8908 7.95977 9.8908Z\" fill=\"#57965C\"/>\n</svg>",
@@ -129,6 +130,7 @@ const LIGHT_SVGS = {
   "_java_interface": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"8\" cy=\"8\" r=\"6.5\" fill=\"#F2FCF3\" stroke=\"#208A3C\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10 4.5V5.5L8.5 5.5V10.5H10V11.5L8.5 11.5H7.5L6 11.5V10.5H7.5V5.5L6 5.5V4.5H7.5H8.5H10Z\" fill=\"#208A3C\"/>\n</svg>",
   "_java_enum": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"8\" cy=\"8\" r=\"6.5\" fill=\"#FAF5FF\" stroke=\"#834DF0\"/>\n<path d=\"M5.49023 11.5H10.5102V10.585H6.48023V8.435H10.0702V7.515H6.48023V5.415H10.4102V4.5H5.49023V11.5Z\" fill=\"#834DF0\"/>\n</svg>",
   "_java_abstract": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.9497 3.05025C15.6834 5.78392 15.6834 10.2161 12.9497 12.9497C10.216 15.6834 5.78388 15.6834 3.05021 12.9497C0.316541 10.2161 0.316541 5.78392 3.05021 3.05025C5.78388 0.316583 10.216 0.316583 12.9497 3.05025Z\" fill=\"#E7EFFD\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M14.9143 6.90481L13.9264 7.06045C13.7359 5.85124 13.1755 4.69027 12.2426 3.75736C11.3097 2.82445 10.1487 2.26404 8.93951 2.07352L9.09515 1.0857C10.5062 1.30802 11.8623 1.96287 12.9497 3.05025C14.0371 4.13763 14.6919 5.49375 14.9143 6.90481ZM6.90477 1.0857L7.06041 2.07352C5.8512 2.26404 4.69023 2.82445 3.75732 3.75736C2.82441 4.69027 2.26399 5.85124 2.07348 7.06045L1.08566 6.90481C1.30798 5.49375 1.96283 4.13763 3.05021 3.05025C4.13759 1.96287 5.49371 1.30802 6.90477 1.0857ZM1.08566 9.09519C1.30798 10.5063 1.96283 11.8624 3.05021 12.9497C4.13759 14.0371 5.49371 14.692 6.90477 14.9143L7.0604 13.9265C5.8512 13.736 4.69023 13.1755 3.75732 12.2426C2.82441 11.3097 2.26399 10.1488 2.07348 8.93955L1.08566 9.09519ZM9.09515 14.9143L8.93951 13.9265C10.1487 13.736 11.3097 13.1755 12.2426 12.2426C13.1755 11.3097 13.7359 10.1488 13.9264 8.93955L14.9143 9.09519C14.6919 10.5063 14.0371 11.8624 12.9497 12.9497C11.8623 14.0371 10.5062 14.692 9.09515 14.9143Z\" fill=\"#3574F0\"/>\n<path d=\"M8.13295 11.5C9.61223 11.5 10.8836 10.6105 11.2075 9.33909H10.2213C9.90229 10.0739 9.11914 10.6057 8.13295 10.6057C6.77936 10.6057 5.80284 9.51796 5.80284 8C5.80284 6.48204 6.77936 5.39434 8.13295 5.39434C9.11914 5.39434 9.90229 5.92611 10.2213 6.66091H11.2075C10.8836 5.3895 9.61223 4.5 8.13295 4.5C6.21859 4.5 4.79248 5.99378 4.79248 8C4.79248 10.0062 6.21859 11.5 8.13295 11.5Z\" fill=\"#3574F0\"/>\n</svg>",
+  "_java_abstract_exception": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M12.9498 3.05025C15.6835 5.78392 15.6835 10.2161 12.9498 12.9497C10.2162 15.6834 5.784 15.6834 3.05033 12.9497C0.316663 10.2161 0.316663 5.78392 3.05033 3.05025C5.784 0.316582 10.2162 0.316583 12.9498 3.05025Z\" fill=\"#FFFAEB\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M14.9144 6.90481L13.9266 7.06045C13.736 5.85124 13.1756 4.69027 12.2427 3.75736C11.3098 2.82445 10.1488 2.26404 8.93963 2.07352L9.09527 1.0857C10.5063 1.30802 11.8624 1.96287 12.9498 3.05025C14.0372 4.13763 14.6921 5.49375 14.9144 6.90481ZM6.90489 1.0857L7.06053 2.07352C5.85132 2.26404 4.69035 2.82445 3.75744 3.75736C2.82453 4.69027 2.26412 5.85124 2.0736 7.06045L1.08579 6.90481C1.30811 5.49375 1.96295 4.13763 3.05033 3.05025C4.13771 1.96287 5.49383 1.30802 6.90489 1.0857ZM1.08579 9.09519C1.30811 10.5063 1.96295 11.8624 3.05033 12.9497C4.13771 14.0371 5.49383 14.692 6.90489 14.9143L7.06053 13.9265C5.85132 13.736 4.69035 13.1755 3.75744 12.2426C2.82453 11.3097 2.26412 10.1488 2.0736 8.93955L1.08579 9.09519ZM9.09527 14.9143L8.93963 13.9265C10.1488 13.736 11.3098 13.1755 12.2427 12.2426C13.1756 11.3097 13.736 10.1488 13.9266 8.93955L14.9144 9.09519C14.6921 10.5063 14.0372 11.8624 12.9498 12.9497C11.8624 14.0371 10.5063 14.692 9.09527 14.9143Z\" fill=\"#C27D04\"/>\n<path d=\"M9 4.5L6 8H10L7 11.5\" stroke=\"#C27D04\" stroke-linecap=\"round\"/>\n</svg>",
   "_java_record": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"8\" cy=\"8\" r=\"6.5\" fill=\"#E7EFFD\" stroke=\"#3574F0\"/>\n<path d=\"M7.92995 8.405H9.02495L10.925 11.5H9.77495L7.92995 8.405ZM5.69995 4.5H8.58495C9.04828 4.5 9.45328 4.58667 9.79995 4.76C10.15 4.93 10.42 5.17167 10.61 5.485C10.8 5.795 10.895 6.15833 10.895 6.575C10.895 6.98833 10.7983 7.35333 10.605 7.67C10.4116 7.98667 10.1383 8.23167 9.78495 8.405C9.43162 8.575 9.01828 8.66 8.54495 8.66H6.69995V11.5H5.69995V4.5ZM8.55995 7.77C8.81995 7.77 9.04662 7.72167 9.23995 7.625C9.43328 7.52833 9.58328 7.39 9.68995 7.21C9.79662 7.03 9.84995 6.81833 9.84995 6.575C9.84995 6.335 9.79662 6.12667 9.68995 5.95C9.58328 5.77 9.43328 5.63167 9.23995 5.535C9.04662 5.43833 8.81995 5.39 8.55995 5.39H6.69995V7.77H8.55995Z\" fill=\"#3574F0\"/>\n</svg>",
   "_java_exception": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"8\" cy=\"8\" r=\"6.5\" fill=\"#FFFAEB\" stroke=\"#C27D04\"/>\n<path d=\"M9 4.5L6 8H10L7 11.5\" stroke=\"#C27D04\" stroke-linecap=\"round\"/>\n</svg>",
   "_java_annotation": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<circle cx=\"8\" cy=\"8\" r=\"7\" fill=\"#F2FCF3\"/>\n<path d=\"M9.72989 5.38506V6.35862H9.70012C9.35494 5.69 8.71609 5.3046 7.87126 5.3046C6.38276 5.3046 5.26437 6.47931 5.26437 8.04023C5.26437 9.60115 6.38276 10.7759 7.87126 10.7759C8.81103 10.7759 9.58828 10.339 10.0026 9.65425C10.442 10.3357 11.2602 10.7517 12.2885 10.7517C13.9218 10.7517 15 9.60115 15 7.91954C15 4.11379 11.854 1 8 1C4.14598 1 1 4.18621 1 8.08046C1 11.8862 4.14598 15 8 15C9.85057 15 11.5161 14.2356 12.4333 13.4069L11.7092 12.6103C10.8966 13.3345 9.5931 13.9943 8 13.9943C4.70115 13.9943 2.00575 11.331 2.00575 8.08046C2.00575 4.74138 4.70115 2.00575 8 2.00575C11.2989 2.00575 13.9943 4.66897 13.9943 7.91954C13.9943 9.02989 13.3264 9.78621 12.2885 9.78621C11.3471 9.78621 10.6552 9.1908 10.6552 8.32184V5.38506H9.72989ZM7.95977 9.8908C6.99425 9.8908 6.27011 9.09425 6.27011 8.04023C6.27011 6.98621 6.99425 6.18966 7.95977 6.18966C8.92529 6.18966 9.64943 6.98621 9.64943 8.04023C9.64943 9.09425 8.92529 9.8908 7.95977 9.8908Z\" fill=\"#208A3C\"/>\n</svg>",
@@ -297,17 +299,25 @@ const fileNames = {
 };
 
 const JAVA_TYPE_RE = /(?:(^|\s)@interface\s+[A-Za-z_$]\w*|\b(abstract\s+class|final\s+class|interface|enum|class)\s+[A-Za-z_$]\w*|\b(record)\s+[A-Z]\w*\s*(?:<[^>]*>)?\s*\()/;
-const EXCEPTION_EXTENDS_RE = /\bclass\s+\w+[^{;]*?\bextends\s+\w*(?:Exception|Error|Throwable)\b/;
+const EXCEPTION_EXTENDS_RE = /\b(?:abstract\s+)?class\s+\w+[^{;]*?\bextends\s+\w*(?:Exception|Error|Throwable)\b/;
 const MAIN_METHOD_RE = /@SpringBootApplication\b|\b(?:public\s+)?static\s+void\s+main\s*\(\s*(?:final\s+)?String\b/;
+const MODULE_MARKER_FILES = new Set(['pom.xml', 'build.gradle', 'build.gradle.kts']);
+const PROTECTED_FOLDER_NAMES = new Set([
+  'src', 'main', 'java', 'kotlin', 'groovy', 'scala',
+  'test', 'tests', '__tests__', 'resources', 'assets', 'public', 'static', 'i18n', 'meta-inf',
+  'target', 'build', 'out', 'dist', '.next', 'node_modules', '.gradle',
+  '.idea', '.vscode', '.mvn', '.agents', '.github', 'lib', 'libs', 'logs', 'log',
+  'common', 'docs'
+]);
+
+const discoveredModuleFolders = new Set();
 
 function classifyJavaFile(filePath, baseName) {
   const lower = baseName.toLowerCase();
   if (lower.endsWith('test.java') || lower.endsWith('tests.java') || lower.endsWith('it.java')) {
     return '_java_test';
   }
-  if (lower.endsWith('exception.java') || lower.endsWith('error.java')) {
-    return '_java_exception';
-  }
+  const isExceptionName = lower.endsWith('exception.java') || lower.endsWith('error.java');
   try {
     const src = fs.readFileSync(filePath, 'utf8');
     const cleaned = src.replace(/\/\*[\s\S]*?\*\/|\/\/.*|"(?:\\.|[^"\\])*"/g, '');
@@ -318,14 +328,20 @@ function classifyJavaFile(filePath, baseName) {
       const kind = m[2].replace(/\s+/g, ' ');
       if (kind === 'interface') return '_java_interface';
       if (kind === 'enum') return '_java_enum';
-      if (kind === 'abstract class') return '_java_abstract';
-      if (EXCEPTION_EXTENDS_RE.test(cleaned)) return '_java_exception';
+      if (kind === 'abstract class') {
+        if (isExceptionName || EXCEPTION_EXTENDS_RE.test(cleaned)) return '_java_abstract_exception';
+        return '_java_abstract';
+      }
+      if (isExceptionName || EXCEPTION_EXTENDS_RE.test(cleaned)) return '_java_exception';
       if (MAIN_METHOD_RE.test(cleaned) || lower.endsWith('application.java')) return '_java_runnable';
       if (kind === 'final class') return '_java_final_class';
       return '_java_class';
     }
   } catch {
     // Fallback to naming conventions
+  }
+  if (isExceptionName) {
+    return (lower.startsWith('abstract') || lower.startsWith('base')) ? '_java_abstract_exception' : '_java_exception';
   }
   if (lower.endsWith('application.java')) {
     return '_java_runnable';
@@ -368,20 +384,31 @@ if (fs.existsSync(JSON_PATH)) {
   }
 }
 
-function walkWorkspaceJava(dir) {
+function walkWorkspaceJava(dir, isRoot = true) {
   if (!fs.existsSync(dir)) return;
   const entries = fs.readdirSync(dir, { withFileTypes: true });
+  if (!isRoot) {
+    const folderLower = path.basename(dir).toLowerCase();
+    if (!PROTECTED_FOLDER_NAMES.has(folderLower)) {
+      const isModule = entries.some(
+        (e) => e.isFile() && (MODULE_MARKER_FILES.has(e.name.toLowerCase()) || e.name.toLowerCase().endsWith('.iml'))
+      );
+      if (isModule) {
+        discoveredModuleFolders.add(folderLower);
+      }
+    }
+  }
   for (const entry of entries) {
     if (['node_modules', '.git', 'target', 'build', 'dist', '.next'].includes(entry.name)) continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      walkWorkspaceJava(full);
+      walkWorkspaceJava(full, false);
     } else if (entry.isFile() && entry.name.endsWith('.java')) {
       const lowerName = entry.name.toLowerCase();
       const iconId = classifyJavaFile(full, entry.name);
       if (iconId !== '_java_class' || lowerName === 'createattachmentserviceimpl.java') {
         fileNames[lowerName] = iconId;
-      } else {
+      } else if (!fileNames[lowerName]) {
         delete fileNames[lowerName];
       }
     }
@@ -391,75 +418,84 @@ function walkWorkspaceJava(dir) {
 walkWorkspaceJava('C:/Elaand-Enao/lendingfo');
 walkWorkspaceJava('C:/Elaand-Enao/code-be');
 
+const folderNames = {
+  'java': '_folder_java',
+  'kotlin': '_folder_java',
+  'groovy': '_folder_java',
+  'scala': '_folder_java',
+  'test': '_folder_test',
+  'tests': '_folder_test',
+  '__tests__': '_folder_test',
+  'resources': '_folder_resources',
+  'assets': '_folder_resources',
+  'public': '_folder_resources',
+  'static': '_folder_resources',
+  'i18n': '_folder_resources',
+  'META-INF': '_folder_resources',
+  'meta-inf': '_folder_resources',
+  'target': '_folder_excluded',
+  'build': '_folder_excluded',
+  'out': '_folder_excluded',
+  'dist': '_folder_excluded',
+  '.next': '_folder_excluded',
+  'node_modules': '_folder_excluded',
+  '.gradle': '_folder_excluded',
+  '.idea': '_folder_config',
+  '.vscode': '_folder_config',
+  '.mvn': '_folder_config',
+  '.agents': '_folder_config',
+  '.github': '_folder_github',
+  'lib': '_folder_library',
+  'libs': '_folder_library',
+  'logs': '_folder_log',
+  'log': '_folder_log'
+};
+
+const folderNamesExpanded = {
+  'java': '_folder_java_open',
+  'kotlin': '_folder_java_open',
+  'groovy': '_folder_java_open',
+  'scala': '_folder_java_open',
+  'test': '_folder_test_open',
+  'tests': '_folder_test_open',
+  '__tests__': '_folder_test_open',
+  'resources': '_folder_resources_open',
+  'assets': '_folder_resources_open',
+  'public': '_folder_resources_open',
+  'static': '_folder_resources_open',
+  'i18n': '_folder_resources_open',
+  'META-INF': '_folder_resources_open',
+  'meta-inf': '_folder_resources_open',
+  'target': '_folder_excluded_open',
+  'build': '_folder_excluded_open',
+  'out': '_folder_excluded_open',
+  'dist': '_folder_excluded_open',
+  '.next': '_folder_excluded_open',
+  'node_modules': '_folder_excluded_open',
+  '.gradle': '_folder_excluded_open',
+  '.idea': '_folder_config_open',
+  '.vscode': '_folder_config_open',
+  '.mvn': '_folder_config_open',
+  '.agents': '_folder_config_open',
+  '.github': '_folder_github_open',
+  'lib': '_folder_library_open',
+  'libs': '_folder_library_open',
+  'logs': '_folder_log_open',
+  'log': '_folder_log_open'
+};
+
+for (const modFolder of discoveredModuleFolders) {
+  folderNames[modFolder] = '_folder_config';
+  folderNamesExpanded[modFolder] = '_folder_config_open';
+}
+
 const fileIconTheme = {
   iconDefinitions,
   file: '_file',
   folder: '_folder',
   folderExpanded: '_folder_open',
-  folderNames: {
-    'java': '_folder_java',
-    'kotlin': '_folder_java',
-    'groovy': '_folder_java',
-    'scala': '_folder_java',
-    'test': '_folder_test',
-    'tests': '_folder_test',
-    '__tests__': '_folder_test',
-    'resources': '_folder_resources',
-    'assets': '_folder_resources',
-    'public': '_folder_resources',
-    'static': '_folder_resources',
-    'i18n': '_folder_resources',
-    'META-INF': '_folder_resources',
-    'meta-inf': '_folder_resources',
-    'target': '_folder_excluded',
-    'build': '_folder_excluded',
-    'out': '_folder_excluded',
-    'dist': '_folder_excluded',
-    '.next': '_folder_excluded',
-    'node_modules': '_folder_excluded',
-    '.gradle': '_folder_excluded',
-    '.idea': '_folder_config',
-    '.vscode': '_folder_config',
-    '.mvn': '_folder_config',
-    '.agents': '_folder_config',
-    '.github': '_folder_github',
-    'lib': '_folder_library',
-    'libs': '_folder_library',
-    'logs': '_folder_log',
-    'log': '_folder_log'
-  },
-  folderNamesExpanded: {
-    'java': '_folder_java_open',
-    'kotlin': '_folder_java_open',
-    'groovy': '_folder_java_open',
-    'scala': '_folder_java_open',
-    'test': '_folder_test_open',
-    'tests': '_folder_test_open',
-    '__tests__': '_folder_test_open',
-    'resources': '_folder_resources_open',
-    'assets': '_folder_resources_open',
-    'public': '_folder_resources_open',
-    'static': '_folder_resources_open',
-    'i18n': '_folder_resources_open',
-    'META-INF': '_folder_resources_open',
-    'meta-inf': '_folder_resources_open',
-    'target': '_folder_excluded_open',
-    'build': '_folder_excluded_open',
-    'out': '_folder_excluded_open',
-    'dist': '_folder_excluded_open',
-    '.next': '_folder_excluded_open',
-    'node_modules': '_folder_excluded_open',
-    '.gradle': '_folder_excluded_open',
-    '.idea': '_folder_config_open',
-    '.vscode': '_folder_config_open',
-    '.mvn': '_folder_config_open',
-    '.agents': '_folder_config_open',
-    '.github': '_folder_github_open',
-    'lib': '_folder_library_open',
-    'libs': '_folder_library_open',
-    'logs': '_folder_log_open',
-    'log': '_folder_log_open'
-  },
+  folderNames,
+  folderNamesExpanded,
   fileExtensions: {
     'java': '_java_class',
     'class': '_java_compiled',

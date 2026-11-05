@@ -202,8 +202,8 @@
     "editor.wordHighlightStrongBackground": "#57343ECC",
     "editor.wordHighlightStrongBorder": "#7A4654",
     "editor.wordHighlightTextBackground": "#373B3999",
-    "editor.findMatchBackground": "#2D543F",
-    "editor.findMatchBorder": "#42BD77",
+    "editor.findMatchBackground": "#114957",
+    "editor.findMatchBorder": "#165E70",
     "editor.findMatchHighlightBackground": "#32593D80",
     "editor.findMatchHighlightBorder": "#3C704B",
     "editor.findRangeHighlightBackground": "#2142834D",
@@ -272,7 +272,7 @@
     "problemsWarningIcon.foreground": "#F2C55C",
     "problemsInfoIcon.foreground": "#56A8F5",
     "editorOverviewRuler.border": "#1E1F22",
-    "editorOverviewRuler.findMatchForeground": "#42BD77B3",
+    "editorOverviewRuler.findMatchForeground": "#72D6D6B3",
     "editorOverviewRuler.rangeHighlightForeground": "#3574F080",
     "editorOverviewRuler.selectionHighlightForeground": "#678D7BCC",
     "editorOverviewRuler.wordHighlightForeground": "#678D7BCC",
@@ -441,16 +441,16 @@
     "debugTokenExpression.boolean": "#CF8E6D",
     "debugTokenExpression.number": "#2AACB8",
     "debugTokenExpression.error": "#F75464",
-    "gitDecoration.addedResourceForeground": "#629755",
-    "gitDecoration.modifiedResourceForeground": "#6897BB",
+    "gitDecoration.addedResourceForeground": "#73BD79",
+    "gitDecoration.modifiedResourceForeground": "#70AEFF",
     "gitDecoration.deletedResourceForeground": "#6F737A",
-    "gitDecoration.renamedResourceForeground": "#2AACB8",
-    "gitDecoration.stageModifiedResourceForeground": "#6897BB",
+    "gitDecoration.renamedResourceForeground": "#70AEFF",
+    "gitDecoration.stageModifiedResourceForeground": "#70AEFF",
     "gitDecoration.stageDeletedResourceForeground": "#6F737A",
-    "gitDecoration.untrackedResourceForeground": "#D1675A",
-    "gitDecoration.ignoredResourceForeground": "#7A7E85",
-    "gitDecoration.conflictingResourceForeground": "#D5756C",
-    "gitDecoration.submoduleResourceForeground": "#6897BB",
+    "gitDecoration.untrackedResourceForeground": "#E88F89",
+    "gitDecoration.ignoredResourceForeground": "#D69A6B",
+    "gitDecoration.conflictingResourceForeground": "#DE6A66",
+    "gitDecoration.submoduleResourceForeground": "#70AEFF",
     "notificationCenter.border": "#43454A",
     "notificationCenterHeader.foreground": "#DFE1E5",
     "notificationCenterHeader.background": "#2B2D30",
@@ -546,7 +546,7 @@
       "foreground": "#BCBEC4"
     },
     "typeParameter": {
-      "foreground": "#507874"
+      "foreground": "#16BAAC"
     },
     "annotation": {
       "foreground": "#B3AE60"
@@ -575,7 +575,7 @@
       "foreground": "#56A8F5"
     },
     "method.static": {
-      "foreground": "#BCBEC4",
+      "foreground": "#57AAF7",
       "fontStyle": "italic"
     },
     "method.static.declaration": {
@@ -607,11 +607,11 @@
       "foreground": "#56A8F5"
     },
     "function.static": {
-      "foreground": "#BCBEC4",
+      "foreground": "#57AAF7",
       "fontStyle": "italic"
     },
     "function.defaultLibrary": {
-      "foreground": "#BCBEC4",
+      "foreground": "#57AAF7",
       "fontStyle": "italic"
     },
     "property": {
@@ -711,7 +711,7 @@
       "foreground": "#2AACB8"
     },
     "regexp": {
-      "foreground": "#2AACB8"
+      "foreground": "#42C3D4"
     },
     "operator": {
       "foreground": "#BCBEC4"
@@ -734,6 +734,18 @@
       ],
       "settings": {
         "foreground": "#7A7E85",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "TODO / FIXME Comments",
+      "scope": [
+        "keyword.codetag.notation",
+        "comment.block.todo",
+        "storage.type.class.todo"
+      ],
+      "settings": {
+        "foreground": "#8BB33D",
         "fontStyle": "italic"
       }
     },
@@ -772,8 +784,8 @@
         "variable.other.jsdoc"
       ],
       "settings": {
-        "foreground": "#8ABEB7",
-        "fontStyle": "italic"
+        "foreground": "#ABADB3",
+        "fontStyle": ""
       }
     },
     {
@@ -919,7 +931,7 @@
         "meta.type.parameters entity.name.type"
       ],
       "settings": {
-        "foreground": "#507874"
+        "foreground": "#16BAAC"
       }
     },
     {
@@ -974,21 +986,51 @@
       }
     },
     {
-      "name": "Numbers & Regex Quantifiers",
+      "name": "Numbers",
       "scope": [
-        "constant.numeric",
-        "keyword.operator.quantifier.regexp"
+        "constant.numeric"
       ],
       "settings": {
         "foreground": "#2AACB8"
       }
     },
     {
+      "name": "Regular Expressions",
+      "scope": [
+        "string.regexp",
+        "keyword.operator.quantifier.regexp",
+        "constant.character.escape.regexp"
+      ],
+      "settings": {
+        "foreground": "#42C3D4"
+      }
+    },
+    {
+      "name": "Kotlin Named Arguments & Labels",
+      "scope": [
+        "entity.name.label.kotlin",
+        "variable.parameter.function.kotlin"
+      ],
+      "settings": {
+        "foreground": "#56C1D6"
+      }
+    },
+    {
+      "name": "React / JSX Components",
+      "scope": [
+        "support.class.component",
+        "entity.name.tag.tsx",
+        "entity.name.tag.jsx"
+      ],
+      "settings": {
+        "foreground": "#9C9CFF"
+      }
+    },
+    {
       "name": "HTML, XML, Maven & JSX Tags",
       "scope": [
         "entity.name.tag",
-        "punctuation.definition.tag",
-        "support.class.component"
+        "punctuation.definition.tag"
       ],
       "settings": {
         "foreground": "#D5B778"

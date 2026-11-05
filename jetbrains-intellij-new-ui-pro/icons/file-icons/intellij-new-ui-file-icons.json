@@ -90,6 +90,9 @@
     "_java_abstract": {
       "iconPath": "./svgs/java_abstract.svg"
     },
+    "_java_abstract_exception": {
+      "iconPath": "./svgs/java_abstract_exception.svg"
+    },
     "_java_record": {
       "iconPath": "./svgs/java_record.svg"
     },
@@ -339,6 +342,9 @@
     "_light_java_abstract": {
       "iconPath": "./svgs/light/java_abstract.svg"
     },
+    "_light_java_abstract_exception": {
+      "iconPath": "./svgs/light/java_abstract_exception.svg"
+    },
     "_light_java_record": {
       "iconPath": "./svgs/light/java_record.svg"
     },
@@ -532,7 +538,13 @@
     "lib": "_folder_library",
     "libs": "_folder_library",
     "logs": "_folder_log",
-    "log": "_folder_log"
+    "log": "_folder_log",
+    "core": "_folder_config",
+    "lending": "_folder_config",
+    "model": "_folder_config",
+    "parent": "_folder_config",
+    "schedule-job-validate": "_folder_config",
+    "card": "_folder_config"
   },
   "folderNamesExpanded": {
     "java": "_folder_java_open",
@@ -564,7 +576,13 @@
     "lib": "_folder_library_open",
     "libs": "_folder_library_open",
     "logs": "_folder_log_open",
-    "log": "_folder_log_open"
+    "log": "_folder_log_open",
+    "core": "_folder_config_open",
+    "lending": "_folder_config_open",
+    "model": "_folder_config_open",
+    "parent": "_folder_config_open",
+    "schedule-job-validate": "_folder_config_open",
+    "card": "_folder_config_open"
   },
   "fileExtensions": {
     "java": "_java_class",
@@ -837,7 +855,7 @@
     "sortorderenum.java": "_java_enum",
     "businessexception.java": "_java_exception",
     "lendingexception.java": "_java_exception",
-    "businesserror.java": "_java_exception",
+    "businesserror.java": "_java_interface",
     "loadcellhandler.java": "_java_interface",
     "baseexcel.java": "_java_abstract",
     "logapirepository.java": "_java_interface",
@@ -1145,7 +1163,9 @@
     "cardserviceconstants.java": "_java_final_class",
     "authenticateutils.java": "_java_final_class",
     "workercontext.java": "_java_final_class",
-    "messageheaders.java": "_java_final_class"
+    "messageheaders.java": "_java_final_class",
+    "commonservice.java": "_java_interface",
+    "exchangerateservice.java": "_java_interface"
   },
   "languageIds": {
     "java": "_java_class",
@@ -1210,7 +1230,13 @@
       "lib": "_light_folder_library",
       "libs": "_light_folder_library",
       "logs": "_light_folder_log",
-      "log": "_light_folder_log"
+      "log": "_light_folder_log",
+      "core": "_light_folder_config",
+      "lending": "_light_folder_config",
+      "model": "_light_folder_config",
+      "parent": "_light_folder_config",
+      "schedule-job-validate": "_light_folder_config",
+      "card": "_light_folder_config"
     },
     "folderNamesExpanded": {
       "java": "_light_folder_java_open",
@@ -1242,7 +1268,13 @@
       "lib": "_light_folder_library_open",
       "libs": "_light_folder_library_open",
       "logs": "_light_folder_log_open",
-      "log": "_light_folder_log_open"
+      "log": "_light_folder_log_open",
+      "core": "_light_folder_config_open",
+      "lending": "_light_folder_config_open",
+      "model": "_light_folder_config_open",
+      "parent": "_light_folder_config_open",
+      "schedule-job-validate": "_light_folder_config_open",
+      "card": "_light_folder_config_open"
     },
     "fileExtensions": {
       "java": "_light_java_class",
@@ -1515,7 +1547,7 @@
       "sortorderenum.java": "_light_java_enum",
       "businessexception.java": "_light_java_exception",
       "lendingexception.java": "_light_java_exception",
-      "businesserror.java": "_light_java_exception",
+      "businesserror.java": "_light_java_interface",
       "loadcellhandler.java": "_light_java_interface",
       "baseexcel.java": "_light_java_abstract",
       "logapirepository.java": "_light_java_interface",
@@ -1823,7 +1855,9 @@
       "cardserviceconstants.java": "_light_java_final_class",
       "authenticateutils.java": "_light_java_final_class",
       "workercontext.java": "_light_java_final_class",
-      "messageheaders.java": "_light_java_final_class"
+      "messageheaders.java": "_light_java_final_class",
+      "commonservice.java": "_light_java_interface",
+      "exchangerateservice.java": "_light_java_interface"
     },
     "languageIds": {
       "java": "_light_java_class",

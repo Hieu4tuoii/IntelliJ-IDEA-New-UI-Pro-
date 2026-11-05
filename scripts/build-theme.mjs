@@ -230,8 +230,8 @@ const theme = {
     'editor.wordHighlightStrongBackground': '#57343ECC',
     'editor.wordHighlightStrongBorder': '#7A4654',
     'editor.wordHighlightTextBackground': '#373B3999',
-    'editor.findMatchBackground': '#2D543F',
-    'editor.findMatchBorder': '#42BD77',
+    'editor.findMatchBackground': '#114957',
+    'editor.findMatchBorder': '#165E70',
     'editor.findMatchHighlightBackground': '#32593D80',
     'editor.findMatchHighlightBorder': '#3C704B',
     'editor.findRangeHighlightBackground': '#2142834D',
@@ -304,7 +304,7 @@ const theme = {
     'problemsWarningIcon.foreground': '#F2C55C',
     'problemsInfoIcon.foreground': '#56A8F5',
     'editorOverviewRuler.border': '#1E1F22',
-    'editorOverviewRuler.findMatchForeground': '#42BD77B3',
+    'editorOverviewRuler.findMatchForeground': '#72D6D6B3',
     'editorOverviewRuler.rangeHighlightForeground': '#3574F080',
     'editorOverviewRuler.selectionHighlightForeground': '#678D7BCC',
     'editorOverviewRuler.wordHighlightForeground': '#678D7BCC',
@@ -483,16 +483,16 @@ const theme = {
     'debugTokenExpression.boolean': '#CF8E6D',
     'debugTokenExpression.number': '#2AACB8',
     'debugTokenExpression.error': '#F75464',
-    'gitDecoration.addedResourceForeground': '#629755',
-    'gitDecoration.modifiedResourceForeground': '#6897BB',
+    'gitDecoration.addedResourceForeground': '#73BD79',
+    'gitDecoration.modifiedResourceForeground': '#70AEFF',
     'gitDecoration.deletedResourceForeground': '#6F737A',
-    'gitDecoration.renamedResourceForeground': '#2AACB8',
-    'gitDecoration.stageModifiedResourceForeground': '#6897BB',
+    'gitDecoration.renamedResourceForeground': '#70AEFF',
+    'gitDecoration.stageModifiedResourceForeground': '#70AEFF',
     'gitDecoration.stageDeletedResourceForeground': '#6F737A',
-    'gitDecoration.untrackedResourceForeground': '#D1675A',
-    'gitDecoration.ignoredResourceForeground': '#7A7E85',
-    'gitDecoration.conflictingResourceForeground': '#D5756C',
-    'gitDecoration.submoduleResourceForeground': '#6897BB',
+    'gitDecoration.untrackedResourceForeground': '#E88F89',
+    'gitDecoration.ignoredResourceForeground': '#D69A6B',
+    'gitDecoration.conflictingResourceForeground': '#DE6A66',
+    'gitDecoration.submoduleResourceForeground': '#70AEFF',
     'notificationCenter.border': '#43454A',
     'notificationCenterHeader.foreground': '#DFE1E5',
     'notificationCenterHeader.background': '#2B2D30',
@@ -561,7 +561,7 @@ const theme = {
     'recordComponent': { foreground: '#C77DBB' },
     'recordComponent.declaration': { foreground: '#C77DBB' },
     'type': { foreground: '#BCBEC4' },
-    'typeParameter': { foreground: '#507874' },
+    'typeParameter': { foreground: '#16BAAC' },
     'annotation': { foreground: '#B3AE60' },
     'annotation.importDeclaration': { foreground: '#BCBEC4', fontStyle: '' },
     '*.importDeclaration': { foreground: '#BCBEC4', fontStyle: '' },
@@ -570,7 +570,7 @@ const theme = {
     'macro': { foreground: '#B3AE60' },
     'method': { foreground: '#BCBEC4' },
     'method.declaration': { foreground: '#56A8F5' },
-    'method.static': { foreground: '#BCBEC4', fontStyle: 'italic' },
+    'method.static': { foreground: '#57AAF7', fontStyle: 'italic' },
     'method.static.declaration': { foreground: '#56A8F5', fontStyle: 'italic' },
     '*.constructor': { foreground: '#BCBEC4' },
     '*.declaration.constructor': { foreground: '#56A8F5' },
@@ -580,8 +580,8 @@ const theme = {
     'method.declaration.constructor': { foreground: '#56A8F5' },
     'function': { foreground: '#BCBEC4' },
     'function.declaration': { foreground: '#56A8F5' },
-    'function.static': { foreground: '#BCBEC4', fontStyle: 'italic' },
-    'function.defaultLibrary': { foreground: '#BCBEC4', fontStyle: 'italic' },
+    'function.static': { foreground: '#57AAF7', fontStyle: 'italic' },
+    'function.defaultLibrary': { foreground: '#57AAF7', fontStyle: 'italic' },
     'property': { foreground: '#C77DBB', fontStyle: '' },
     'property.declaration': { foreground: '#C77DBB', fontStyle: '' },
     'property.readonly': { foreground: '#C77DBB', fontStyle: '' },
@@ -607,7 +607,7 @@ const theme = {
     'modifier': { foreground: '#CF8E6D' },
     'string': { foreground: '#6AAB73' },
     'number': { foreground: '#2AACB8' },
-    'regexp': { foreground: '#2AACB8' },
+    'regexp': { foreground: '#42C3D4' },
     'operator': { foreground: '#BCBEC4' },
     'comment': { foreground: '#7A7E85', fontStyle: 'italic' },
     'comment.documentation': { foreground: '#5F826B', fontStyle: 'italic' }
@@ -620,6 +620,18 @@ const theme = {
       scope: ['comment', 'punctuation.definition.comment'],
       settings: {
         foreground: '#7A7E85',
+        fontStyle: 'italic'
+      }
+    },
+    {
+      name: 'TODO / FIXME Comments',
+      scope: [
+        'keyword.codetag.notation',
+        'comment.block.todo',
+        'storage.type.class.todo'
+      ],
+      settings: {
+        foreground: '#8BB33D',
         fontStyle: 'italic'
       }
     },
@@ -658,8 +670,8 @@ const theme = {
         'variable.other.jsdoc'
       ],
       settings: {
-        foreground: '#8ABEB7',
-        fontStyle: 'italic'
+        foreground: '#ABADB3',
+        fontStyle: ''
       }
     },
     {
@@ -805,7 +817,7 @@ const theme = {
         'meta.type.parameters entity.name.type'
       ],
       settings: {
-        foreground: '#507874'
+        foreground: '#16BAAC'
       }
     },
     {
@@ -860,21 +872,51 @@ const theme = {
       }
     },
     {
-      name: 'Numbers & Regex Quantifiers',
+      name: 'Numbers',
       scope: [
-        'constant.numeric',
-        'keyword.operator.quantifier.regexp'
+        'constant.numeric'
       ],
       settings: {
         foreground: '#2AACB8'
       }
     },
     {
+      name: 'Regular Expressions',
+      scope: [
+        'string.regexp',
+        'keyword.operator.quantifier.regexp',
+        'constant.character.escape.regexp'
+      ],
+      settings: {
+        foreground: '#42C3D4'
+      }
+    },
+    {
+      name: 'Kotlin Named Arguments & Labels',
+      scope: [
+        'entity.name.label.kotlin',
+        'variable.parameter.function.kotlin'
+      ],
+      settings: {
+        foreground: '#56C1D6'
+      }
+    },
+    {
+      name: 'React / JSX Components',
+      scope: [
+        'support.class.component',
+        'entity.name.tag.tsx',
+        'entity.name.tag.jsx'
+      ],
+      settings: {
+        foreground: '#9C9CFF'
+      }
+    },
+    {
       name: 'HTML, XML, Maven & JSX Tags',
       scope: [
         'entity.name.tag',
-        'punctuation.definition.tag',
-        'support.class.component'
+        'punctuation.definition.tag'
       ],
       settings: {
         foreground: '#D5B778'
@@ -1096,9 +1138,9 @@ const lightTheme = {
     'minimapSlider.background': '#A8ADBD40',
     'minimapSlider.hoverBackground': '#8C92A466',
     'minimapSlider.activeBackground': '#6C707E80',
-    'minimapGutter.addedBackground': '#40A654',
-    'minimapGutter.modifiedBackground': '#3574F0',
-    'minimapGutter.deletedBackground': '#8C92A4',
+    'minimapGutter.addedBackground': '#7FC784',
+    'minimapGutter.modifiedBackground': '#88ADF7',
+    'minimapGutter.deletedBackground': '#767A8A',
 
     // 10. Editor Groups & Tabs (New UI Light Editor Tabs #FFFFFF with 3px #3574F0 underline)
     'editorGroup.border': '#EBECF0',
@@ -1139,7 +1181,7 @@ const lightTheme = {
     'editor.background': '#FFFFFF',
     'editor.foreground': '#080808',
     'editorLineNumber.foreground': '#AEB3C2',
-    'editorLineNumber.activeForeground': '#4E5157',
+    'editorLineNumber.activeForeground': '#767A8A',
     'editorLineNumber.dimmedForeground': '#C9CCD6',
     'editorCursor.background': '#FFFFFF',
     'editorCursor.foreground': '#080808',
@@ -1148,11 +1190,11 @@ const lightTheme = {
     'editor.inactiveSelectionBackground': '#D4E2FF80',
     'editor.selectionHighlightBackground': '#D7F7E199',
     'editor.selectionHighlightBorder': '#59A86980',
-    'editor.wordHighlightBackground': '#E4E6EBCC',
-    'editor.wordHighlightBorder': '#B9BDC9',
-    'editor.wordHighlightStrongBackground': '#FCE8F0CC',
-    'editor.wordHighlightStrongBorder': '#E597B4',
-    'editor.wordHighlightTextBackground': '#E4E6EB99',
+    'editor.wordHighlightBackground': '#EDEBFC',
+    'editor.wordHighlightBorder': '#D0A1FF',
+    'editor.wordHighlightStrongBackground': '#FCE8F4',
+    'editor.wordHighlightStrongBorder': '#F0A8D2',
+    'editor.wordHighlightTextBackground': '#EDEBFC',
     'editor.findMatchBackground': '#FCE896',
     'editor.findMatchBorder': '#D9A314',
     'editor.findMatchHighlightBackground': '#FFF2BD99',
@@ -1183,8 +1225,8 @@ const lightTheme = {
     'editorLightBulb.foreground': '#D9A314',
     'editorLightBulbAutoFix.foreground': '#E53E4D',
     'editorLightBulbAi.foreground': '#3574F0',
-    'editorBracketMatch.background': '#D4E2FF99',
-    'editorBracketMatch.border': '#88ADF7',
+    'editorBracketMatch.background': '#93D9D9',
+    'editorBracketMatch.border': '#62B3B3',
     'editorBracketHighlight.foreground1': '#080808',
     'editorBracketHighlight.foreground2': '#080808',
     'editorBracketHighlight.foreground3': '#080808',
@@ -1197,9 +1239,9 @@ const lightTheme = {
     'editor.foldBackground': '#F7F8FA99',
     'editor.foldPlaceholderForeground': '#6C707E',
     'editorGutter.background': '#FFFFFF',
-    'editorGutter.modifiedBackground': '#3574F0',
-    'editorGutter.addedBackground': '#40A654',
-    'editorGutter.deletedBackground': '#8C92A4',
+    'editorGutter.modifiedBackground': '#88ADF7',
+    'editorGutter.addedBackground': '#7FC784',
+    'editorGutter.deletedBackground': '#767A8A',
     'editorGutter.commentRangeForeground': '#C9CCD6',
     'editorGutter.foldingControlForeground': '#6C707E',
     'editorUnnecessaryCode.opacity': '#00000066',
@@ -1230,11 +1272,11 @@ const lightTheme = {
     'editorOverviewRuler.findMatchForeground': '#D9A314B3',
     'editorOverviewRuler.rangeHighlightForeground': '#3574F080',
     'editorOverviewRuler.selectionHighlightForeground': '#59A869CC',
-    'editorOverviewRuler.wordHighlightForeground': '#8C92A4CC',
-    'editorOverviewRuler.wordHighlightStrongForeground': '#D66B95CC',
-    'editorOverviewRuler.modifiedForeground': '#3574F0',
-    'editorOverviewRuler.addedForeground': '#40A654',
-    'editorOverviewRuler.deletedForeground': '#8C92A4',
+    'editorOverviewRuler.wordHighlightForeground': '#D0A1FFCC',
+    'editorOverviewRuler.wordHighlightStrongForeground': '#F0A8D2CC',
+    'editorOverviewRuler.modifiedForeground': '#88ADF7',
+    'editorOverviewRuler.addedForeground': '#7FC784',
+    'editorOverviewRuler.deletedForeground': '#767A8A',
     'editorOverviewRuler.errorForeground': '#E53E4D',
     'editorOverviewRuler.warningForeground': '#D9A314',
     'editorOverviewRuler.infoForeground': '#3574F0',
@@ -1526,14 +1568,14 @@ const lightTheme = {
     'parameter.readonly': { foreground: '#080808', fontStyle: '' },
     'parameter.modification': { foreground: '#080808', fontStyle: 'underline' },
     'keyword': { foreground: '#0033B3' },
-    'keyword.documentation': { foreground: '#497C54', fontStyle: 'italic bold underline' },
+    'keyword.documentation': { foreground: '#8C8C8C', fontStyle: 'italic bold underline' },
     'modifier': { foreground: '#0033B3' },
     'string': { foreground: '#067D17' },
     'number': { foreground: '#1750EB' },
-    'regexp': { foreground: '#1750EB' },
+    'regexp': { foreground: '#264EFF' },
     'operator': { foreground: '#080808' },
     'comment': { foreground: '#8C8C8C', fontStyle: 'italic' },
-    'comment.documentation': { foreground: '#497C54', fontStyle: 'italic' }
+    'comment.documentation': { foreground: '#8C8C8C', fontStyle: 'italic' }
   },
 
   // Comprehensive TextMate Scopes matching IntelliJ light.xml
@@ -1547,6 +1589,18 @@ const lightTheme = {
       }
     },
     {
+      name: 'TODO / FIXME Comments',
+      scope: [
+        'keyword.codetag.notation',
+        'comment.block.todo',
+        'storage.type.class.todo'
+      ],
+      settings: {
+        foreground: '#008DDE',
+        fontStyle: 'italic'
+      }
+    },
+    {
       name: 'JavaDoc / JSDoc Block Comments',
       scope: [
         'comment.block.documentation',
@@ -1555,7 +1609,7 @@ const lightTheme = {
         'comment.block.javadoc punctuation.definition.comment'
       ],
       settings: {
-        foreground: '#497C54',
+        foreground: '#8C8C8C',
         fontStyle: 'italic'
       }
     },
@@ -1568,7 +1622,7 @@ const lightTheme = {
         'entity.name.type.instance.jsdoc'
       ],
       settings: {
-        foreground: '#497C54',
+        foreground: '#8C8C8C',
         fontStyle: 'italic bold underline'
       }
     },
@@ -1581,7 +1635,7 @@ const lightTheme = {
         'variable.other.jsdoc'
       ],
       settings: {
-        foreground: '#3E5E7A',
+        foreground: '#3D3D3D',
         fontStyle: 'italic'
       }
     },
@@ -1783,21 +1837,64 @@ const lightTheme = {
       }
     },
     {
-      name: 'Numbers & Regex Quantifiers',
+      name: 'Numbers',
       scope: [
-        'constant.numeric',
-        'keyword.operator.quantifier.regexp'
+        'constant.numeric'
       ],
       settings: {
         foreground: '#1750EB'
       }
     },
     {
+      name: 'Regular Expressions',
+      scope: [
+        'string.regexp',
+        'keyword.operator.quantifier.regexp',
+        'constant.character.escape.regexp'
+      ],
+      settings: {
+        foreground: '#264EFF'
+      }
+    },
+    {
+      name: 'JavaScript / TypeScript Local Variables',
+      scope: [
+        'variable.other.readwrite.js',
+        'variable.other.readwrite.ts',
+        'variable.other.readwrite.jsx',
+        'variable.other.readwrite.tsx'
+      ],
+      settings: {
+        foreground: '#2A8C7C'
+      }
+    },
+    {
+      name: 'JavaScript / TypeScript Global Variables',
+      scope: [
+        'variable.other.global.js',
+        'variable.other.global.ts',
+        'support.variable.dom'
+      ],
+      settings: {
+        foreground: '#830091'
+      }
+    },
+    {
+      name: 'React / JSX Components',
+      scope: [
+        'support.class.component',
+        'entity.name.tag.tsx',
+        'entity.name.tag.jsx'
+      ],
+      settings: {
+        foreground: '#AD6339'
+      }
+    },
+    {
       name: 'HTML, XML, Maven & JSX Tags',
       scope: [
         'entity.name.tag',
-        'punctuation.definition.tag',
-        'support.class.component'
+        'punctuation.definition.tag'
       ],
       settings: {
         foreground: '#0033B3'

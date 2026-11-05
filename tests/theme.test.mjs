@@ -42,7 +42,8 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   assert.equal(sem['property.readonly.static'].fontStyle, 'italic');
   assert.equal(sem['enumMember'].foreground.toUpperCase(), '#C77DBB');
   assert.equal(sem['enumMember'].fontStyle, 'italic');
-  assert.equal(sem['typeParameter'].foreground.toUpperCase(), '#507874');
+  assert.equal(sem['typeParameter'].foreground.toUpperCase(), '#16BAAC');
+  assert.equal(sem['method.static'].foreground.toUpperCase(), '#57AAF7');
   assert.equal(sem['method.static'].fontStyle, 'italic');
   assert.equal(sem['operator'].foreground.toUpperCase(), '#BCBEC4');
   assert.equal(sem['*.constructor'].foreground.toUpperCase(), '#BCBEC4');
@@ -132,6 +133,10 @@ test('Light color theme matches exact JetBrains New UI Light (ExperimentalLight)
   assert.equal(sem['string'].foreground.toUpperCase(), '#067D17');
   assert.equal(sem['number'].foreground.toUpperCase(), '#1750EB');
   assert.equal(sem['typeParameter'].foreground.toUpperCase(), '#007E8A');
+  assert.equal(sem['comment.documentation'].foreground.toUpperCase(), '#8C8C8C');
+  assert.equal(theme.colors['editorBracketMatch.background'].toUpperCase(), '#93D9D9');
+  assert.equal(theme.colors['editor.wordHighlightBackground'].toUpperCase(), '#EDEBFC');
+  assert.equal(theme.colors['editor.wordHighlightStrongBackground'].toUpperCase(), '#FCE8F4');
   assert.equal(sem['operator'].foreground.toUpperCase(), '#080808');
   assert.equal(sem['*.importDeclaration'].foreground.toUpperCase(), '#080808');
 

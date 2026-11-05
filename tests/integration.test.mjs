@@ -49,11 +49,11 @@ test('JetBrains Mono font, single unified VSIX package v1.2.0, extension directo
       assert.equal(parsed['workbench.iconTheme'], 'intellij-new-ui-file-icons');
       assert.equal(parsed['workbench.productIconTheme'], undefined);
       assert.equal(parsed['editor.fontFamily'], "'JetBrains Mono', Consolas, monospace");
-      assert.equal(parsed['editor.fontSize'], 12.5);
-      assert.equal(parsed['editor.lineHeight'], 1.55);
-      assert.equal(parsed['editor.letterSpacing'], 0.29);
-      assert.equal(parsed['terminal.integrated.fontSize'], 12.5);
-      assert.equal(parsed['terminal.integrated.letterSpacing'], 0.19);
+      assert.equal(parsed['editor.fontSize'], 13);
+      assert.equal(parsed['editor.lineHeight'], 1.38);
+      assert.equal(parsed['editor.letterSpacing'], 0);
+      assert.equal(parsed['terminal.integrated.fontSize'], 13);
+      assert.equal(parsed['terminal.integrated.letterSpacing'], 0);
       assert.equal(parsed['window.zoomLevel'], 0.3);
       assert.equal(parsed['editor.inlayHints.fontSize'], 11.5);
       assert.equal(parsed['editor.codeLensFontSize'], 11.5);
@@ -75,7 +75,7 @@ test('JetBrains Mono font, single unified VSIX package v1.2.0, extension directo
 
   // 5. Verify extension.js workspace-scoped isolation (.vscode/settings.json + .git/info/exclude + files.exclude)
   const extSrc = fs.readFileSync(path.join(ROOT, 'jetbrains-intellij-new-ui-pro/extension.js'), 'utf8');
-  assert.match(extSrc, /'editor\.fontSize':\s*12\.5/, 'extension.js must set editor.fontSize to 12.5');
+  assert.match(extSrc, /'editor\.fontSize':\s*13/, 'extension.js must set editor.fontSize to 13');
   assert.match(extSrc, /writeSettingsFileAtomically/, 'extension.js must use atomic file writes to avoid CodeExpectedError');
   assert.match(extSrc, /writeWorkspaceSettingsAtomically/, 'extension.js must isolate Java project theme in workspace .vscode/settings.json');
   assert.match(extSrc, /ensureGitExclude/, 'extension.js must hide .vscode/settings.json in .git/info/exclude');
