@@ -42,6 +42,9 @@ test('File icon theme defines valid 16x16 SVGs and maps Java/Spring/FE files acc
   assert.equal(theme.fileNames['createattachmentserviceimpl.java'], '_java_class');
   assert.equal(theme.fileNames['createattachmentservice.java'], '_java_interface');
   assert.equal(theme.fileNames['equal.java'], '_java_annotation', '@interface Equal.java must map to _java_annotation');
+  assert.notEqual(theme.fileNames['loginrequest.java'], '_java_record', 'Class LoginRequest.java must not be _java_record');
+  assert.notEqual(theme.fileNames['baseresponse.java'], '_java_record', 'Class BaseResponse.java must not be _java_record');
+  assert.ok(Object.keys(theme.fileNames).length < 600, `fileNames should be compacted without redundant _java_class bloat, got ${Object.keys(theme.fileNames).length}`);
 });
 
 test('Runtime extension.js classifyJavaContent and scanWorkspaceJavaIcons auto-scan workspace Java files on startup', async () => {

@@ -291,7 +291,8 @@ function classifyJavaFile(filePath, baseName) {
     if (/\benum\s+\w+/.test(cleaned)) return '_java_enum';
     if (/\brecord\s+\w+/.test(cleaned)) return '_java_record';
     if (/\babstract\s+class\s+\w+/.test(cleaned)) return '_java_abstract';
-    if (/\bclass\s+\w+[^{]*\bextends\s+\w*(?:Exception|Error|Throwable)\b/.test(cleaned)) return '_java_exception';
+    if (/\bclass\s+\w+[^{;]*?\bextends\s+\w*(?:Exception|Error|Throwable)\b/.test(cleaned)) return '_java_exception';
+    if (/\bclass\s+\w+/.test(cleaned)) return '_java_class';
   } catch {
     // Fallback to naming conventions
   }
@@ -301,13 +302,36 @@ function classifyJavaFile(filePath, baseName) {
   if (lower.endsWith('enum.java') || lower.endsWith('status.java')) {
     return '_java_enum';
   }
-  if (lower.endsWith('dto.java') || lower.endsWith('request.java') || lower.endsWith('response.java') || lower.endsWith('record.java')) {
+  if (lower.endsWith('record.java')) {
     return '_java_record';
+  }
+  if (lower.endsWith('dto.java') || lower.endsWith('request.java') || lower.endsWith('response.java')) {
+    return '_java_class';
   }
   if (lower.startsWith('abstract') || lower.startsWith('base')) {
     return '_java_abstract';
   }
   return '_java_class';
+}
+
+// Preserve non-default Java mappings from existing JSON if source dirs are absent, while stripping _java_class bloat and DTO record misclassifications
+if (fs.existsSync(JSON_PATH)) {
+  try {
+    const existing = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
+    if (existing.fileNames) {
+      for (const [k, v] of Object.entries(existing.fileNames)) {
+        if (!k.endsWith('.java')) continue;
+        if (v === '_java_record' && (k.endsWith('dto.java') || k.endsWith('request.java') || k.endsWith('response.java'))) {
+          continue;
+        }
+        if (v !== '_java_class' || k === 'createattachmentserviceimpl.java') {
+          fileNames[k] = v;
+        }
+      }
+    }
+  } catch {
+    // Ignore parse error
+  }
 }
 
 function walkWorkspaceJava(dir) {
@@ -319,7 +343,13 @@ function walkWorkspaceJava(dir) {
     if (entry.isDirectory()) {
       walkWorkspaceJava(full);
     } else if (entry.isFile() && entry.name.endsWith('.java')) {
-      fileNames[entry.name.toLowerCase()] = classifyJavaFile(full, entry.name);
+      const lowerName = entry.name.toLowerCase();
+      const iconId = classifyJavaFile(full, entry.name);
+      if (iconId !== '_java_class' || lowerName === 'createattachmentserviceimpl.java') {
+        fileNames[lowerName] = iconId;
+      } else {
+        delete fileNames[lowerName];
+      }
     }
   }
 }
