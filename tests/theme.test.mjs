@@ -64,11 +64,11 @@ test('Color theme matches exact JetBrains New UI Dark palette and Java/TS semant
   assert.equal(theme.colors['list.errorForeground'].toUpperCase(), '#DFE1E5');
   assert.equal(theme.colors['list.warningForeground'].toUpperCase(), '#DFE1E5');
 
-  // Diff & Gutter change colors: IntelliJ 3-color palette (Blue #2B425780 + Gray #656E7699 for old/removed, Green #29443699 + #447152CC for new/inserted)
+  // Diff & Gutter change colors: VS Code Red/Green style using official JetBrains expUI Red & Green palette
   assert.equal(theme.colors['diffEditor.insertedLineBackground'].toUpperCase(), '#29443699');
-  assert.equal(theme.colors['diffEditor.removedLineBackground'].toUpperCase(), '#2B425780');
-  assert.equal(theme.colors['diffEditor.insertedTextBackground'].toUpperCase(), '#447152CC');
-  assert.equal(theme.colors['diffEditor.removedTextBackground'].toUpperCase(), '#656E7699');
+  assert.equal(theme.colors['diffEditor.removedLineBackground'].toUpperCase(), '#7A434366');
+  assert.equal(theme.colors['diffEditor.insertedTextBackground'].toUpperCase(), '#57965C80');
+  assert.equal(theme.colors['diffEditor.removedTextBackground'].toUpperCase(), '#DB5C5C66');
   assert.equal(theme.colors['diffEditor.diagonalFill'].toUpperCase(), '#00000000');
   assert.equal(theme.colors['editorGutter.modifiedBackground'].toUpperCase(), '#375FAD');
   assert.equal(theme.colors['editorGutter.addedBackground'].toUpperCase(), '#549159');
