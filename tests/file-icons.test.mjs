@@ -82,8 +82,16 @@ test('Runtime extension.js classifyJavaContent and scanWorkspaceJavaIcons auto-s
   const Module = requireCjs('node:module');
   const origLoad = Module._load;
   Module._load = (request, parent, isMain) => (request === 'vscode' ? {} : origLoad(request, parent, isMain));
-  const { classifyJavaContent, resolvePreferredIntelliJTheme } = requireCjs(path.join(ROOT, 'jetbrains-intellij-new-ui-pro/extension.js'));
+  const { classifyJavaContent, resolvePreferredIntelliJTheme, applyJavaIconMapping } = requireCjs(path.join(ROOT, 'jetbrains-intellij-new-ui-pro/extension.js'));
   Module._load = origLoad;
+
+  const mockTheme = { fileNames: {}, light: { fileNames: {} } };
+  assert.equal(applyJavaIconMapping(mockTheme, 'orderservice.java', '_java_interface'), true);
+  assert.equal(mockTheme.fileNames['orderservice.java'], '_java_interface');
+  assert.equal(mockTheme.light.fileNames['orderservice.java'], '_light_java_interface');
+  assert.equal(applyJavaIconMapping(mockTheme, 'orderservice.java', '_java_class'), true);
+  assert.equal(mockTheme.fileNames['orderservice.java'], undefined);
+  assert.equal(mockTheme.light.fileNames['orderservice.java'], undefined);
 
   assert.equal(
     resolvePreferredIntelliJTheme('IntelliJ IDEA New UI Light (Pro)'),

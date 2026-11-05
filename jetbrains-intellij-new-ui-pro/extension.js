@@ -638,4 +638,4 @@ function deactivate() {
   }
 }
 
-module.exports = { activate, deactivate, classifyJavaContent, resolvePreferredIntelliJTheme };
+module.exports = { activate, deactivate, classifyJavaContent, resolvePreferredIntelliJTheme, applyJavaIconMapping };
