@@ -210,6 +210,15 @@ for (const appName of ['Antigravity', 'Antigravity IDE']) {
     settings['intellijNewUi.onlyApplyInJavaProjects'] = false;
   }
 
+  settings['java.compile.nullAnalysis.mode'] = 'automatic';
+  settings['java.implementationsCodeLens.enabled'] = 'all';
+  settings['java.implementationCodeLens'] = 'all';
+  settings['java.referencesCodeLens.enabled'] = true;
+  settings['java.completion.importOrder'] = ['java', 'javax', 'jakarta', 'org', 'com', ''];
+  settings['editor.gotoLocation.multipleImplementations'] = 'goto';
+  settings['editor.gotoLocation.multipleDefinitions'] = 'goto';
+  settings['editor.pasteAs.enabled'] = true;
+
   const isIntelliJTheme =
     settings['workbench.colorTheme'] === 'IntelliJ IDEA New UI Dark (Pro)' ||
     settings['workbench.colorTheme'] === 'IntelliJ IDEA New UI Light (Pro)';

@@ -70,12 +70,21 @@ test('JetBrains Mono font, single unified VSIX package v1.2.0, extension directo
     }
     assert.equal(typeof parsed['intellijNewUi.enableKeymap'], 'boolean');
     assert.equal(typeof parsed['intellijNewUi.onlyApplyInJavaProjects'], 'boolean');
+    assert.equal(parsed['java.compile.nullAnalysis.mode'], 'automatic');
+    assert.equal(parsed['java.implementationsCodeLens.enabled'], 'all');
+    assert.equal(parsed['java.referencesCodeLens.enabled'], true);
+    assert.equal(parsed['editor.gotoLocation.multipleImplementations'], 'goto');
+    assert.equal(parsed['editor.gotoLocation.multipleDefinitions'], 'goto');
+    assert.equal(parsed['editor.pasteAs.enabled'], true);
+    assert.deepEqual(parsed['java.completion.importOrder'], ['java', 'javax', 'jakarta', 'org', 'com', '']);
     assert.ok(Array.isArray(parsed['headwind.defaultSortOrder']), 'Existing headwind settings must be preserved');
   }
 
   // 5. Verify extension.js workspace-scoped isolation (.vscode/settings.json + .git/info/exclude + files.exclude)
   const extSrc = fs.readFileSync(path.join(ROOT, 'jetbrains-intellij-new-ui-pro/extension.js'), 'utf8');
   assert.match(extSrc, /'editor\.fontSize':\s*12\.5/, 'extension.js must set editor.fontSize to 12.5');
+  assert.match(extSrc, /'java\.compile\.nullAnalysis\.mode':\s*'automatic'/, 'extension.js must enable automatic Java null analysis');
+  assert.match(extSrc, /'editor\.gotoLocation\.multipleImplementations':\s*'goto'/, 'extension.js must jump directly to single implementation on Ctrl+Alt+B');
   assert.match(extSrc, /writeSettingsFileAtomically/, 'extension.js must use atomic file writes to avoid CodeExpectedError');
   assert.match(extSrc, /writeWorkspaceSettingsAtomically/, 'extension.js must isolate Java project theme in workspace .vscode/settings.json');
   assert.match(extSrc, /ensureGitExclude/, 'extension.js must hide .vscode/settings.json in .git/info/exclude');

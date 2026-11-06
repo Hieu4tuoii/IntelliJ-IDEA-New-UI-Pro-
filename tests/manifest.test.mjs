@@ -42,7 +42,11 @@ test('Single unified extension manifest has themes, icons, settings, eager activ
 
   // Merged keybindings with flat && when-clauses (no || or parentheses)
   const keybindings = uiPkg.contributes.keybindings;
-  assert.ok(Array.isArray(keybindings) && keybindings.length >= 34, 'Keybindings must be merged into main extension');
+  assert.ok(Array.isArray(keybindings) && keybindings.length >= 100, `Keybindings must cover full IntelliJ keymap (>= 100 bindings, got ${keybindings.length})`);
+  assert.ok(keybindings.some(k => k.key === 'shift shift' && k.command === 'workbench.action.quickOpen'), 'Must support Double Shift (shift shift) for Search Everywhere');
+  assert.ok(keybindings.some(k => k.key === 'ctrl ctrl' && k.command === 'workbench.action.tasks.runTask'), 'Must support Double Ctrl (ctrl ctrl) for Run Anything');
+  assert.ok(keybindings.some(k => k.key === 'ctrl+r' && k.command === 'editor.action.startFindReplaceAction'), 'Must support Ctrl+R for Replace in File');
+  assert.ok(keybindings.some(k => k.key === 'alt+j' && k.command === 'editor.action.addSelectionToNextFindMatch'), 'Must support Alt+J for Select Next Occurrence');
   for (const kb of keybindings) {
     assert.match(kb.when || '', /config\.intellijNewUi\.enableKeymap/, `Keybinding ${kb.key} must respect config.intellijNewUi.enableKeymap`);
     assert.match(kb.when || '', /!intellijNewUi\.disabledInThisWindow/, `Keybinding ${kb.key} must respect !intellijNewUi.disabledInThisWindow`);

@@ -79,13 +79,23 @@
     ],
     "keybindings": [
       {
+        "key": "shift shift",
+        "command": "workbench.action.quickOpen",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl ctrl",
+        "command": "workbench.action.tasks.runTask",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
         "key": "ctrl+shift+a",
         "command": "workbench.action.showCommands",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+n",
-        "command": "workbench.action.quickOpen",
+        "command": "workbench.action.showAllSymbols",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
@@ -99,6 +109,16 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
+        "key": "ctrl+f",
+        "command": "actions.find",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+r",
+        "command": "editor.action.startFindReplaceAction",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
         "key": "ctrl+shift+f",
         "command": "workbench.action.findInFiles",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
@@ -109,9 +129,64 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
+        "key": "f3",
+        "command": "editor.action.nextMatchFindAction",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+l",
+        "command": "editor.action.nextMatchFindAction",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "shift+f3",
+        "command": "editor.action.previousMatchFindAction",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+shift+l",
+        "command": "editor.action.previousMatchFindAction",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+f3",
+        "command": "editor.action.nextSelectionMatchFindAction",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "alt+j",
+        "command": "editor.action.addSelectionToNextFindMatch",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "alt+shift+j",
+        "command": "editor.action.moveSelectionToPreviousFindMatch",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+alt+shift+j",
+        "command": "editor.action.selectHighlights",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "alt+shift+g",
+        "command": "editor.action.insertCursorAtEndOfEachLineSelected",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "alt+shift+insert",
+        "command": "editor.action.toggleColumnSelection",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
         "key": "ctrl+e",
-        "command": "workbench.action.openPreviousRecentlyUsedEditorInGroup",
-        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+        "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && !activeEditorGroupEmpty"
+      },
+      {
+        "key": "ctrl+e",
+        "command": "workbench.action.quickOpenNavigateNextInEditorPicker",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && inEditorsPicker && inQuickOpen"
       },
       {
         "key": "ctrl+shift+e",
@@ -144,9 +219,34 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
       },
       {
+        "key": "ctrl+u",
+        "command": "editor.action.goToImplementation",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+shift+i",
+        "command": "editor.action.peekDefinition",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasDefinitionProvider && editorTextFocus"
+      },
+      {
         "key": "alt+f7",
         "command": "editor.action.referenceSearch.trigger",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasReferenceProvider && editorTextFocus"
+      },
+      {
+        "key": "ctrl+alt+f7",
+        "command": "editor.action.referenceSearch.trigger",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasReferenceProvider && editorTextFocus"
+      },
+      {
+        "key": "ctrl+f7",
+        "command": "editor.action.wordHighlight.next",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+shift+f7",
+        "command": "editor.action.wordHighlight.trigger",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
       },
       {
         "key": "ctrl+alt+left",
@@ -164,9 +264,74 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
+        "key": "alt+left",
+        "command": "workbench.action.previousEditor",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "alt+right",
+        "command": "workbench.action.nextEditor",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+[",
+        "command": "editor.action.jumpToBracket",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+]",
+        "command": "editor.action.jumpToBracket",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+shift+m",
+        "command": "editor.action.jumpToBracket",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "alt+f1",
+        "command": "workbench.files.action.showActiveFileInExplorer",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+f1",
+        "command": "editor.action.showHover",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
         "key": "alt+enter",
         "command": "editor.action.quickFix",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasCodeActionsProvider && editorTextFocus"
+      },
+      {
+        "key": "ctrl+space",
+        "command": "editor.action.triggerSuggest",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasCompletionItemProvider && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "ctrl+shift+space",
+        "command": "editor.action.triggerSuggest",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasCompletionItemProvider && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "ctrl+shift+enter",
+        "command": "editor.action.insertLineAfter",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "shift+enter",
+        "command": "editor.action.insertLineAfter",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly && !suggestWidgetVisible"
+      },
+      {
+        "key": "ctrl+alt+enter",
+        "command": "editor.action.insertLineBefore",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "ctrl+shift+j",
+        "command": "editor.action.joinLines",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "ctrl+d",
@@ -179,9 +344,24 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
+        "key": "ctrl+shift+z",
+        "command": "redo",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "alt+shift+backspace",
+        "command": "redo",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
         "key": "ctrl+w",
         "command": "editor.action.smartSelect.expand",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+w",
+        "command": "-workbench.action.closeActiveEditor",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "ctrl+shift+w",
@@ -194,6 +374,11 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
       },
       {
+        "key": "ctrl+alt+i",
+        "command": "editor.action.reindentselectedlines",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
         "key": "ctrl+alt+o",
         "command": "editor.action.organizeImports",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
@@ -204,7 +389,17 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
+        "key": "ctrl+numpad_divide",
+        "command": "editor.action.commentLine",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
         "key": "ctrl+shift+/",
+        "command": "editor.action.blockComment",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "ctrl+shift+numpad_divide",
         "command": "editor.action.blockComment",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
@@ -224,9 +419,84 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
+        "key": "ctrl+j",
+        "command": "editor.action.insertSnippet",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "ctrl+alt+j",
+        "command": "editor.action.surroundWithSnippet",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "ctrl+shift+c",
+        "command": "copyFilePath",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+alt+shift+c",
+        "command": "copyRelativeFilePath",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+numpad_add",
+        "command": "editor.unfold",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && foldingEnabled"
+      },
+      {
+        "key": "ctrl+equals",
+        "command": "editor.unfold",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && foldingEnabled"
+      },
+      {
+        "key": "ctrl+numpad_subtract",
+        "command": "editor.fold",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && foldingEnabled"
+      },
+      {
+        "key": "ctrl+minus",
+        "command": "editor.fold",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && foldingEnabled"
+      },
+      {
+        "key": "ctrl+shift+numpad_add",
+        "command": "editor.unfoldAll",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && foldingEnabled"
+      },
+      {
+        "key": "ctrl+shift+equals",
+        "command": "editor.unfoldAll",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && foldingEnabled"
+      },
+      {
+        "key": "ctrl+shift+numpad_subtract",
+        "command": "editor.foldAll",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && foldingEnabled"
+      },
+      {
+        "key": "ctrl+shift+minus",
+        "command": "editor.foldAll",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && foldingEnabled"
+      },
+      {
+        "key": "ctrl+.",
+        "command": "editor.toggleFold",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && foldingEnabled"
+      },
+      {
+        "key": "ctrl+alt+shift+t",
+        "command": "editor.action.refactor",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
         "key": "shift+f6",
         "command": "editor.action.rename",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorHasRenameProvider && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "ctrl+f6",
+        "command": "editor.action.refactor",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
         "key": "ctrl+alt+m",
@@ -245,14 +515,70 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
       {
+        "key": "ctrl+alt+c",
+        "command": "editor.action.codeAction",
+        "args": {
+          "kind": "refactor.extract.constant"
+        },
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "ctrl+alt+f",
+        "command": "editor.action.refactor",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "ctrl+alt+p",
+        "command": "editor.action.refactor",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "ctrl+alt+n",
+        "command": "editor.action.codeAction",
+        "args": {
+          "kind": "refactor.inline"
+        },
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "ctrl+f9",
+        "command": "workbench.action.tasks.build",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+shift+f9",
+        "command": "workbench.action.tasks.build",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
         "key": "shift+f10",
         "command": "workbench.action.debug.run",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+shift+f10",
+        "command": "testing.runAtCursor",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "alt+shift+f10",
+        "command": "workbench.action.debug.selectandstart",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
         "key": "shift+f9",
         "command": "workbench.action.debug.start",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "alt+shift+f9",
+        "command": "workbench.action.debug.selectandstart",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+f5",
+        "command": "workbench.action.debug.restart",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && inDebugMode"
       },
       {
         "key": "ctrl+f2",
@@ -275,6 +601,16 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && debugState == 'stopped'"
       },
       {
+        "key": "alt+f9",
+        "command": "editor.debug.action.runToCursor",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && debugState == 'stopped'"
+      },
+      {
+        "key": "alt+f8",
+        "command": "editor.debug.action.selectionToRepl",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && inDebugMode && editorTextFocus"
+      },
+      {
         "key": "f9",
         "command": "workbench.action.debug.continue",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && debugState == 'stopped'"
@@ -285,8 +621,43 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
       },
       {
+        "key": "ctrl+shift+f8",
+        "command": "workbench.debug.viewlet.action.toggleBreakpointsActivatedAction",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
         "key": "alt+1",
         "command": "workbench.view.explorer",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "alt+3",
+        "command": "workbench.view.search",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "alt+4",
+        "command": "workbench.action.output.toggleOutput",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "alt+5",
+        "command": "workbench.view.debug",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "alt+6",
+        "command": "workbench.actions.view.problems",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "alt+7",
+        "command": "outline.focus",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "alt+8",
+        "command": "workbench.view.testing.focus",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
@@ -297,6 +668,21 @@
       {
         "key": "alt+9",
         "command": "workbench.view.scm",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "alt+0",
+        "command": "workbench.view.scm",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+shift+f12",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "shift+escape",
+        "command": "workbench.action.closePanel",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
@@ -315,7 +701,22 @@
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       },
       {
+        "key": "ctrl+shift+f4",
+        "command": "workbench.action.closeActiveEditor",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
         "key": "alt+insert",
+        "command": "editor.action.sourceAction",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
+      },
+      {
+        "key": "alt+insert",
+        "command": "explorer.newFile",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && filesExplorerFocus && !inputFocus"
+      },
+      {
+        "key": "ctrl+o",
         "command": "editor.action.sourceAction",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus && !editorReadonly"
       },
@@ -353,6 +754,56 @@
         "key": "ctrl+q",
         "command": "editor.action.showHover",
         "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+k",
+        "command": "workbench.view.scm",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+t",
+        "command": "git.pull",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+shift+k",
+        "command": "git.push",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+alt+z",
+        "command": "git.revertSelectedRanges",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+alt+shift+down",
+        "command": "workbench.action.editor.nextChange",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "ctrl+alt+shift+up",
+        "command": "workbench.action.editor.previousChange",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && editorTextFocus"
+      },
+      {
+        "key": "f7",
+        "command": "workbench.action.compareEditor.nextChange",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && inDiffEditor && !inDebugMode"
+      },
+      {
+        "key": "shift+f7",
+        "command": "workbench.action.compareEditor.previousChange",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow && inDiffEditor && !inDebugMode"
+      },
+      {
+        "key": "ctrl+alt+s",
+        "command": "workbench.action.openSettings",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
+      },
+      {
+        "key": "ctrl+backquote",
+        "command": "workbench.action.selectTheme",
+        "when": "config.intellijNewUi.enableKeymap && !intellijNewUi.disabledInThisWindow"
       }
     ]
   },
